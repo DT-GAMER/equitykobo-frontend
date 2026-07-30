@@ -1017,10 +1017,10 @@ h3 {
   justify-content: center;
   width: 36px;
   height: 36px;
-  color: #ffffff;
-  background: var(--emerald-600);
+  object-fit: cover;
+  background: #ffffff;
   border-radius: 8px;
-  font-size: 0.86rem;
+  flex: 0 0 auto;
 }
 
 .icon-text-button {
@@ -1497,7 +1497,7 @@ body.sidebar-collapsed .app-sidebar {
   padding: 18px 12px;
 }
 
-body.sidebar-collapsed .app-sidebar .brand span:not(.brand-mark),
+body.sidebar-collapsed .app-sidebar .brand-name,
 body.sidebar-collapsed .app-nav-link span,
 body.sidebar-collapsed .account-chip strong {
   display: none;
@@ -2942,7 +2942,7 @@ body.sidebar-collapsed .account-chip > span {
     padding: 18px;
   }
 
-  body.sidebar-collapsed .app-sidebar .brand span:not(.brand-mark),
+  body.sidebar-collapsed .app-sidebar .brand-name,
   body.sidebar-collapsed .app-nav-link span,
   body.sidebar-collapsed .account-chip strong,
   body.sidebar-collapsed .account-chip > span {

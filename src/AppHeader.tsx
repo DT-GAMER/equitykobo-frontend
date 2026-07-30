@@ -21,6 +21,9 @@ const navItems = [
   { to: "/portfolio", label: "Portfolio", icon: BriefcaseBusiness },
 ];
 
+const logoMark =
+  "https://res.cloudinary.com/dofiyn7bw/image/upload/v1785268787/WhatsApp_Image_2026-07-28_at_20.51.17_k8eetf.jpg";
+
 function AppHeader() {
   const user = getStoredUser();
   const [isCollapsed, setIsCollapsed] = useState(() => localStorage.getItem("equitykobo.sidebar") === "closed");
@@ -58,8 +61,8 @@ function AppHeader() {
       )}
       <aside className={isMobileOpen ? "app-sidebar mobile-open" : "app-sidebar"}>
       <NavLink className="brand" to="/app">
-        <span className="brand-mark">EK</span>
-        <span>EquityKobo</span>
+        <img className="brand-mark" src={logoMark} alt="" />
+        <span className="brand-name">EquityKobo</span>
       </NavLink>
       <div className="sidebar-controls">
         <button
