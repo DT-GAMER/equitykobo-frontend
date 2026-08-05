@@ -157,12 +157,12 @@ function PortfolioPlannerPage() {
                 </div>
                 {allocations.map((item) => (
                   <div className="planner-row" key={item.symbol} role="row">
-                    <span>
+                    <span data-label="Company">
                       <strong>{item.symbol}</strong>
                       <small>{item.thesis || "No thesis recorded."}</small>
                     </span>
-                    <span>{item.sector}</span>
-                    <label className="amount-input">
+                    <span data-label="Sector">{item.sector}</span>
+                    <label className="amount-input" data-label="Planned amount">
                       <input
                         inputMode="decimal"
                         onChange={(event) => updateAmount(item.symbol, event.target.value)}
@@ -170,8 +170,11 @@ function PortfolioPlannerPage() {
                         value={plannedAmounts[item.symbol] ?? ""}
                       />
                     </label>
-                    <span>{percentText(item.weight)}</span>
-                    <span className={item.weight > 30 ? "allocation-status danger" : "allocation-status"}>
+                    <span data-label="Weight">{percentText(item.weight)}</span>
+                    <span
+                      className={item.weight > 30 ? "allocation-status danger" : "allocation-status"}
+                      data-label="Status"
+                    >
                       {item.weight > 30 ? "Reduce" : "Okay"}
                     </span>
                   </div>

@@ -655,11 +655,11 @@ function PeerDecisionRow({
 }) {
   return (
     <tr className={row.symbol === currentSymbol ? "current-peer-row" : undefined}>
-      <td>{row.symbol}</td>
-      <td><TonePill label={row.final_label.startsWith("Avoid") ? "NO" : "YES"} tone={row.final_label.startsWith("Avoid") ? "danger" : "positive"} /></td>
-      <td>{numberText(row.overall_score)}</td>
-      <td><TonePill label={row.valuation_label ?? "N/A"} tone={valuationLabelTone(row.valuation_label)} /></td>
-      <td>{percentText(row.dividend_yield)}</td>
+      <td data-label="Peer">{row.symbol}</td>
+      <td data-label="Answer"><TonePill label={row.final_label.startsWith("Avoid") ? "NO" : "YES"} tone={row.final_label.startsWith("Avoid") ? "danger" : "positive"} /></td>
+      <td data-label="Score">{numberText(row.overall_score)}</td>
+      <td data-label="Valuation"><TonePill label={row.valuation_label ?? "N/A"} tone={valuationLabelTone(row.valuation_label)} /></td>
+      <td data-label="Yield">{percentText(row.dividend_yield)}</td>
     </tr>
   );
 }

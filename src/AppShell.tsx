@@ -510,14 +510,16 @@ function RankingRow({
         <strong>{item.symbol}</strong>
         <small>{item.name}</small>
       </Link>
-      <DecisionPill label={item.answer} tone={item.tone} />
-      <span>{numberText(item.invest_score)}</span>
-      <span>
+      <span data-label="Answer">
+        <DecisionPill label={item.answer} tone={item.tone} />
+      </span>
+      <span data-label="Score">{numberText(item.invest_score)}</span>
+      <span data-label="Valuation">
         <strong>{item.valuation_label ?? "N/A"}</strong>
         <small>{percentText(item.margin_of_safety_percent)} margin</small>
       </span>
-      <span>{rankText(item.peer_rank, item.peer_count)}</span>
-      <span className="ranking-actions">
+      <span data-label="Peer">{rankText(item.peer_rank, item.peer_count)}</span>
+      <span className="ranking-actions" data-label="Action">
         <small>{item.next_action}</small>
         <span>
           <button className="ranking-action-button" onClick={() => onSelect(item.symbol)} type="button">

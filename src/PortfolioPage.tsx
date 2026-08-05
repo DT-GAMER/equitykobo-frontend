@@ -174,15 +174,15 @@ function PortfolioPage() {
                     </div>
                     {summary.positions.map((position) => (
                       <div className="portfolio-row" key={position.symbol} role="row">
-                        <span>
+                        <span data-label="Company">
                           <strong>{position.symbol}</strong>
                           <small>{position.name}</small>
                         </span>
-                        <span>{numberText(position.quantity)}</span>
-                        <span>{moneyText(position.average_cost)}</span>
-                        <span>{moneyText(position.latest_price)}</span>
-                        <span>{moneyText(position.market_value)}</span>
-                        <span>{percentText(position.portfolio_weight)}</span>
+                        <span data-label="Qty">{numberText(position.quantity)}</span>
+                        <span data-label="Avg cost">{moneyText(position.average_cost)}</span>
+                        <span data-label="Latest">{moneyText(position.latest_price)}</span>
+                        <span data-label="Value">{moneyText(position.market_value)}</span>
+                        <span data-label="Weight">{percentText(position.portfolio_weight)}</span>
                       </div>
                     ))}
                   </div>
