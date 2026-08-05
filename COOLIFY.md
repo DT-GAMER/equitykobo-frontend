@@ -37,7 +37,7 @@ CORS_ORIGINS=https://your-frontend-domain.com,http://localhost:5173,http://127.0
 2. builds the Vite app with npm run build
 3. serves dist/ with Nginx
 4. supports direct refresh on routes like /company/GTCO
-5. serves Nginx on container port 80 and binds host port 58173
+5. serves Nginx on container port 58173 for Coolify's proxy
 ```
 
 ## Post-Deploy Check
