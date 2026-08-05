@@ -163,6 +163,71 @@ export type PriceHistoryItem = {
   reviewed: boolean;
 };
 
+export type CompanyLivePrice = {
+  latest_price: string | null;
+  previous_close: string | null;
+  price_change: string | null;
+  price_change_percent: string | null;
+  trade_date: string | null;
+  direction: "up" | "down" | "flat" | "unknown" | string;
+  label: string;
+  summary: string;
+};
+
+export type CompanyPerformanceWindow = {
+  window: string;
+  available: boolean;
+  start_date: string | null;
+  end_date: string | null;
+  start_price: string | null;
+  end_price: string | null;
+  return_percent: string | null;
+  summary: string;
+};
+
+export type CompanyLiveNewsItem = {
+  title: string;
+  source_name: string | null;
+  published_at: string | null;
+  url: string | null;
+  summary: string | null;
+  item_type: "news" | "disclosure" | string;
+};
+
+export type CompanyLiveInsightCard = {
+  key: string;
+  title: string;
+  tone: string;
+  summary: string;
+  points: string[];
+  source_count: number;
+  generated_from: string[];
+};
+
+export type CompanyLivePerformance = {
+  headline: string;
+  summary: string;
+  sector_rank_1m: number | null;
+  sector_peer_count: number | null;
+  fifty_two_week_high: string | null;
+  fifty_two_week_low: string | null;
+  position_in_52_week_range_percent: string | null;
+  windows: CompanyPerformanceWindow[];
+};
+
+export type CompanyLiveInsights = {
+  symbol: string;
+  name: string;
+  sector: string | null;
+  generated_at: string;
+  price: CompanyLivePrice;
+  performance: CompanyLivePerformance;
+  cards: CompanyLiveInsightCard[];
+  recent_news: CompanyLiveNewsItem[];
+  recent_disclosures: CompanyLiveNewsItem[];
+  data_notes: string[];
+};
+
 export type InvestmentBrief = {
   symbol: string;
   name: string;
@@ -173,17 +238,357 @@ export type InvestmentBrief = {
 };
 
 export type CompanyResearchData = {
-  rule: InvestmentRule;
+  decisionCard: DecisionCard;
+  liveInsights: CompanyLiveInsights | null;
+  rule: InvestmentRule | null;
   brief: InvestmentBrief | null;
   history: PriceHistoryItem[];
 };
 
+export type IntelligenceScoreBreakdown = {
+  business_quality: string;
+  growth: string;
+  valuation: string;
+  dividend: string;
+  financial_risk: string;
+  momentum: string;
+  liquidity: string;
+  data_confidence: string;
+  overall: string;
+};
+
+export type CompanyMemory = {
+  symbol: string;
+  name: string;
+  sector: string | null;
+  market_board: string | null;
+  latest_price: string | null;
+  latest_price_date: string | null;
+  price_records: number;
+  dividend_records: number;
+  fundamentals_records: number;
+  financial_statement_records: number;
+  disclosure_records: number;
+  annual_report_records: number;
+  latest_fundamental_date: string | null;
+  latest_statement_period_end: string | null;
+};
+
+export type IntelligenceOpportunity = {
+  symbol: string;
+  name: string;
+  sector: string | null;
+  as_of_date: string;
+  final_label: string;
+  stock_types: string[];
+  scores: IntelligenceScoreBreakdown;
+  reasons: string[];
+  risks: string[];
+  missing_data: string[];
+  next_actions: string[];
+  decision_change_triggers: string[];
+  metrics: Record<string, string | number | null>;
+  memory: CompanyMemory;
+};
+
+export type DecisionCardMetric = {
+  label: string;
+  status: string;
+  score: string | null;
+  detail: string;
+  evidence: string[];
+};
+
+export type DecisionCardSection = {
+  title: string;
+  summary: string;
+  points: string[];
+};
+
+export type DecisionCardValuationDisplay = {
+  is_available: boolean;
+  latest_price: string | null;
+  fair_value_low: string | null;
+  fair_value_mid: string | null;
+  fair_value_high: string | null;
+  valuation_label: string;
+  valuation_tone: string;
+  margin_of_safety_percent: string | null;
+  expected_return_low_percent: string | null;
+  expected_return_high_percent: string | null;
+  valuation_confidence: string;
+  confidence_score: string;
+  price_position_percent: string | null;
+  methods_used: string[];
+  explanation: string;
+  warnings: string[];
+  missing_data: string[];
+};
+
+export type DecisionCardHealthDisplay = {
+  label: string;
+  status: string;
+  tone: string;
+  detail: string;
+  score: string | null;
+  evidence: string[];
+};
+
+export type DecisionCardDividendYear = {
+  year: number;
+  amount_per_share: string;
+  event_count: number;
+};
+
+export type DecisionCardDividendDisplay = {
+  is_available: boolean;
+  current_yield: string | null;
+  dividend_strength: string;
+  payout_safety: string;
+  projected_next_payout: string | null;
+  years_with_dividends: number;
+  annual_history: DecisionCardDividendYear[];
+  explanation: string;
+  warnings: string[];
+  missing_data: string[];
+};
+
+export type DecisionCardMoatDisplay = {
+  rating: string;
+  label: string;
+  tone: string;
+  peer_strength_score: string | null;
+  summary: string;
+  factors: string[];
+  warnings: string[];
+};
+
+export type DecisionCardSourceGap = {
+  data_layer: string;
+  status: string;
+  priority: string;
+  why_it_matters: string;
+  current_coverage: string;
+  suggested_source: string;
+  next_step: string;
+};
+
+export type ValuationMethod = {
+  name: string;
+  fair_value_low: string | null;
+  fair_value_mid: string | null;
+  fair_value_high: string | null;
+  confidence_score: string;
+  reason: string;
+  assumptions: string[];
+  warnings: string[];
+};
+
+export type CompanyValuation = {
+  symbol: string;
+  name: string;
+  sector: string | null;
+  as_of_date: string;
+  latest_price: string | null;
+  latest_price_date: string | null;
+  fair_value_low: string | null;
+  fair_value_mid: string | null;
+  fair_value_high: string | null;
+  margin_of_safety_percent: string | null;
+  expected_return_low_percent: string | null;
+  expected_return_high_percent: string | null;
+  valuation_label: string;
+  valuation_confidence: string;
+  confidence_score: string;
+  methods: ValuationMethod[];
+  assumptions: string[];
+  reasons: string[];
+  warnings: string[];
+  missing_data: string[];
+  metrics: Record<string, string | number | null>;
+  source_summary: Record<string, string | number | null>;
+};
+
+export type DecisionDashboardSummary = {
+  companies_scanned: number;
+  research_candidates: number;
+  dividend_candidates: number;
+  undervalued_quality: number;
+  sector_leaders: number;
+  watch_for_entry: number;
+  avoid_or_needs_data: number;
+};
+
+export type DecisionDashboardOpportunity = {
+  symbol: string;
+  name: string;
+  sector: string | null;
+  as_of_date: string;
+  answer: string;
+  tone: "positive" | "warning" | "speculative" | "danger" | string;
+  final_label: string;
+  invest_score: string;
+  confidence: string;
+  confidence_score: string;
+  risk_level: string;
+  suggested_horizon: string;
+  latest_price: string | null;
+  latest_price_date: string | null;
+  fair_value_mid: string | null;
+  margin_of_safety_percent: string | null;
+  valuation_label: string | null;
+  valuation_confidence: string | null;
+  peer_rank: number | null;
+  peer_count: number | null;
+  peer_label: string | null;
+  best_peer_symbol: string | null;
+  stock_types: string[];
+  category_tags: string[];
+  why_attention: string;
+  main_risk: string;
+  next_action: string;
+  reasons: string[];
+  risks: string[];
+  next_actions: string[];
+  missing_data: string[];
+  scores: IntelligenceScoreBreakdown;
+  metrics: Record<string, string | number | null>;
+};
+
+export type DecisionDashboardSpotlight = {
+  key: string;
+  title: string;
+  subtitle: string;
+  opportunity: DecisionDashboardOpportunity | null;
+};
+
+export type DecisionDashboardCategory = {
+  key: string;
+  title: string;
+  summary: string;
+  items: DecisionDashboardOpportunity[];
+};
+
 export type OpportunityDeskData = {
-  scan: ScanRun;
-  prices: LatestPrice[];
-  rules: InvestmentRule[];
-  digest: Digest;
-  exits: ExitIntelligence;
+  as_of_date: string;
+  generated_at: string;
+  market_summary: DecisionDashboardSummary;
+  spotlight_cards: DecisionDashboardSpotlight[];
+  categories: DecisionDashboardCategory[];
+  ranked: DecisionDashboardOpportunity[];
+  data_notes: string[];
+};
+
+export type PeerCategoryWinner = {
+  category: string;
+  symbol: string | null;
+  name: string | null;
+  value: string | null;
+  detail: string;
+};
+
+export type PeerMetricComparison = {
+  metric: string;
+  company_value: string | null;
+  sector_median: string | null;
+  best_symbol: string | null;
+  best_value: string | null;
+  rank: number | null;
+  peer_count: number;
+  interpretation: string;
+};
+
+export type PeerComparisonRow = {
+  symbol: string;
+  name: string;
+  sector: string | null;
+  final_label: string;
+  stock_types: string[];
+  sector_rank: number | null;
+  peer_score: string;
+  overall_score: string;
+  business_quality_score: string;
+  growth_score: string;
+  valuation_score: string;
+  dividend_score: string;
+  financial_risk_score: string;
+  liquidity_score: string;
+  data_confidence_score: string;
+  latest_price: string | null;
+  pe_ratio: string | null;
+  roe: string | null;
+  profit_margin: string | null;
+  dividend_yield: string | null;
+  margin_of_safety_percent: string | null;
+  valuation_label: string | null;
+};
+
+export type CompanyPeerComparison = {
+  symbol: string;
+  name: string;
+  sector: string | null;
+  as_of_date: string;
+  peer_count: number;
+  sector_rank: number | null;
+  sector_percentile: string | null;
+  comparison_label: string;
+  best_overall_peer_symbol: string | null;
+  best_overall_peer_name: string | null;
+  category_winners: PeerCategoryWinner[];
+  metric_comparisons: PeerMetricComparison[];
+  peers: PeerComparisonRow[];
+  strengths: string[];
+  weaknesses: string[];
+  reasons: string[];
+  warnings: string[];
+  next_actions: string[];
+  metrics: Record<string, string | number | null>;
+  source_summary: Record<string, string | number | null>;
+};
+
+export type DecisionCard = {
+  symbol: string;
+  name: string;
+  sector: string | null;
+  as_of_date: string;
+  latest_price: string | null;
+  latest_price_date: string | null;
+  stock_types: string[];
+  answer: string;
+  invest_score: string;
+  confidence: string;
+  confidence_score: string;
+  risk_level: string;
+  suggested_horizon: string;
+  valuation_status: string;
+  financial_health: string;
+  dividend_quality: string;
+  moat_rating: string;
+  one_paragraph_summary: string;
+  decision_summary: string;
+  score_breakdown: IntelligenceScoreBreakdown;
+  valuation_snapshot: CompanyValuation | null;
+  peer_comparison: CompanyPeerComparison | null;
+  health_checks: DecisionCardMetric[];
+  valuation_display: DecisionCardValuationDisplay;
+  health_display: DecisionCardHealthDisplay[];
+  dividend_display: DecisionCardDividendDisplay;
+  moat_display: DecisionCardMoatDisplay;
+  source_gaps: DecisionCardSourceGap[];
+  valuation: DecisionCardSection;
+  why_buy: DecisionCardSection;
+  why_not_buy: DecisionCardSection;
+  growth_drivers: DecisionCardSection;
+  threats: DecisionCardSection;
+  dividend: DecisionCardSection;
+  moat: DecisionCardSection;
+  future_outlook: DecisionCardSection;
+  stress_test: DecisionCardSection;
+  portfolio_fit: DecisionCardSection;
+  what_changed: DecisionCardSection;
+  what_would_change_decision: DecisionCardSection;
+  missing_data: string[];
+  data_quality_notes: string[];
 };
 
 export type OnboardingPayload = {
@@ -192,6 +597,107 @@ export type OnboardingPayload = {
   capital: string;
   sectors: string[];
   watchlist: string[];
+};
+
+export type Company = {
+  id: number;
+  symbol: string;
+  name: string;
+  sector: string | null;
+  market_board: string | null;
+  is_active: boolean;
+};
+
+export type NgxPulseSyncResult = {
+  endpoint: string;
+  imported: number;
+  updated_prices: number;
+  updated_companies: number;
+  skipped: number;
+  errors: string[];
+};
+
+export type NgxPulseMarketStatus = {
+  data: {
+    status?: string;
+    message?: string;
+    timestamp?: string;
+    [key: string]: unknown;
+  };
+};
+
+export type AutomationStatus = {
+  enabled: boolean;
+  is_running: boolean;
+  runs: number;
+  last_started_at: string | null;
+  last_finished_at: string | null;
+  last_error: string | null;
+  last_result: Record<string, number> | null;
+  current_step: string | null;
+  current_index: number | null;
+  current_total: number | null;
+  interval_minutes: number;
+  run_on_startup: boolean;
+  dividend_sync_enabled: boolean;
+};
+
+export type UploadedReport = {
+  id: number;
+  source_document_id: number;
+  company_id: number | null;
+  original_filename: string;
+  stored_path: string;
+  content_type: string | null;
+  file_size: number;
+  sha256: string;
+  status: string;
+};
+
+export type ReportTextExtraction = {
+  id: number;
+  uploaded_report_id: number;
+  extraction_method: string;
+  page_count: number;
+  character_count: number;
+  status: string;
+  warnings: string | null;
+  text_preview: string;
+};
+
+export type ExtractionDraft = {
+  id: number;
+  company_id: number | null;
+  source_document_id: number | null;
+  uploaded_report_id: number | null;
+  extraction_type: string;
+  provider: string;
+  model: string;
+  parsed_data: Record<string, unknown> | null;
+  status: string;
+  notes: string | null;
+};
+
+export type ApplyDraftResult = {
+  draft_id: number;
+  financial_statement_id: number;
+  reviewed: boolean;
+};
+
+export type PendingReviewItem = {
+  record_type: "prices" | "financial_statements" | "dividends";
+  record_id: number;
+  symbol: string;
+  summary: string;
+  source_name: string | null;
+  source_url: string | null;
+};
+
+export type ReviewResult = {
+  record_type: string;
+  record_id: number;
+  action: string;
+  reviewed: boolean;
 };
 
 export type UserProfile = {
@@ -397,36 +903,141 @@ export async function syncLocalAccountData() {
 }
 
 export async function loadOpportunityDesk(): Promise<OpportunityDeskData> {
-  const [scan, prices] = await Promise.all([
-    apiGet<ScanRun>("/scans/latest?limit=100"),
-    apiGet<LatestPrice[]>("/prices/latest?limit=200"),
-  ]);
-  const [rules, digest, exits] = await Promise.all([
-    apiGet<InvestmentRule[]>("/rules/investment?limit=100", 5000).catch(() => []),
-    apiGet<Digest>("/digest/weekly", 3500).catch(() => ({
-      generated_date: new Date().toISOString().slice(0, 10),
-      pending_review: { prices: 0, financial_statements: 0, dividends: 0, total: 0 },
-      open_alerts: [],
-      next_actions: [],
-    })),
-    apiGet<ExitIntelligence>("/portfolio/exit-intelligence", 3500).catch(() => ({
-      generated_date: new Date().toISOString().slice(0, 10),
-      signals: [],
-    })),
-  ]);
-
-  return { scan, prices, rules, digest, exits };
+  return apiGet<OpportunityDeskData>("/decision/opportunities", 30000);
 }
 
 export async function loadCompanyResearch(symbol: string): Promise<CompanyResearchData> {
   const normalized = symbol.toUpperCase();
-  const [rule, brief, history] = await Promise.all([
-    apiGet<InvestmentRule>(`/rules/investment/${normalized}`),
+  const [decisionCard, liveInsights, rule, brief, history] = await Promise.all([
+    apiGet<DecisionCard>(`/intelligence/company/${normalized}/decision-card`, 10000),
+    apiGet<CompanyLiveInsights>(`/intelligence/company/${normalized}/live-insights`, 7000).catch(() => null),
+    apiGet<InvestmentRule>(`/rules/investment/${normalized}`, 5000).catch(() => null),
     apiGet<InvestmentBrief>(`/research/${normalized}/brief`, 5000).catch(() => null),
     apiGet<PriceHistoryItem[]>(`/prices/${normalized}/history?limit=30`, 5000).catch(() => []),
   ]);
 
-  return { rule, brief, history };
+  return { decisionCard, liveInsights, rule, brief, history };
+}
+
+export async function loadCompanies(): Promise<Company[]> {
+  return apiGet<Company[]>("/companies");
+}
+
+export async function loadNgxPulseMarketStatus(): Promise<NgxPulseMarketStatus> {
+  return apiGet<NgxPulseMarketStatus>("/integrations/ngxpulse/market-status");
+}
+
+export async function loadAutomationStatus(): Promise<AutomationStatus> {
+  return apiGet<AutomationStatus>("/automation/status");
+}
+
+export async function runAutomationNow(): Promise<{ status: string; result?: Record<string, number>; error?: string }> {
+  return apiPost<{ status: string; result?: Record<string, number>; error?: string }>("/automation/run-now", null);
+}
+
+export async function syncNgxPulseFundamentals(symbols?: string): Promise<NgxPulseSyncResult> {
+  const query = symbols ? `?symbols=${encodeURIComponent(symbols)}` : "";
+  return apiPost<NgxPulseSyncResult>(`/integrations/ngxpulse/sync/fundamentals${query}`, null);
+}
+
+export async function syncNgxPulseDividends(symbol: string): Promise<NgxPulseSyncResult> {
+  return apiPost<NgxPulseSyncResult>(`/integrations/ngxpulse/sync/dividends/${symbol}`, null);
+}
+
+export async function syncNgxPulseDisclosures(limit = 50): Promise<NgxPulseSyncResult> {
+  return apiPost<NgxPulseSyncResult>(`/integrations/ngxpulse/sync/disclosures?limit=${limit}`, null);
+}
+
+export async function syncNgxPulseIndices(): Promise<NgxPulseSyncResult> {
+  return apiPost<NgxPulseSyncResult>("/integrations/ngxpulse/sync/indices", null);
+}
+
+export async function syncNgxPulseEtfs(): Promise<NgxPulseSyncResult> {
+  return apiPost<NgxPulseSyncResult>("/integrations/ngxpulse/sync/etfs", null);
+}
+
+export async function syncNgxPulseBonds(): Promise<NgxPulseSyncResult> {
+  return apiPost<NgxPulseSyncResult>("/integrations/ngxpulse/sync/bonds", null);
+}
+
+export async function syncNgxPulseBondAuctions(limit = 50): Promise<NgxPulseSyncResult> {
+  return apiPost<NgxPulseSyncResult>(`/integrations/ngxpulse/sync/bond-auctions?limit=${limit}`, null);
+}
+
+export async function syncNgxPulseNasdOtcStocks(): Promise<NgxPulseSyncResult> {
+  return apiPost<NgxPulseSyncResult>("/integrations/ngxpulse/sync/nasd-otc/stocks", null);
+}
+
+export async function syncNgxPulseMarketNews(limit = 50): Promise<NgxPulseSyncResult> {
+  return apiPost<NgxPulseSyncResult>(`/integrations/ngxpulse/sync/news?limit=${limit}`, null);
+}
+
+export async function loadReports(limit = 100): Promise<UploadedReport[]> {
+  return apiGet<UploadedReport[]>(`/reports?limit=${limit}`);
+}
+
+export async function deleteReport(reportId: number): Promise<void> {
+  await apiDelete(`/reports/${reportId}`);
+}
+
+export async function uploadReport(payload: {
+  symbol: string;
+  name: string;
+  documentType: string;
+  notes?: string;
+  file: File;
+}): Promise<UploadedReport> {
+  const form = new FormData();
+  form.append("symbol", payload.symbol);
+  form.append("name", payload.name);
+  form.append("document_type", payload.documentType);
+  if (payload.notes) {
+    form.append("notes", payload.notes);
+  }
+  form.append("file", payload.file);
+  return apiPostForm<UploadedReport>("/reports/upload", form);
+}
+
+export async function extractReportText(reportId: number): Promise<ReportTextExtraction> {
+  return apiPost<ReportTextExtraction>(`/reports/${reportId}/extract-text`, null);
+}
+
+export async function createReportExtractionDraft(reportId: number): Promise<ExtractionDraft> {
+  return apiPost<ExtractionDraft>(`/reports/${reportId}/extraction-drafts`, null);
+}
+
+export async function createManualExtractionDraft(payload: {
+  symbol: string;
+  sourceDocumentId?: number | null;
+  uploadedReportId?: number | null;
+  reportText: string;
+  notes?: string | null;
+}): Promise<ExtractionDraft> {
+  return apiPost<ExtractionDraft>("/llm/extraction-drafts/from-text", {
+    symbol: payload.symbol,
+    source_document_id: payload.sourceDocumentId ?? null,
+    uploaded_report_id: payload.uploadedReportId ?? null,
+    report_text: payload.reportText,
+    notes: payload.notes ?? null,
+  });
+}
+
+export async function applyExtractionDraft(draftId: number): Promise<ApplyDraftResult> {
+  return apiPost<ApplyDraftResult>(`/llm/extraction-drafts/${draftId}/apply`, null);
+}
+
+export async function loadExtractionDrafts(limit = 100): Promise<ExtractionDraft[]> {
+  return apiGet<ExtractionDraft[]>(`/llm/extraction-drafts?limit=${limit}`);
+}
+
+export async function loadPendingReview(limit = 100): Promise<PendingReviewItem[]> {
+  return apiGet<PendingReviewItem[]>(`/review/pending?limit=${limit}`);
+}
+
+export async function approveReviewItem(item: PendingReviewItem, notes?: string): Promise<ReviewResult> {
+  return apiPost<ReviewResult>(`/review/${item.record_type}/${item.record_id}/approve`, {
+    notes: notes || null,
+  });
 }
 
 async function apiGet<T>(path: string, timeoutMs = 12000): Promise<T> {
@@ -446,10 +1057,22 @@ async function apiPost<T>(path: string, payload: unknown): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     method: "POST",
     headers: jsonHeaders(),
-    body: JSON.stringify(payload),
+    body: payload === null ? undefined : JSON.stringify(payload),
   });
   if (!response.ok) {
     throw new Error(await responseError(response, `Unable to save ${path}`));
+  }
+  return response.json();
+}
+
+async function apiPostForm<T>(path: string, form: FormData): Promise<T> {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    method: "POST",
+    headers: authHeaders(),
+    body: form,
+  });
+  if (!response.ok) {
+    throw new Error(await responseError(response, `Unable to upload ${path}`));
   }
   return response.json();
 }

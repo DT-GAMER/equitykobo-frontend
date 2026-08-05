@@ -2,16 +2,15 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { AlertTriangle, CheckCircle2, LoaderCircle, Search } from "lucide-react";
 import AppHeader from "./AppHeader";
-import { InvestmentRule, Score, loadMyWatchlist, loadOpportunityDesk } from "./api";
+import { loadMyWatchlist, loadOpportunityDesk } from "./api";
+import type { DecisionDashboardOpportunity } from "./api";
 import { starterCompanies } from "./onboardingData";
 
 type WatchlistItem = {
   symbol: string;
   name: string;
   sector: string;
-  score?: Score;
-  rule?: InvestmentRule;
-  price?: string;
+  opportunity?: DecisionDashboardOpportunity;
   decision: string;
   reason: string;
   risk: string;
@@ -64,9 +63,7 @@ function WatchlistsPage() {
     if (!data) {
       return [];
     }
-    const scores = new Map(data.scan.results.map((score) => [score.symbol, score]));
-    const rules = new Map(data.rules.map((rule) => [rule.symbol, rule]));
-    const prices = new Map(data.prices.map((price) => [price.symbol, price.close_price]));
+    const opportunities = new Map(data.ranked.map((opportunity) => [opportunity.symbol, opportunity]));
     const fallbackUniverse = starterCompanies.slice(0, 10).map((company) => company.symbol);
     const symbols = remoteWatchlistSymbols?.length
       ? remoteWatchlistSymbols
@@ -76,19 +73,15 @@ function WatchlistsPage() {
 
     return symbols.map((symbol) => {
       const fallback = starterCompanies.find((company) => company.symbol === symbol);
-      const score = scores.get(symbol);
-      const rule = rules.get(symbol);
-      const decision = entryDecision(score, rule);
+      const opportunity = opportunities.get(symbol);
       return {
         symbol,
-        name: score?.name ?? rule?.name ?? fallback?.name ?? symbol,
-        sector: score?.sector ?? rule?.sector ?? fallback?.sector ?? "Unknown",
-        score,
-        rule,
-        price: prices.get(symbol),
-        decision,
-        reason: firstLine(score?.reasons) || rule?.fundamental_style || "Keep watching for clearer data.",
-        risk: firstLine(score?.risks) || rule?.data_warnings[0] || "Confirm fundamentals before buying.",
+        name: opportunity?.name ?? fallback?.name ?? symbol,
+        sector: opportunity?.sector ?? fallback?.sector ?? "Unknown",
+        opportunity,
+        decision: opportunity?.answer ?? "Needs Data",
+        reason: opportunity?.why_attention || "Keep watching for clearer data.",
+        risk: opportunity?.main_risk || "Confirm fundamentals before buying.",
       };
     });
   }, [data, remoteWatchlistSymbols, watchlistSymbols]);
@@ -199,11 +192,11 @@ function WatchlistCard({ item }: { item: WatchlistItem }) {
       <div className="watchlist-card-metrics">
         <span>
           <small>Price</small>
-          <strong>{moneyText(item.price)}</strong>
+          <strong>{moneyText(item.opportunity?.latest_price)}</strong>
         </span>
         <span>
           <small>Score</small>
-          <strong>{numberText(item.score?.overall_score)}</strong>
+          <strong>{numberText(item.opportunity?.invest_score)}</strong>
         </span>
         <span>
           <small>Sector</small>
@@ -219,7 +212,7 @@ function WatchlistCard({ item }: { item: WatchlistItem }) {
         <p>{item.risk}</p>
       </section>
       <div className="type-tags">
-        {(item.rule?.stock_types ?? ["Needs classification"]).slice(0, 3).map((type) => (
+        {(item.opportunity?.stock_types ?? ["Classification unavailable"]).slice(0, 3).map((type) => (
           <span key={type}>{type}</span>
         ))}
       </div>
@@ -234,30 +227,7 @@ function WatchlistCard({ item }: { item: WatchlistItem }) {
 }
 
 function DecisionBadge({ label }: { label: string }) {
-  return <span className={`decision-pill ${label.toLowerCase().replaceAll(" ", "-")}`}>{label}</span>;
-}
-
-function entryDecision(score?: Score, rule?: InvestmentRule) {
-  if (!score || score.status === "Insufficient data") {
-    return "Needs Research";
-  }
-  if (rule?.decision_guardrails.some((guardrail) => guardrail.toLowerCase().includes("do not chase"))) {
-    return "Do Not Chase";
-  }
-  if (Number(score.overall_score) >= 70 && Number(score.valuation_score) >= 65) {
-    return "Research Now";
-  }
-  if (Number(score.overall_score) >= 55) {
-    return "Watch Closely";
-  }
-  return "Still Watching";
-}
-
-function firstLine(value?: string) {
-  return value
-    ?.split("\n")
-    .map((line) => line.trim())
-    .find(Boolean);
+  return <span className={`decision-pill ${decisionClass(label)}`}>{label}</span>;
 }
 
 function moneyText(value?: string | null) {
@@ -272,6 +242,10 @@ function numberText(value?: string | null) {
     return "0";
   }
   return Number(value).toLocaleString("en-NG", { maximumFractionDigits: 1 });
+}
+
+function decisionClass(label: string) {
+  return label.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
 export default WatchlistsPage;

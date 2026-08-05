@@ -1,428 +1,404 @@
+import { Link } from "react-router-dom";
 import {
-  ArrowRight,
+  ArrowUpRight,
+  Award,
   BarChart3,
+  BookOpenCheck,
   CheckCircle2,
-  CircleDollarSign,
-  DatabaseZap,
-  LineChart,
-  ListChecks,
+  Coins,
+  Compass,
+  FileSearch,
+  Layers,
   LockKeyhole,
-  NotebookPen,
   ShieldCheck,
   Target,
-  TrendingUp,
+  TrendingDown,
 } from "lucide-react";
-
-const logoPrimary =
-  "https://res.cloudinary.com/dofiyn7bw/image/upload/v1785268787/WhatsApp_Image_2026-07-28_at_20.51.17_1_zn2yic.jpg";
 
 const logoMark =
   "https://res.cloudinary.com/dofiyn7bw/image/upload/v1785268787/WhatsApp_Image_2026-07-28_at_20.51.17_k8eetf.jpg";
 
-const opportunityRows = [
+const sampleCards = [
   {
-    symbol: "GTCO",
-    label: "Research Now",
-    quality: "84",
-    valuation: "72",
-    risk: "Low",
+    symbol: "ZENITHBANK",
+    name: "Zenith Bank Plc",
+    answer: "YES - research now",
+    score: 76,
+    price: "₦125.90",
+    valuation: "Deeply Undervalued",
+    margin: "+67.8%",
+    peer: "2/12",
+    reason: "Strong profitability, meaningful dividend evidence and attractive valuation versus financial-sector peers.",
   },
   {
-    symbol: "MTNN",
-    label: "Watch Entry",
-    quality: "78",
-    valuation: "56",
-    risk: "Medium",
-  },
-  {
-    symbol: "PRESCO",
-    label: "Dividend Review",
-    quality: "81",
-    valuation: "69",
-    risk: "Medium",
-  },
-];
-
-const decisions = [
-  {
-    label: "Research Now",
-    detail: "Quality, valuation and risk checks are strong enough for deeper review.",
-    tone: "green",
-  },
-  {
-    label: "Watch for Better Entry",
-    detail: "Interesting company, but today’s price may not be attractive.",
-    tone: "amber",
-  },
-  {
-    label: "Do Not Chase",
-    detail: "Price movement looks stretched or close to NGX daily-band risk.",
-    tone: "red",
+    symbol: "TANTALIZER",
+    name: "Tantalizers Plc",
+    answer: "WAIT - better entry",
+    score: 49,
+    price: "₦4.65",
+    valuation: "Watch Entry",
+    margin: "N/A",
+    peer: "N/A",
+    reason: "Penny/speculative profile means price movement alone is not enough evidence for a confident buy decision.",
   },
 ];
 
-const features = [
+const marketTiles = [
+  { key: "research", label: "Research candidates", count: "28", icon: Award },
+  { key: "value", label: "Undervalued quality", count: "14", icon: TrendingDown },
+  { key: "income", label: "Dividend candidates", count: "31", icon: Coins },
+];
+
+const pillars = [
   {
-    icon: ListChecks,
-    title: "Opportunity Desk",
-    text: "Scan NGX companies and separate attention-worthy names from weak data, stretched prices and noisy tips.",
+    icon: Compass,
+    title: "One clear answer",
+    body: "Every company gets a plain YES, WAIT, NO or SPECULATIVE signal with the evidence written out.",
   },
   {
-    icon: NotebookPen,
-    title: "Decision Journal",
-    text: "Record thesis, entry condition, risk and review rule before money leaves your account.",
+    icon: BarChart3,
+    title: "Fair value, not hype",
+    body: "Valuation methods produce a range, so you can see whether today's price leaves a margin of safety.",
   },
   {
-    icon: Target,
-    title: "Portfolio Guardrails",
-    text: "Plan allocations, track actual holdings and flag stock or sector concentration before it gets uncomfortable.",
+    icon: Layers,
+    title: "Ranked inside sectors",
+    body: "A bank is judged against banks, not cement or oil stocks. Peer context is part of the core scoring.",
   },
   {
-    icon: DatabaseZap,
-    title: "Source-Aware Research",
-    text: "Separate trusted market data from uploaded, extracted and review-pending fundamentals.",
+    icon: FileSearch,
+    title: "Sourced research memory",
+    body: "Prices, fundamentals, dividends, annual reports and disclosures are tracked as a company memory layer.",
+  },
+  {
+    icon: BookOpenCheck,
+    title: "Decision discipline",
+    body: "Write the thesis, entry rule, position size and exit trigger before committing capital.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Risks beside reasons",
+    body: "The upside and the danger sit together: liquidity, concentration, valuation, FX exposure and missing data.",
   },
 ];
 
-const stockTypes = [
-  "Value stocks",
-  "Dividend stocks",
-  "Growth stocks",
-  "Blue-chip candidates",
-  "Penny stocks",
-  "Sector-specific stocks",
-];
-
-const workflow = [
-  "Sync NGX market data",
-  "Rank companies by research opportunity",
-  "Classify each stock type",
-  "Watch before buying",
-  "Set investment goals",
-  "Review when to hold, trim, or sell",
+const steps = [
+  {
+    step: "01",
+    title: "We scan the NGX universe",
+    body: "EquityKobo syncs market data, builds intelligence snapshots and ranks the full list instead of stopping at the popular names.",
+  },
+  {
+    step: "02",
+    title: "You browse by intent",
+    body: "Start from value, dividend, sector leader, watch-for-entry, or speculative groups depending on the goal for your money.",
+  },
+  {
+    step: "03",
+    title: "You decide with a record",
+    body: "Open the decision card, compare peers, write the thesis and plan the allocation before the trade happens.",
+  },
 ];
 
 function App() {
   return (
-    <main>
-      <header className="site-header">
-        <a className="brand" href="#top" aria-label="EquityKobo home">
+    <main className="landing-v2">
+      <header className="landing-v2-header">
+        <Link className="landing-v2-brand" to="/" aria-label="EquityKobo home">
           <img src={logoMark} alt="" />
-          <span>EquityKobo</span>
-        </a>
-        <nav className="main-nav" aria-label="Main navigation">
-          <a href="#features">Features</a>
-          <a href="#workflow">Workflow</a>
+          <span>
+            <strong>EquityKobo</strong>
+            <small>NGX research desk</small>
+          </span>
+        </Link>
+
+        <nav className="landing-v2-nav" aria-label="Landing navigation">
+          <a href="#how">How it works</a>
+          <a href="#pillars">What you get</a>
+          <a href="#today">Today's desk</a>
           <a href="#pricing">Pricing</a>
-          <a href="#faq">FAQ</a>
         </nav>
-        <div className="nav-actions">
-          <a className="text-link" href="/login">
+
+        <div className="landing-v2-actions">
+          <Link className="landing-v2-text-link" to="/login">
             Login
-          </a>
-          <a className="button button-small" href="/signup">
+          </Link>
+          <Link className="landing-v2-button small" to="/signup">
             Sign up
-          </a>
+          </Link>
         </div>
       </header>
 
-      <section id="top" className="hero-section">
-        <div className="hero-media finance-hero-scene" aria-hidden="true">
-          <img src={logoPrimary} alt="" />
-          <div className="market-board">
-            <div className="board-topline">
-              <span>NGX Research Scan</span>
-              <strong>Live workspace</strong>
+      <section className="landing-v2-hero">
+        <div className="landing-v2-hero-inner">
+          <div className="landing-v2-hero-copy">
+            <h1>Stop guessing which NGX stock to buy.</h1>
+            <p>
+              EquityKobo turns Nigerian Exchange data, annual reports and dividend records into
+              plain-English decision cards: should you research, wait, avoid, or treat the stock as
+              speculative?
+            </p>
+
+            <div className="landing-v2-hero-actions">
+              <Link className="landing-v2-button primary" to="/signup">
+                Start researching
+                <ArrowUpRight size={18} />
+              </Link>
+              <Link className="landing-v2-button secondary" to="/login">
+                Open existing desk
+              </Link>
             </div>
-            <div className="board-grid">
-              {opportunityRows.map((row) => (
-                <div className="board-row" key={row.symbol}>
-                  <strong>{row.symbol}</strong>
-                  <span>{row.label}</span>
-                  <small>Q {row.quality}</small>
-                  <small>V {row.valuation}</small>
-                  <small>{row.risk}</small>
-                </div>
+
+            <div className="landing-v2-stats" aria-label="EquityKobo market coverage">
+              <span>
+                <small>Companies scanned</small>
+                <strong>153</strong>
+              </span>
+              <span className="decision-label-stat">
+                <small>Decision labels</small>
+                <strong>YES / WAIT / NO</strong>
+              </span>
+              <span>
+                <small>Core market</small>
+                <strong>NGX</strong>
+              </span>
+            </div>
+          </div>
+
+          <div className="landing-v2-preview" aria-label="Sample EquityKobo decision cards">
+            <div className="landing-v2-preview-head">
+              <span>Sample decision cards</span>
+              <strong>Latest scan</strong>
+            </div>
+            <div className="landing-v2-sample-list">
+              {sampleCards.map((card) => (
+                <article className="landing-v2-sample-card" key={card.symbol}>
+                  <div className="landing-v2-sample-top">
+                    <span>
+                      <strong>{card.symbol}</strong>
+                      <small>{card.name}</small>
+                    </span>
+                    <span>
+                      <strong>{card.price}</strong>
+                      <small>{card.answer}</small>
+                    </span>
+                  </div>
+                  <div className="landing-v2-meter" aria-label={`${card.symbol} score`}>
+                    <span style={{ width: `${card.score}%` }} />
+                  </div>
+                  <div className="landing-v2-chip-row">
+                    <span>{card.valuation}</span>
+                    <span>Margin {card.margin}</span>
+                    <span>Peer {card.peer}</span>
+                  </div>
+                  <p>{card.reason}</p>
+                </article>
               ))}
             </div>
-            <div className="board-footer">
-              <span>Portfolio weight check</span>
-              <strong>Financial Services 42%</strong>
-            </div>
-          </div>
-        </div>
-        <div className="hero-content">
-          <p className="eyebrow">Nigerian equity research platform</p>
-          <h1>EquityKobo</h1>
-          <p className="hero-copy">
-            A private research desk that helps long-term investors identify high-quality Nigerian
-            companies, understand entry risk, document decisions and track portfolio exposure.
-          </p>
-          <div className="hero-actions">
-            <a className="button" href="/signup">
-              Open your research desk
-              <ArrowRight size={18} />
-            </a>
-            <a className="button button-secondary" href="#decision-preview">
-              See how decisions work
-            </a>
-          </div>
-          <div className="trust-row" aria-label="EquityKobo principles">
-            <span>
-              <LockKeyhole size={16} />
-              Private research workspace
-            </span>
-            <span>
-              <ShieldCheck size={16} />
-              Source-aware data
-            </span>
-            <span>
-              <LineChart size={16} />
-              Built for NGX investors
-            </span>
           </div>
         </div>
       </section>
 
-      <section id="decision-preview" className="decision-band">
-        <div className="section-heading split-heading">
-          <div>
-            <p className="eyebrow">Before the buy button</p>
-            <h2>The first screen answers one question.</h2>
-          </div>
-          <p>
-            Which Nigerian companies deserve attention before you invest? EquityKobo turns the
-            market into a ranked research queue with plain decision labels and visible risks.
-          </p>
+      <section className="landing-v2-proof-strip" aria-label="EquityKobo decision model">
+        <article>
+          <span>Answer first</span>
+          <strong>Should I invest?</strong>
+          <p>Users see the decision label before the ratios, because clarity is the product.</p>
+        </article>
+        <article>
+          <span>Evidence next</span>
+          <strong>Why and why not</strong>
+          <p>Reasons, risks, fair value and peer rank sit on the same decision card.</p>
+        </article>
+        <article>
+          <span>Action last</span>
+          <strong>Watch, plan, journal</strong>
+          <p>The workflow pushes users to record a thesis instead of copying social media tips.</p>
+        </article>
+      </section>
+
+      <section id="how" className="landing-v2-section">
+        <div className="landing-v2-section-head">
+          <span>How it works</span>
+          <h2>From 153 tickers to one decision you can explain.</h2>
         </div>
-        <div className="decision-tape" aria-label="EquityKobo research summary">
-          <span>
-            <strong>146</strong>
-            companies tracked
-          </span>
-          <span>
-            <strong>NGX</strong>
-            market data source
-          </span>
-          <span>
-            <strong>30%</strong>
-            single-stock guardrail
-          </span>
-          <span>
-            <strong>50%</strong>
-            sector guardrail
-          </span>
-        </div>
-        <div className="section-heading compact decision-copy">
-          <p className="eyebrow">No more noisy stock tips</p>
-          <h2>Every label comes with a reason and a warning.</h2>
-          <p>
-            The system does not shout buy or sell. It shows why a company is interesting, what
-            could break the thesis, and what should happen before you act.
-          </p>
-        </div>
-        <div className="decision-grid">
-          {decisions.map((decision) => (
-            <article className={`decision-card ${decision.tone}`} key={decision.label}>
-              <span>{decision.label}</span>
-              <p>{decision.detail}</p>
+        <div className="landing-v2-step-grid">
+          {steps.map((item) => (
+            <article className="landing-v2-step-card" key={item.step}>
+              <span>{item.step}</span>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section id="features" className="feature-section">
-        <div className="section-heading split-heading">
-          <div>
-            <p className="eyebrow">Built for disciplined investors</p>
-            <h2>One workflow from watchlist to portfolio review.</h2>
-          </div>
-          <p>
-            EquityKobo gives beginners structure without hiding the seriousness of investing:
-            research first, plan allocation, track what you own, and review the thesis.
-          </p>
+      <section id="pillars" className="landing-v2-section muted">
+        <div className="landing-v2-section-head">
+          <span>What you get</span>
+          <h2>Research-desk rigour, written for humans.</h2>
         </div>
-        <div className="feature-grid">
-          {features.map((feature) => {
-            const Icon = feature.icon;
+        <div className="landing-v2-pillar-grid">
+          {pillars.map((pillar) => {
+            const Icon = pillar.icon;
             return (
-              <article className="feature-card" key={feature.title}>
-                <Icon size={24} />
-                <h3>{feature.title}</h3>
-                <p>{feature.text}</p>
+              <article className="landing-v2-pillar-card" key={pillar.title}>
+                <span>
+                  <Icon size={20} />
+                </span>
+                <h3>{pillar.title}</h3>
+                <p>{pillar.body}</p>
               </article>
             );
           })}
         </div>
       </section>
 
-      <section className="stock-types-section">
-        <div>
-          <p className="eyebrow">Stock-type intelligence</p>
-          <h2>Not every cheap stock is value. Not every popular stock is quality.</h2>
-          <p>
-            EquityKobo groups companies into familiar categories, then adds risk checks so a
-            beginner does not confuse a cheap price with a good investment.
-          </p>
-        </div>
-        <div className="type-list" aria-label="Supported stock categories">
-          {stockTypes.map((type) => (
-            <span key={type}>
-              <CheckCircle2 size={17} />
-              {type}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      <section id="workflow" className="workflow-section">
-        <div className="section-heading split-heading">
-          <div>
-            <p className="eyebrow">Decision workflow</p>
-            <h2>Research becomes a habit, not a guess.</h2>
+      <section id="today" className="landing-v2-section">
+        <div className="landing-v2-title-row">
+          <div className="landing-v2-section-head">
+            <span>Today's desk</span>
+            <h2>What the latest scan is designed to surface.</h2>
           </div>
-          <p>
-            The product is designed around the way a careful investor should behave every week:
-            scan, shortlist, write a thesis, size the position, then review the portfolio.
-          </p>
+          <Link className="landing-v2-button outline" to="/signup">
+            Open full ranking
+            <ArrowUpRight size={16} />
+          </Link>
         </div>
-        <ol className="workflow-list">
-          {workflow.map((item, index) => (
-            <li key={item}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              {item}
-            </li>
-          ))}
-        </ol>
+
+        <div className="landing-v2-market-grid">
+          {marketTiles.map((tile) => {
+            const Icon = tile.icon;
+            return (
+              <article className="landing-v2-market-tile" key={tile.key}>
+                <span>
+                  <Icon size={20} />
+                </span>
+                <strong>{tile.count}</strong>
+                <p>{tile.label}</p>
+              </article>
+            );
+          })}
+        </div>
       </section>
 
-      <section id="pricing" className="pricing-section">
-        <div className="pricing-copy">
-          <p className="eyebrow">Pricing-ready</p>
-          <h2>Start with discipline. Upgrade when the data depth expands.</h2>
+      <section id="pricing" className="landing-v2-pricing">
+        <div>
+          <span>Pricing-ready</span>
+          <h2>Start with discipline. Upgrade when the research depth expands.</h2>
           <p>
-            The first release can start with free accounts, then expand into paid plans for
-            automation, alerts, portfolio intelligence, and advanced research workflows.
+            EquityKobo can begin with free accounts for watchlists and decision cards, then expand
+            into paid plans for automation, alerts, portfolio intelligence and deeper company memory.
           </p>
         </div>
-        <div className="pricing-grid">
-          <article className="price-card">
-            <span className="plan-name">Free</span>
+        <div className="landing-v2-price-grid">
+          <article>
+            <span>Free</span>
             <strong>₦0</strong>
-            <p>For learning, watchlists, latest prices, and beginner research signals.</p>
-            <a href="/signup">Create account</a>
+            <p>For learning, watchlists, latest rankings and beginner research discipline.</p>
+            <Link to="/signup">Create account</Link>
           </article>
-          <article className="price-card featured">
-            <span className="plan-name">Pro</span>
+          <article className="featured">
+            <span>Pro</span>
             <strong>Coming soon</strong>
-            <p>For smart alerts, portfolio exit intelligence, advanced scans, and automation.</p>
-            <a href="/signup">Join waitlist</a>
+            <p>For smart alerts, portfolio exit intelligence, advanced scans and automation.</p>
+            <Link to="/signup">Join waitlist</Link>
           </article>
         </div>
       </section>
 
-      <section id="faq" className="faq-section">
-        <div className="section-heading compact">
-          <p className="eyebrow">Investor discipline</p>
-          <h2>EquityKobo supports decisions. It does not replace judgment.</h2>
-        </div>
-        <div className="faq-grid">
-          <article>
-            <BarChart3 size={22} />
-            <h3>Does it tell me what to buy?</h3>
-            <p>
-              It ranks companies that deserve research and explains reasons, risks, and next
-              actions. You still make the final investment decision.
-            </p>
-          </article>
-          <article>
-            <TrendingUp size={22} />
-            <h3>Can beginners use it?</h3>
-            <p>
-              Yes. The interface starts with plain labels and explanations, then lets users open
-              the deeper ratios when they are ready.
-            </p>
-          </article>
-          <article>
-            <CircleDollarSign size={22} />
-            <h3>Is it for short-term trading?</h3>
-            <p>
-              No. EquityKobo is built for watchlists, valuation discipline, portfolio review, and
-              long-term research habits.
-            </p>
-          </article>
+      <section className="landing-v2-cta">
+        <h2>Invest with a reason you can defend.</h2>
+        <p>
+          Open EquityKobo when you want clarity before putting real naira into a Nigerian company.
+        </p>
+        <div>
+          <Link className="landing-v2-button primary" to="/signup">
+            Create account
+            <ArrowUpRight size={18} />
+          </Link>
+          <Link className="landing-v2-button secondary" to="/login">
+            Login
+          </Link>
         </div>
       </section>
 
-      <footer className="site-footer">
-        <div className="footer-main">
-          <div className="footer-brand-panel">
-            <a className="brand" href="#top" aria-label="EquityKobo home">
+      <footer className="landing-v2-footer">
+        <div className="landing-v2-footer-main">
+          <div>
+            <Link className="landing-v2-brand footer" to="/" aria-label="EquityKobo home">
               <img src={logoMark} alt="" />
-              <span>EquityKobo</span>
-            </a>
+              <span>
+                <strong>EquityKobo</strong>
+                <small>Plain-English NGX equity research</small>
+              </span>
+            </Link>
             <p>
-              A private Nigerian equities research platform for watchlists, valuation discipline,
-              portfolio guardrails and decision journaling.
+              Research software for long-term Nigerian equity investors who want evidence,
+              valuation discipline and a written decision record before buying.
             </p>
-            <div className="footer-badges" aria-label="EquityKobo operating principles">
-              <span>Research, not advice</span>
-              <span>Source-aware data</span>
-              <span>Long-term focused</span>
+            <div className="landing-v2-footer-badges">
+              <span>
+                <LockKeyhole size={14} />
+                Private workspace
+              </span>
+              <span>
+                <Target size={14} />
+                Decision support
+              </span>
+              <span>
+                <CheckCircle2 size={14} />
+                Source-aware data
+              </span>
             </div>
           </div>
 
-          <nav className="footer-links" aria-label="Footer navigation">
+          <nav aria-label="Footer navigation">
             <div>
               <h3>Platform</h3>
-              <a href="#decision-preview">Opportunity Desk</a>
-              <a href="#features">Watchlists</a>
-              <a href="#workflow">Decision Journal</a>
-              <a href="#pricing">Plans</a>
+              <Link to="/signup">Opportunity Desk</Link>
+              <Link to="/signup">Watchlists</Link>
+              <Link to="/signup">Portfolio Plan</Link>
+              <Link to="/signup">Decision Journal</Link>
             </div>
             <div>
               <h3>Research</h3>
-              <a href="#features">Fundamentals</a>
-              <a href="#decision-preview">Valuation Signals</a>
-              <a href="#workflow">Portfolio Rules</a>
-              <a href="#faq">Investor FAQ</a>
+              <a href="#pillars">Fair value</a>
+              <a href="#pillars">Peer comparison</a>
+              <a href="#pillars">Risk checks</a>
+              <a href="#today">Today&apos;s desk</a>
             </div>
             <div>
               <h3>Account</h3>
-              <a href="/login">Login</a>
-              <a href="/signup">Create account</a>
-              <a href="/signup">Join Pro waitlist</a>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Create account</Link>
+              <Link to="/signup">Join Pro waitlist</Link>
             </div>
           </nav>
         </div>
 
-        <div className="footer-compliance">
-          <div>
-            <h3>Important Notice</h3>
+        <div className="landing-v2-compliance">
+          <article>
+            <h3>Important notice</h3>
             <p>
               EquityKobo is an educational research and decision-support tool. It does not provide
-              personalized investment advice, broker recommendations, guaranteed returns, or trade
-              execution. Nigerian equities can rise or fall in value, and past performance does not
-              guarantee future results.
+              personalized investment advice, broker recommendations, guaranteed returns or trade
+              execution.
             </p>
-          </div>
-          <div>
-            <h3>Data Responsibility</h3>
+          </article>
+          <article>
+            <h3>Data responsibility</h3>
             <p>
-              Market data, company information and generated classifications should be reviewed
-              against official filings, exchange publications and licensed data sources before you
-              make an investment decision.
+              Market data, company information, generated scores and classifications should be
+              reviewed against official filings, exchange publications and licensed data sources
+              before any investment decision.
             </p>
-          </div>
+          </article>
         </div>
 
-        <div className="footer-bottom">
+        <div className="landing-v2-footer-bottom">
           <p>&copy; 2026 EquityKobo. All rights reserved.</p>
-          <div>
-            <a href="#faq">Disclosures</a>
-            <a href="#faq">Privacy</a>
-            <a href="#faq">Terms</a>
-          </div>
+          <span>Research, not advice.</span>
         </div>
       </footer>
     </main>

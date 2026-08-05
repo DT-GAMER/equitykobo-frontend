@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
+import AdminPage from "./AdminPage";
 import AppShell from "./AppShell";
 import AuthPage from "./AuthPage";
 import CompanyResearchPage from "./CompanyResearchPage";
@@ -74,6 +75,14 @@ createRoot(document.getElementById("root")!).render(
           element={
             <ProtectedRoute>
               <WatchlistsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminPage />
             </ProtectedRoute>
           }
         />
