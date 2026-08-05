@@ -29,6 +29,7 @@ import {
   loadPendingReview,
   loadReports,
   runAutomationNow,
+  toUserMessage,
   uploadReport,
 } from "./api";
 
@@ -78,7 +79,7 @@ function AdminPage() {
       setAutomation(automationData);
       setSelectedSymbol((current) => current || companyData[0]?.symbol || "");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to load admin dashboard.");
+      setError(toUserMessage(err, "Unable to load admin dashboard. Please try again."));
     } finally {
       setIsLoading(false);
     }
@@ -138,7 +139,7 @@ function AdminPage() {
       setFile(null);
       await loadAdminData();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to upload report.");
+      setError(toUserMessage(err, "Unable to upload report. Please check the PDF and try again."));
     } finally {
       setIsUploading(false);
     }
@@ -169,7 +170,7 @@ function AdminPage() {
       setManualNotes("");
       await loadAdminData();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to create manual extraction draft.");
+      setError(toUserMessage(err, "Unable to create manual extraction draft. Please review the pasted text and try again."));
     } finally {
       setIsCreatingManualDraft(false);
     }
@@ -184,7 +185,7 @@ function AdminPage() {
       setMessage(`${label} completed successfully.`);
       await loadAdminData();
     } catch (err) {
-      setError(err instanceof Error ? err.message : `${label} failed.`);
+      setError(toUserMessage(err, `${label} could not finish. Please try again.`));
     } finally {
       setBusyAction("");
     }
@@ -284,7 +285,9 @@ function AdminPage() {
                   <p>
                     Last result: <strong>{formatAutomationResult(automation?.last_result)}</strong>
                   </p>
-                  {automation?.last_error && <p className="danger-copy">{automation.last_error}</p>}
+                  {automation?.last_error && (
+                    <p className="danger-copy">{formatAutomationError(automation.last_error)}</p>
+                  )}
                 </div>
 
                 <button
@@ -576,6 +579,13 @@ function formatAutomationResult(result?: Record<string, number> | null) {
     return "No run completed yet";
   }
   return `${result.scored ?? 0} scored, ${result.imported ?? 0} imported, ${result.errors ?? 0} errors`;
+}
+
+function formatAutomationError(error: string) {
+  return toUserMessage(
+    error,
+    "The last automation run did not finish. The technical details were logged on the server.",
+  );
 }
 
 function formatAutomationStep(status?: AutomationStatus | null) {

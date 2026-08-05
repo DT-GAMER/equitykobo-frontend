@@ -48,7 +48,7 @@ async function authRequest(path: string, payload: AuthPayload): Promise<AuthResp
 
   if (!response.ok) {
     const error = await response.json().catch(() => null);
-    throw new Error(error?.detail ?? "Unable to authenticate. Please try again.");
+    throw new Error(toUserMessage(error?.detail, "Unable to authenticate. Please try again."));
   }
 
   return response.json();
@@ -931,8 +931,24 @@ export async function loadAutomationStatus(): Promise<AutomationStatus> {
   return apiGet<AutomationStatus>("/automation/status");
 }
 
-export async function runAutomationNow(): Promise<{ status: string; result?: Record<string, number>; error?: string }> {
-  return apiPost<{ status: string; result?: Record<string, number>; error?: string }>("/automation/run-now", null);
+export type AutomationRunResult = {
+  status: string;
+  result?: Record<string, number>;
+  error?: string;
+  error_code?: string;
+};
+
+export async function runAutomationNow(): Promise<AutomationRunResult> {
+  const result = await apiPost<AutomationRunResult>("/automation/run-now", null);
+  if (result.status === "failed") {
+    throw new Error(
+      toUserMessage(
+        result.error,
+        "Automatic market intelligence could not finish. The technical details were logged on the server.",
+      ),
+    );
+  }
+  return result;
 }
 
 export async function syncNgxPulseFundamentals(symbols?: string): Promise<NgxPulseSyncResult> {
@@ -1102,15 +1118,42 @@ async function apiDelete(path: string): Promise<void> {
 async function responseError(response: Response, fallback: string) {
   const error = await response.json().catch(() => null);
   if (typeof error?.detail === "string") {
-    return error.detail;
+    return toUserMessage(error.detail, fallback);
   }
   if (Array.isArray(error?.detail)) {
-    return error.detail
+    const message = error.detail
       .map((item: { msg?: string; loc?: string[] }) => [item.loc?.join("."), item.msg].filter(Boolean).join(": "))
       .filter(Boolean)
       .join("; ");
+    return toUserMessage(message, fallback);
   }
   return fallback;
+}
+
+const TECHNICAL_ERROR_MARKERS = [
+  "psycopg.",
+  "sqlalchemy.",
+  "[SQL:",
+  "[parameters:",
+  "background on this error",
+  "duplicate key value violates",
+  "unique constraint",
+  "foreign key constraint",
+  "traceback",
+];
+
+export function toUserMessage(error: unknown, fallback: string) {
+  const message = error instanceof Error ? error.message : typeof error === "string" ? error : "";
+  const trimmed = message.trim();
+  if (!trimmed || isTechnicalError(trimmed)) {
+    return fallback;
+  }
+  return trimmed;
+}
+
+function isTechnicalError(message: string) {
+  const normalized = message.toLowerCase();
+  return TECHNICAL_ERROR_MARKERS.some((marker) => normalized.includes(marker.toLowerCase()));
 }
 
 function authHeaders(): Record<string, string> {
