@@ -1,12 +1,8 @@
 # EquityKobo Frontend Coolify Deployment
 
-Deploy this repository as a Docker Compose app in Coolify using:
+Deploy this repository in Coolify with the **Nixpacks** build pack.
 
-```text
-docker-compose.coolify.yml
-```
-
-The frontend is a Vite React app. `VITE_API_BASE_URL` is baked into the static build, so set it before building.
+The frontend is a Vite React app. `VITE_API_BASE_URL` is baked into the static build, so it must be set before Coolify builds the app.
 
 ## Required Environment Variable
 
@@ -16,9 +12,23 @@ VITE_API_BASE_URL=https://your-equitykobo-api-domain.com
 
 Use the public HTTPS URL of the deployed backend API, not `localhost`.
 
+## Coolify Settings
+
+Use:
+
+```text
+Build Pack: Nixpacks
+Install Command: npm ci
+Build Command: npm run build
+Start Command: npm run start
+Port / Exposed Port: 4173
+```
+
+The checked-in `nixpacks.toml` already defines these steps, so you should not need custom commands unless Coolify overrides them.
+
 ## Backend CORS
 
-The backend must allow this frontend domain:
+The backend must allow the final frontend domain:
 
 ```env
 CORS_ORIGINS=https://your-frontend-domain.com
@@ -30,14 +40,14 @@ If you keep local development enabled too:
 CORS_ORIGINS=https://your-frontend-domain.com,http://localhost:5173,http://127.0.0.1:5173
 ```
 
-## What The Container Does
+## What Nixpacks Does
 
 ```text
-1. installs dependencies with npm ci
-2. builds the Vite app with npm run build
-3. serves dist/ with Nginx
-4. supports direct refresh on routes like /company/GTCO
-5. serves Nginx on container port 58173 for Coolify's proxy
+1. uses Node 22
+2. installs dependencies with npm ci
+3. builds the Vite app with npm run build
+4. serves the built dist folder through vite preview
+5. listens on PORT, defaulted to 4173 for Coolify
 ```
 
 ## Post-Deploy Check
