@@ -48,6 +48,8 @@ function AdminPage() {
   const [file, setFile] = useState<File | null>(null);
   const [manualReportId, setManualReportId] = useState("");
   const [manualText, setManualText] = useState("");
+  const [manualSourceName, setManualSourceName] = useState("");
+  const [manualYear, setManualYear] = useState(() => String(new Date().getFullYear() - 1));
   const [manualNotes, setManualNotes] = useState("");
   const [isCreatingManualDraft, setIsCreatingManualDraft] = useState(false);
   const [query, setQuery] = useState("");
@@ -133,7 +135,9 @@ function AdminPage() {
         notes: [`Financial year: ${reportYear}`, notes].filter(Boolean).join(". "),
         file,
       });
-      setMessage(`Uploaded report #${uploaded.id}. Next step: extract text.`);
+      setMessage(`Uploaded report #${uploaded.id}. Next step: extract text or paste manual financial text.`);
+      setManualReportId(String(uploaded.id));
+      setManualYear(reportYear);
       setReportName("");
       setNotes("");
       setFile(null);
@@ -151,6 +155,10 @@ function AdminPage() {
       setError("Choose a company and paste the financial statement text first.");
       return;
     }
+    if (!selectedManualReport && (!manualSourceName.trim() || !manualYear)) {
+      setError("Enter a source name and financial year when no uploaded report is linked.");
+      return;
+    }
 
     setIsCreatingManualDraft(true);
     setError("");
@@ -160,12 +168,15 @@ function AdminPage() {
         symbol: selectedSymbol,
         sourceDocumentId: selectedManualReport?.source_document_id,
         uploadedReportId: selectedManualReport?.id,
+        sourceName: selectedManualReport ? undefined : manualSourceName.trim(),
+        reportYear: selectedManualReport ? undefined : Number(manualYear),
         reportText: manualText,
         notes:
           manualNotes ||
-          `Manual financial text pasted for ${selectedSymbol} ${reportYear} annual report.`,
+          `Manual financial text pasted for ${selectedSymbol} ${manualYear} annual report.`,
       });
       setMessage(`Manual DeepSeek draft #${draft.id} created. Review it before applying.`);
+      setManualSourceName("");
       setManualText("");
       setManualNotes("");
       await loadAdminData();
@@ -384,6 +395,24 @@ function AdminPage() {
                     </select>
                   </label>
                   <label>
+                    Source name
+                    <input
+                      placeholder="GTCO annual report"
+                      value={manualSourceName}
+                      onChange={(event) => setManualSourceName(event.target.value)}
+                    />
+                  </label>
+                  <label>
+                    Financial year
+                    <select value={manualYear} onChange={(event) => setManualYear(event.target.value)}>
+                      {reportYears.map((year) => (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
                     Manual note
                     <input
                       placeholder="Copied consolidated statements from pages 130-134"
@@ -404,7 +433,12 @@ function AdminPage() {
 
                 <button
                   className="button"
-                  disabled={isCreatingManualDraft || !selectedSymbol || manualText.trim().length < 80}
+                  disabled={
+                    isCreatingManualDraft ||
+                    !selectedSymbol ||
+                    manualText.trim().length < 80 ||
+                    (!selectedManualReport && (!manualSourceName.trim() || !manualYear))
+                  }
                   type="submit"
                 >
                   {isCreatingManualDraft ? <LoaderCircle className="spin" size={18} /> : <DatabaseZap size={18} />}
@@ -435,6 +469,7 @@ function AdminPage() {
                     {visibleReports.map((report) => {
                       const company = report.company_id ? companyById.get(report.company_id) : null;
                       const reportDrafts = drafts.filter((draft) => draft.uploaded_report_id === report.id);
+                      const hasLinkedDraft = reportDrafts.length > 0;
                       return (
                         <article className="admin-report-card" key={report.id}>
                           <div>
@@ -459,7 +494,7 @@ function AdminPage() {
                             </button>
                             <button
                               className="icon-text-button light"
-                              disabled={Boolean(busyAction)}
+                              disabled={Boolean(busyAction) || hasLinkedDraft}
                               onClick={() =>
                                 runAction(`Create draft for report #${report.id}`, () =>
                                   createReportExtractionDraft(report.id),
@@ -468,7 +503,7 @@ function AdminPage() {
                               type="button"
                             >
                               <DatabaseZap size={17} />
-                              DeepSeek draft
+                              {hasLinkedDraft ? "Draft ready" : "DeepSeek draft"}
                             </button>
                             <button
                               className="icon-text-button danger-light"

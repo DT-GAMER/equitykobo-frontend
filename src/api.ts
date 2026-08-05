@@ -1026,6 +1026,8 @@ export async function createManualExtractionDraft(payload: {
   symbol: string;
   sourceDocumentId?: number | null;
   uploadedReportId?: number | null;
+  sourceName?: string | null;
+  reportYear?: number | null;
   reportText: string;
   notes?: string | null;
 }): Promise<ExtractionDraft> {
@@ -1033,6 +1035,8 @@ export async function createManualExtractionDraft(payload: {
     symbol: payload.symbol,
     source_document_id: payload.sourceDocumentId ?? null,
     uploaded_report_id: payload.uploadedReportId ?? null,
+    source_name: payload.sourceName ?? null,
+    report_year: payload.reportYear ?? null,
     report_text: payload.reportText,
     notes: payload.notes ?? null,
   });
