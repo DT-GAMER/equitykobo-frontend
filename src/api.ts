@@ -681,6 +681,7 @@ export type ExtractionDraft = {
 export type ApplyDraftResult = {
   draft_id: number;
   financial_statement_id: number;
+  dividend_ids: number[];
   reviewed: boolean;
 };
 

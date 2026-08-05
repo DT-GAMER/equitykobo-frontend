@@ -112,6 +112,14 @@ function AdminPage() {
 
   const selectedPending = pending.filter((item) => !selectedSymbol || item.symbol === selectedSymbol);
   const selectedManualReport = reports.find((report) => String(report.id) === manualReportId);
+  const standaloneDrafts = drafts.filter((draft) => {
+    const normalized = query.trim().toLowerCase();
+    const belongsToCompany = !selectedCompany || draft.company_id === selectedCompany.id;
+    const matchesSearch =
+      !normalized ||
+      `${draft.id} ${draft.status} ${draft.notes || ""}`.toLowerCase().includes(normalized);
+    return !draft.uploaded_report_id && belongsToCompany && matchesSearch;
+  });
 
   function onFileChange(event: ChangeEvent<HTMLInputElement>) {
     setFile(event.target.files?.[0] ?? null);
@@ -445,6 +453,49 @@ function AdminPage() {
                   Create manual draft
                 </button>
               </form>
+
+              {standaloneDrafts.length > 0 && (
+                <div className="admin-section">
+                  <div className="admin-section-head">
+                    <div>
+                      <p className="eyebrow">Manual draft queue</p>
+                      <h2>Standalone drafts ready for review</h2>
+                    </div>
+                  </div>
+
+                  <div className="draft-list standalone-draft-list">
+                    {standaloneDrafts.map((draft) => {
+                      const periodEnd =
+                        typeof draft.parsed_data?.period_end === "string"
+                          ? draft.parsed_data.period_end
+                          : "Unknown period";
+                      const dividend =
+                        draft.parsed_data?.dividend_per_share ??
+                        (Array.isArray(draft.parsed_data?.dividends)
+                          ? draft.parsed_data.dividends[0]?.amount_per_share
+                          : null);
+                      return (
+                        <div key={draft.id}>
+                          <span>Draft #{draft.id}</span>
+                          <strong>{draft.status}</strong>
+                          <small>
+                            {periodEnd}
+                            {dividend ? ` · dividend ${String(dividend)}` : ""}
+                          </small>
+                          <button
+                            className="text-action"
+                            disabled={Boolean(busyAction) || draft.status === "applied"}
+                            onClick={() => runAction(`Apply draft #${draft.id}`, () => applyExtractionDraft(draft.id))}
+                            type="button"
+                          >
+                            Apply
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
               <div className="admin-section">
                 <div className="admin-section-head">
