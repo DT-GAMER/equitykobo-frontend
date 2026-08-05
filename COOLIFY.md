@@ -21,7 +21,8 @@ Build Pack: Nixpacks
 Install Command: npm ci
 Build Command: npm run build
 Start Command: npm run start
-Port / Exposed Port: 4173
+Port / Exposed Port: 5173
+Publish Directory: leave empty for Nixpacks server mode
 ```
 
 The checked-in `nixpacks.toml` already defines these steps, so you should not need custom commands unless Coolify overrides them.
@@ -47,7 +48,7 @@ CORS_ORIGINS=https://your-frontend-domain.com,http://localhost:5173,http://127.0
 2. installs dependencies with npm ci
 3. builds the Vite app with npm run build
 4. serves the built dist folder through vite preview
-5. listens on PORT, defaulted to 4173 for Coolify
+5. listens on Coolify's PORT value, defaulted to 5173
 ```
 
 ## Post-Deploy Check
