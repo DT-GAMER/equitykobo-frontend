@@ -1527,9 +1527,7 @@
  * -------------------------------------------------------------------------- */
 @media (max-width: 960px) {
   .landing-v2-brand,
-  .landing-v2-footer-col a,
   .landing-v2-nav a,
-  .footer-col a,
   .main-nav a {
     display: inline-flex;
     align-items: center;
@@ -1538,8 +1536,52 @@
 
   /* Stacked link columns need the target to span the column, not just the
      text, so the whole row is tappable. */
-  .landing-v2-footer-col a,
-  .footer-col a {
+  .landing-v2-footer-main nav div a,
+  .footer-main nav a,
+  .footer-main ul a {
     display: flex;
+    align-items: center;
+    min-height: var(--tap-target);
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Carousel slide sizing.
+ *
+ * grid-auto-columns sets how many slides are visible; the Carousel component
+ * reads the rendered width back to work out how many snap positions exist, so
+ * these values are the single place slide count is decided.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 1180px) {
+  .ek-carousel-track {
+    grid-auto-columns: calc((100% - 18px) / 2);
+  }
+}
+
+@media (max-width: 720px) {
+  .ek-carousel-track {
+    grid-auto-columns: 82%;
+    gap: 14px;
+  }
+
+  .ek-carousel-controls {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  /* One full-width card per view, with a sliver of the next card visible so it
+     is obvious the row scrolls. */
+  .ek-carousel-track {
+    grid-auto-columns: 88%;
+  }
+
+  .ek-carousel-arrow {
+    width: var(--tap-target);
+    height: var(--tap-target);
+  }
+
+  .ek-carousel-dots {
+    gap: 2px;
   }
 }

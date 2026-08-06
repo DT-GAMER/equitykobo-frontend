@@ -14,6 +14,8 @@ import {
   Target,
   TrendingDown,
 } from "lucide-react";
+import Carousel from "./Carousel";
+import useScrollReveal from "./useScrollReveal";
 
 const logoMark =
   "https://res.cloudinary.com/dofiyn7bw/image/upload/v1785268787/WhatsApp_Image_2026-07-28_at_20.51.17_k8eetf.jpg";
@@ -101,6 +103,8 @@ const steps = [
 ];
 
 function App() {
+  useScrollReveal();
+
   return (
     <main className="landing-v2">
       <header className="landing-v2-header">
@@ -199,7 +203,7 @@ function App() {
         </div>
       </section>
 
-      <section className="landing-v2-proof-strip" aria-label="EquityKobo decision model">
+      <section className="landing-v2-proof-strip" aria-label="EquityKobo decision model" data-reveal>
         <article>
           <span>Answer first</span>
           <strong>Should I invest?</strong>
@@ -217,12 +221,12 @@ function App() {
         </article>
       </section>
 
-      <section id="how" className="landing-v2-section">
+      <section id="how" className="landing-v2-section" data-reveal>
         <div className="landing-v2-section-head">
           <span>How it works</span>
           <h2>From 153 tickers to one decision you can explain.</h2>
         </div>
-        <div className="landing-v2-step-grid">
+        <Carousel className="step-carousel" label="How it works">
           {steps.map((item) => (
             <article className="landing-v2-step-card" key={item.step}>
               <span>{item.step}</span>
@@ -230,15 +234,15 @@ function App() {
               <p>{item.body}</p>
             </article>
           ))}
-        </div>
+        </Carousel>
       </section>
 
-      <section id="pillars" className="landing-v2-section muted">
+      <section id="pillars" className="landing-v2-section muted" data-reveal>
         <div className="landing-v2-section-head">
           <span>What you get</span>
           <h2>Research-desk rigour, written for humans.</h2>
         </div>
-        <div className="landing-v2-pillar-grid">
+        <Carousel autoPlayMs={5200} className="pillar-carousel" label="What you get">
           {pillars.map((pillar) => {
             const Icon = pillar.icon;
             return (
@@ -251,10 +255,10 @@ function App() {
               </article>
             );
           })}
-        </div>
+        </Carousel>
       </section>
 
-      <section id="today" className="landing-v2-section">
+      <section id="today" className="landing-v2-section" data-reveal>
         <div className="landing-v2-title-row">
           <div className="landing-v2-section-head">
             <span>Today's desk</span>
@@ -282,7 +286,7 @@ function App() {
         </div>
       </section>
 
-      <section id="pricing" className="landing-v2-pricing">
+      <section id="pricing" className="landing-v2-pricing" data-reveal>
         <div>
           <span>Pricing-ready</span>
           <h2>Start with discipline. Upgrade when the research depth expands.</h2>
@@ -307,7 +311,7 @@ function App() {
         </div>
       </section>
 
-      <section className="landing-v2-cta">
+      <section className="landing-v2-cta" data-reveal>
         <h2>Invest with a reason you can defend.</h2>
         <p>
           Open EquityKobo when you want clarity before putting real naira into a Nigerian company.

@@ -3,9 +3,32 @@
    Layout here is desktop-first; every responsive override lives in responsive.css. */
 
 .landing-v2 {
+  /* Design tokens for the marketing page. Scoped here so the refreshed look
+     cannot leak into the signed-in application. */
+  --lv2-emerald: #047857;
+  --lv2-emerald-bright: #34d399;
+  --lv2-navy: #071323;
+  --lv2-ink: #172033;
+  --lv2-muted: #647084;
+  --lv2-line: #dce4ee;
+
+  /* A larger radius and layered shadows are what separate the refreshed cards
+     from the original flat 8px/single-shadow treatment. */
+  --lv2-radius: 14px;
+  --lv2-radius-lg: 22px;
+  --lv2-shadow-sm: 0 1px 2px rgba(7, 19, 35, 0.04), 0 4px 12px rgba(7, 19, 35, 0.05);
+  --lv2-shadow: 0 2px 4px rgba(7, 19, 35, 0.03), 0 12px 28px rgba(7, 19, 35, 0.07),
+    0 32px 64px rgba(7, 19, 35, 0.05);
+  --lv2-shadow-lift: 0 4px 8px rgba(7, 19, 35, 0.05), 0 20px 44px rgba(7, 19, 35, 0.11),
+    0 44px 88px rgba(7, 19, 35, 0.07);
+  --lv2-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
   min-height: 100vh;
-  color: #172033;
-  background: #f7fafc;
+  color: var(--lv2-ink);
+  background:
+    radial-gradient(1100px 520px at 88% -8%, rgba(52, 211, 153, 0.1), transparent 62%),
+    radial-gradient(900px 460px at -10% 8%, rgba(4, 120, 87, 0.07), transparent 60%),
+    #f7fafc;
 }
 
 .landing-v2-header {
@@ -34,7 +57,7 @@
   width: 38px;
   height: 38px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: var(--lv2-radius);
   box-shadow: 0 10px 22px rgba(7, 19, 35, 0.12);
 }
 
@@ -104,7 +127,7 @@
   color: #071323;
   background: #ffffff;
   border: 1px solid #dce4ee;
-  border-radius: 8px;
+  border-radius: var(--lv2-radius);
   font-weight: 900;
   box-shadow: 0 12px 28px rgba(7, 19, 35, 0.1);
 }
@@ -237,7 +260,7 @@
   color: #172033;
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 8px;
+  border-radius: var(--lv2-radius);
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28);
 }
 
@@ -273,7 +296,7 @@
   padding: 15px;
   background: #f8fbfd;
   border: 1px solid #dce4ee;
-  border-radius: 8px;
+  border-radius: var(--lv2-radius);
 }
 
 .landing-v2-sample-top strong {
@@ -345,7 +368,7 @@
   overflow: hidden;
   background: #dce4ee;
   border: 1px solid #dce4ee;
-  border-radius: 8px;
+  border-radius: var(--lv2-radius);
   box-shadow: 0 18px 48px rgba(7, 19, 35, 0.12);
 }
 
@@ -444,7 +467,7 @@
   padding: 22px;
   background: #ffffff;
   border: 1px solid #dce4ee;
-  border-radius: 8px;
+  border-radius: var(--lv2-radius);
   box-shadow: 0 16px 38px rgba(7, 19, 35, 0.08);
 }
 
@@ -462,7 +485,7 @@
   color: #047857;
   background: #dff7ec;
   border: 1px solid rgba(5, 150, 105, 0.2);
-  border-radius: 8px;
+  border-radius: var(--lv2-radius);
   font-weight: 950;
 }
 
@@ -647,7 +670,7 @@
   padding: 18px;
   background: #f7fafc;
   border: 1px solid #dce4ee;
-  border-radius: 8px;
+  border-radius: var(--lv2-radius);
 }
 
 .landing-v2-footer-bottom {
@@ -656,4 +679,346 @@
   color: #647084;
   font-size: 0.86rem;
   font-weight: 800;
+}
+
+/* ==========================================================================
+ * Refreshed surface treatment
+ *
+ * The original cards were a flat 8px box with one wide shadow. These rules give
+ * the same components layered depth, a hairline top highlight and a hover lift,
+ * without changing the emerald/navy palette.
+ * ========================================================================== */
+
+.landing-v2-step-card,
+.landing-v2-pillar-card,
+.landing-v2-market-tile,
+.landing-v2-price-grid article,
+.landing-v2-preview {
+  position: relative;
+  box-shadow: var(--lv2-shadow);
+  transition:
+    transform 0.45s var(--lv2-ease),
+    box-shadow 0.45s var(--lv2-ease),
+    border-color 0.45s var(--lv2-ease);
+}
+
+/* A one-pixel light edge along the top of each card reads as a physical bevel
+   and is what stops large flat cards looking like plain rectangles. */
+.landing-v2-step-card::before,
+.landing-v2-pillar-card::before,
+.landing-v2-market-tile::before,
+.landing-v2-price-grid article::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.9) 18%,
+    rgba(255, 255, 255, 0.9) 82%,
+    transparent
+  );
+  border-radius: var(--lv2-radius) var(--lv2-radius) 0 0;
+}
+
+.landing-v2-step-card:hover,
+.landing-v2-pillar-card:hover,
+.landing-v2-market-tile:hover,
+.landing-v2-price-grid article:hover {
+  transform: translateY(-4px);
+  border-color: rgba(4, 120, 87, 0.28);
+  box-shadow: var(--lv2-shadow-lift);
+}
+
+/* The icon chip picks up a gradient and lifts with its card. */
+.landing-v2-step-card > span,
+.landing-v2-pillar-card > span,
+.landing-v2-market-tile > span {
+  background: linear-gradient(140deg, #dff7ec, #ffffff);
+  box-shadow: 0 6px 16px rgba(4, 120, 87, 0.14);
+  transition: transform 0.45s var(--lv2-ease);
+}
+
+.landing-v2-step-card:hover > span,
+.landing-v2-pillar-card:hover > span,
+.landing-v2-market-tile:hover > span {
+  transform: scale(1.06) rotate(-3deg);
+}
+
+/* The section eyebrow gains a rule so it reads as a label rather than stray
+   small text. */
+.landing-v2-section-head > span,
+.landing-v2-pricing > div > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.landing-v2-section-head > span::after,
+.landing-v2-pricing > div > span::after {
+  content: "";
+  width: 44px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--lv2-emerald-bright), transparent);
+  border-radius: 999px;
+}
+
+.landing-v2-section-head h2,
+.landing-v2-pricing h2,
+.landing-v2-cta h2 {
+  letter-spacing: -0.022em;
+}
+
+.landing-v2-button {
+  transition:
+    transform 0.3s var(--lv2-ease),
+    box-shadow 0.3s var(--lv2-ease),
+    background 0.3s var(--lv2-ease);
+}
+
+.landing-v2-button.primary {
+  background: linear-gradient(135deg, #34d399, #059669 120%);
+  box-shadow: 0 10px 26px rgba(5, 150, 105, 0.34);
+}
+
+.landing-v2-button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(5, 150, 105, 0.42);
+}
+
+/* ==========================================================================
+ * Scroll reveal
+ *
+ * The hidden state is gated behind .js-reveal-ready, which useScrollReveal sets
+ * on <html>. Without JavaScript the content simply renders — it never gets
+ * stranded at opacity 0.
+ * ========================================================================== */
+.js-reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+}
+
+.js-reveal-ready [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.7s var(--lv2-ease),
+    transform 0.7s var(--lv2-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal-ready [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .landing-v2-step-card,
+  .landing-v2-pillar-card,
+  .landing-v2-market-tile,
+  .landing-v2-price-grid article,
+  .landing-v2-button {
+    transition: none;
+  }
+
+  .landing-v2-step-card:hover,
+  .landing-v2-pillar-card:hover,
+  .landing-v2-market-tile:hover,
+  .landing-v2-price-grid article:hover,
+  .landing-v2-button:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+ * Carousel
+ *
+ * The track is a native scroll container with scroll-snap, so swipe, momentum
+ * and trackpad gestures are the browser's own. The arrows and dots only set
+ * scrollLeft — there is no transform-based slider to keep in sync.
+ * ========================================================================== */
+.ek-carousel {
+  margin-top: 34px;
+}
+
+.ek-carousel-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 2 * 18px) / 3);
+  gap: 18px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  /* Vertical room for the hover lift and shadow, which the scroll container
+     would otherwise clip. Kept to the vertical axis only — horizontal padding
+     here makes the track wider than its section and pushes a few pixels of
+     overflow onto the page. */
+  padding: 10px 0 18px;
+  margin: -10px 0 -18px;
+  scrollbar-width: none;
+}
+
+.ek-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.ek-carousel-track:focus-visible {
+  outline: 2px solid var(--lv2-emerald);
+  outline-offset: 4px;
+  border-radius: var(--lv2-radius);
+}
+
+.ek-carousel-slide {
+  display: flex;
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.ek-carousel-slide > * {
+  width: 100%;
+  margin-top: 0;
+}
+
+/* The 6 pillar cards span 2 columns each in the old grid; inside the carousel
+   each one is a slide, so that override has to go. */
+.ek-carousel .landing-v2-pillar-card {
+  grid-column: auto;
+}
+
+.ek-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 26px;
+}
+
+.ek-carousel-arrow {
+  display: inline-grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  color: var(--lv2-navy);
+  background: #ffffff;
+  border: 1px solid var(--lv2-line);
+  border-radius: 999px;
+  box-shadow: var(--lv2-shadow-sm);
+  cursor: pointer;
+  transition:
+    transform 0.3s var(--lv2-ease),
+    box-shadow 0.3s var(--lv2-ease),
+    opacity 0.3s var(--lv2-ease);
+}
+
+.ek-carousel-arrow:hover:not(:disabled) {
+  transform: translateY(-2px);
+  color: var(--lv2-emerald);
+  border-color: rgba(4, 120, 87, 0.3);
+  box-shadow: var(--lv2-shadow);
+}
+
+.ek-carousel-arrow:disabled {
+  opacity: 0.34;
+  cursor: default;
+}
+
+.ek-carousel-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The button is the touch target; ::before is the visible dot. Styling the
+   button itself would mean either an 8px tap target or a dot the size of a
+   finger. */
+.ek-carousel-dots button {
+  display: grid;
+  place-items: center;
+  height: var(--tap-target);
+  padding: 0 4px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.ek-carousel-dots button::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  background: #c3cedd;
+  border-radius: 999px;
+  transition:
+    width 0.4s var(--lv2-ease),
+    background 0.4s var(--lv2-ease);
+}
+
+/* The active dot stretches into a bar rather than just changing colour, which
+   reads as position within the set. */
+.ek-carousel-dots button.is-active::before {
+  width: 28px;
+  background: linear-gradient(90deg, var(--lv2-emerald-bright), var(--lv2-emerald));
+}
+
+.ek-carousel-dots button:hover:not(.is-active)::before {
+  background: var(--lv2-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ek-carousel-track {
+    scroll-behavior: auto;
+  }
+
+  .ek-carousel-arrow,
+  .ek-carousel-dots button::before {
+    transition: none;
+  }
+}
+
+/* The plan CTAs were bare 18px-tall text links sitting at the bottom of the
+   pricing cards — the weakest element on the page and below the touch-target
+   minimum. They become full-width buttons. */
+.landing-v2-price-grid a {
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: var(--tap-target);
+  padding: 0 18px;
+  color: var(--lv2-navy);
+  background: linear-gradient(135deg, #34d399, #059669 120%);
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(5, 150, 105, 0.3);
+  transition:
+    transform 0.3s var(--lv2-ease),
+    box-shadow 0.3s var(--lv2-ease);
+}
+
+.landing-v2-price-grid a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(5, 150, 105, 0.4);
+}
+
+/* On the dark featured card an outline button keeps the emerald fill for the
+   free plan as the single primary action. */
+.landing-v2-price-grid .featured a {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+}
+
+.landing-v2-price-grid .featured a:hover {
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-v2-price-grid a {
+    transition: none;
+  }
+
+  .landing-v2-price-grid a:hover {
+    transform: none;
+  }
 }
