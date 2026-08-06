@@ -1,0 +1,247 @@
+/* Onboarding wizard
+   Extracted from the original styles.css (lines 1081-1324).
+   Layout here is desktop-first; every responsive override lives in responsive.css. */
+
+.onboarding-page {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.42fr) minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--surface-soft);
+}
+
+.onboarding-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  min-height: 100vh;
+  padding: clamp(28px, 5vw, 56px);
+  color: #ffffff;
+  background: var(--navy-950);
+}
+
+.onboarding-sidebar .eyebrow {
+  color: #67e8b9;
+}
+
+.onboarding-sidebar h1 {
+  max-width: 520px;
+  margin-bottom: 18px;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+}
+
+.onboarding-sidebar p {
+  max-width: 480px;
+  color: rgba(255, 255, 255, 0.74);
+  line-height: 1.7;
+}
+
+.step-list {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.step-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  color: rgba(255, 255, 255, 0.62);
+  font-weight: 900;
+}
+
+.step-list span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  color: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  font-size: 0.84rem;
+  flex: 0 0 auto;
+}
+
+.step-list li.active,
+.step-list li.done {
+  color: #ffffff;
+}
+
+.step-list li.active span,
+.step-list li.done span {
+  color: #ffffff;
+  background: var(--emerald-600);
+  border-color: var(--emerald-600);
+}
+
+.onboarding-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(22px, 5vw, 64px);
+}
+
+.onboarding-card {
+  width: min(100%, 940px);
+  min-height: 620px;
+  padding: clamp(24px, 4vw, 40px);
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 18px 54px rgba(7, 19, 35, 0.08);
+}
+
+.onboarding-card h2 {
+  max-width: 720px;
+  margin-bottom: 24px;
+}
+
+.onboarding-help {
+  max-width: 680px;
+  margin-bottom: 22px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.compact-choice-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.choice,
+.company-choice {
+  min-height: 118px;
+  padding: 18px;
+  color: var(--ink);
+  text-align: left;
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+}
+
+.choice:hover,
+.company-choice:hover {
+  border-color: rgba(5, 150, 105, 0.45);
+}
+
+.choice.selected,
+.company-choice.selected {
+  background: var(--emerald-100);
+  border-color: var(--emerald-600);
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+}
+
+.choice strong,
+.company-choice strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--navy-950);
+  font-size: 1.02rem;
+}
+
+.choice span,
+.company-choice span {
+  display: block;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 460px;
+  min-height: 48px;
+  padding: 0 13px;
+  margin-bottom: 14px;
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.search-field input {
+  width: 100%;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font: inherit;
+}
+
+.watchlist-counter {
+  margin-bottom: 14px;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.company-picker {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  max-height: 360px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.company-choice {
+  min-height: 132px;
+}
+
+.company-choice small {
+  display: inline-flex;
+  margin-top: 12px;
+  padding: 6px 8px;
+  color: var(--emerald-700);
+  background: #ffffff;
+  border-radius: 8px;
+  font-weight: 900;
+}
+
+.onboarding-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.button-muted {
+  color: var(--navy-950);
+  background: #ffffff;
+  border-color: var(--line);
+  box-shadow: none;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.setup-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.setup-summary span {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  padding: 0 12px;
+  color: var(--emerald-700);
+  background: var(--emerald-100);
+  border-radius: 8px;
+  font-weight: 900;
+  text-transform: capitalize;
+}

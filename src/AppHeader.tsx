@@ -50,6 +50,38 @@ function AppHeader() {
     return () => document.body.classList.remove("sidebar-collapsed");
   }, [isCollapsed]);
 
+  // While the mobile drawer is open, lock the page behind it and let Escape
+  // close it. Without the lock, scrolling the drawer scrolls the page too.
+  useEffect(() => {
+    document.body.classList.toggle("nav-open", isMobileOpen);
+    if (!isMobileOpen) {
+      return () => document.body.classList.remove("nav-open");
+    }
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsMobileOpen(false);
+      }
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.classList.remove("nav-open");
+    };
+  }, [isMobileOpen]);
+
+  // A drawer that stays open after a resize back to desktop leaves the page
+  // scroll-locked with no visible way to release it.
+  useEffect(() => {
+    const query = window.matchMedia("(min-width: 961px)");
+    function onChange(event: MediaQueryListEvent) {
+      if (event.matches) {
+        setIsMobileOpen(false);
+      }
+    }
+    query.addEventListener("change", onChange);
+    return () => query.removeEventListener("change", onChange);
+  }, []);
+
   function logout() {
     clearAuthSession();
     window.location.href = "/";
@@ -58,6 +90,8 @@ function AppHeader() {
   return (
     <>
       <button
+        aria-controls="app-sidebar"
+        aria-expanded={isMobileOpen}
         aria-label="Open navigation"
         className="mobile-sidebar-trigger"
         onClick={() => setIsMobileOpen(true)}
@@ -74,7 +108,7 @@ function AppHeader() {
           type="button"
         />
       )}
-      <aside className={isMobileOpen ? "app-sidebar mobile-open" : "app-sidebar"}>
+      <aside className={isMobileOpen ? "app-sidebar mobile-open" : "app-sidebar"} id="app-sidebar">
         <div className="sidebar-brand-row">
           <NavLink className="brand" to="/app" onClick={() => setIsMobileOpen(false)}>
             <img className="brand-mark" src={logoMark} alt="" />

@@ -1,0 +1,1545 @@
+/* Responsive layer — the single source of truth for every breakpoint.
+ *
+ * Ordered LARGEST to SMALLEST so that narrower breakpoints always win. The
+ * original stylesheet interleaved max-width:1180px after max-width:640px, which
+ * meant wide-screen rules were overriding phone rules on phones.
+ *
+ * Scale (normalised from the original 420/640/720/920/940/1100/1180 set):
+ *   1180px  narrow desktop      — dense two-column layouts relax
+ *    960px  tablet / small lap  — sidebar becomes a drawer, asides stack
+ *    720px  large phone         — toolbars and action rows go vertical
+ *    640px  phone               — tables become cards, single column
+ *    420px  small phone         — tighten padding and label columns
+ *
+ * This file must be imported LAST. */
+
+
+/* ========================================================================
+ * 1180px and below
+ * ======================================================================== */
+@media (max-width: 1180px) {
+  .company-decision-two-column,
+  .both-sides-grid,
+  .live-market-grid,
+  .peer-pros-cons {
+    grid-template-columns: 1fr;
+  }
+
+  .decision-triplet-grid,
+  .live-insight-card-grid,
+  .score-layer-panel .score-layer-grid,
+  .source-gap-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .peer-head-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-v2-hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
+  }
+
+  .landing-v2-preview {
+    width: min(760px, 100%);
+  }
+
+  .landing-v2-hero h1 {
+    max-width: 820px;
+  }
+
+}
+
+/* ========================================================================
+ * 960px and below
+ * ======================================================================== */
+@media (max-width: 960px) {
+  .site-header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .main-nav {
+    display: none;
+  }
+
+  .hero-content {
+    width: min(720px, calc(100% - 36px));
+    padding-bottom: 270px;
+  }
+
+  .market-board {
+    top: auto;
+    right: 18px;
+    bottom: 24px;
+    left: 18px;
+    width: auto;
+    opacity: 0.86;
+  }
+
+  .split-heading,
+  .decision-tape {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer-main,
+  .footer-compliance {
+    grid-template-columns: 1fr;
+  }
+
+  .decision-grid,
+  .feature-grid,
+  .workflow-list,
+  .faq-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stock-types-section,
+  .pricing-section,
+  .auth-page,
+  .onboarding-page,
+  .dashboard-layout,
+  .opportunity-layout,
+  .research-layout,
+  .watchlist-layout,
+  .journal-layout,
+  .planner-layout,
+  .portfolio-layout,
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .decision-card-hero,
+  .investment-answer-band,
+  .section-title-split,
+  .peer-comparison-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dashboard-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .desk-summary-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .market-answer-card {
+    min-height: 170px;
+  }
+
+  .invest-score-card,
+  .peer-rank-card {
+    width: 100%;
+    min-height: 150px;
+  }
+
+  .decision-key-grid,
+  .market-summary-grid,
+  .spotlight-grid,
+  .opportunity-card-grid,
+  .fair-value-grid,
+  .valuation-method-grid,
+  .peer-summary-grid,
+  .peer-insight-grid,
+  .peer-winner-grid,
+  .peer-metric-grid,
+  .health-check-grid,
+  .score-breakdown-grid,
+  .detail-section-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fair-value-head {
+    flex-direction: column;
+  }
+
+  .fair-value-confidence {
+    width: 100%;
+  }
+
+  .auth-panel,
+  .onboarding-sidebar {
+    min-height: auto;
+  }
+
+  .onboarding-content {
+    align-items: flex-start;
+  }
+
+  .company-picker {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .decision-panel,
+  .dashboard-side-panel,
+  .research-aside,
+  .watchlist-aside,
+  .journal-aside,
+  .planner-aside,
+  .portfolio-aside,
+  .admin-aside {
+    position: static;
+    max-height: none;
+  }
+
+  .research-grid,
+  .market-rule-grid,
+  .decision-summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .watchlist-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .journal-entry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-stat-grid,
+  .admin-form-grid,
+  .automation-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .planner-row {
+    grid-template-columns: minmax(180px, 1fr) 120px minmax(140px, 0.8fr) 80px 80px;
+    min-width: 760px;
+  }
+
+  .planner-table {
+    overflow-x: auto;
+  }
+
+  .portfolio-row {
+    grid-template-columns: minmax(190px, 1fr) 78px 104px 104px 104px 82px;
+    min-width: 760px;
+  }
+
+  .portfolio-table {
+    overflow-x: auto;
+  }
+
+  .desk-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .desk-search {
+    flex-basis: auto;
+    max-width: none;
+  }
+
+  .dashboard-search {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: none;
+  }
+
+  .ranking-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ranking-search {
+    flex-basis: auto;
+  }
+
+  .dashboard-table {
+    overflow: visible;
+    border: 0;
+  }
+
+  .dashboard-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+    min-height: 0;
+    margin-bottom: 12px;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(7, 19, 35, 0.05);
+  }
+
+  .dashboard-row-head {
+    display: none;
+  }
+
+  .dashboard-row > [data-label] {
+    display: grid;
+    grid-template-columns: minmax(118px, 0.34fr) minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+  }
+
+  .dashboard-row > [data-label]::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 950;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .ranking-company-link {
+    padding: 0 0 10px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* merged from 920px@L4725 + 920px@L7336 */
+  .app-shell,
+  .research-page,
+  .watchlist-page,
+  .journal-page,
+  .planner-page,
+  .portfolio-page,
+  .admin-page,
+  .not-found-page:not(.public) {
+    padding-left: 0;
+    padding-top: 62px;
+    width: 100%;
+  }
+
+  /* merged from 920px@L4725 + 920px@L7336 */
+  .app-sidebar {
+    inset: 0 auto 0 0;
+    width: min(320px, calc(100vw - 48px));
+    padding: 18px;
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    max-width: calc(100vw - 40px);
+  }
+
+  .app-sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  /* merged from 920px@L4725 + 920px@L7336 */
+  .mobile-sidebar-trigger {
+    position: fixed;
+    inset: 10px auto auto 10px;
+    z-index: 19;
+    display: inline-flex;
+    gap: 9px;
+    min-height: 42px;
+    padding: 0 12px;
+    color: #ffffff;
+    background: var(--navy-950);
+    font: inherit;
+    font-weight: 900;
+    max-width: calc(100vw - 20px);
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 18;
+    display: block;
+    background: rgba(7, 19, 35, 0.46);
+    border: 0;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .app-sidebar .brand {
+    width: fit-content;
+  }
+
+  .app-nav {
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    margin-top: 28px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .account-chip {
+    position: static;
+    width: 100%;
+    max-width: none;
+    padding-top: 16px;
+    margin-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  body.sidebar-collapsed .app-shell,
+  body.sidebar-collapsed .research-page,
+  body.sidebar-collapsed .watchlist-page,
+  body.sidebar-collapsed .journal-page,
+  body.sidebar-collapsed .planner-page,
+  body.sidebar-collapsed .portfolio-page,
+  body.sidebar-collapsed .admin-page,
+  body.sidebar-collapsed .not-found-page:not(.public) {
+    padding-left: 0;
+  }
+
+  body.sidebar-collapsed .app-sidebar {
+    width: min(320px, calc(100vw - 48px));
+    align-items: stretch;
+    padding: 18px;
+  }
+
+  body.sidebar-collapsed .app-sidebar .brand-copy {
+    display: grid;
+  }
+
+  body.sidebar-collapsed .app-sidebar .brand-name,
+  body.sidebar-collapsed .app-nav-link span,
+  body.sidebar-collapsed .nav-group-label,
+  body.sidebar-collapsed .account-chip strong,
+  body.sidebar-collapsed .account-chip > span {
+    display: inline-flex;
+  }
+
+  .landing-v2-nav {
+    display: none;
+  }
+
+  .landing-v2-hero-inner,
+  .landing-v2-pricing,
+  .landing-v2-footer-main {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-v2-preview {
+    max-width: 720px;
+  }
+
+  .landing-v2-step-grid,
+  .landing-v2-market-grid,
+  .landing-v2-proof-strip,
+  .landing-v2-compliance {
+    grid-template-columns: 1fr;
+  }
+
+  /* merged from 940px@L7193 + 920px@L7336 */
+  .landing-v2-pillar-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .landing-v2-pillar-card {
+    grid-column: auto;
+  }
+
+  .landing-v2-proof-strip {
+    margin-top: 0;
+  }
+
+  .landing-v2-title-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .dashboard-layout,
+  .opportunity-layout,
+  .research-layout,
+  .watchlist-layout,
+  .journal-layout,
+  .planner-layout,
+  .portfolio-layout,
+  .admin-layout {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .dashboard-side-panel,
+  .decision-panel,
+  .research-aside,
+  .watchlist-aside,
+  .journal-aside,
+  .planner-aside,
+  .portfolio-aside,
+  .admin-aside {
+    width: 100%;
+  }
+
+  .section-title-split,
+  .desk-heading,
+  .ranking-toolbar,
+  .live-market-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .desk-date,
+  .dashboard-search,
+  .desk-search,
+  .ranking-search,
+  .page-size-control,
+  .search-field {
+    width: 100%;
+    max-width: none;
+  }
+
+  .landing-v2-header,
+  .landing-v2-section,
+  .landing-v2-pricing,
+  .landing-v2-footer-main,
+  .landing-v2-compliance,
+  .landing-v2-footer-bottom,
+  .landing-v2-proof-strip {
+    width: min(100% - 28px, 1440px);
+  }
+
+  .landing-v2-header {
+    margin: 0 auto;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .landing-v2-hero-inner {
+    width: min(100% - 28px, 1440px);
+    min-height: auto;
+    padding: 42px 0;
+  }
+
+  .landing-v2-pricing,
+  .landing-v2-footer-main {
+    gap: 18px;
+  }
+
+  .landing-v2-section.muted {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+
+  .company-decision-page {
+    width: 100%;
+  }
+
+}
+
+/* ========================================================================
+ * 720px and below
+ * ======================================================================== */
+@media (max-width: 720px) {
+  /* merged from 720px@L6463 + 720px@L7440 */
+  .company-decision-page {
+    gap: 16px;
+    padding: 10px;
+  }
+
+  .company-topbar,
+  .company-identity-card,
+  .live-market-head,
+  .live-price-top {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  /* merged from 720px@L6463 + 720px@L7440 */
+  .company-topbar {
+    position: static;
+    gap: 12px;
+    min-height: 0;
+    padding: 10px 0;
+  }
+
+  .company-topbar-actions {
+    width: 100%;
+  }
+
+  .topbar-button,
+  .synced-pill {
+    flex: 1;
+  }
+
+  .company-price-block {
+    min-width: 0;
+    text-align: left;
+  }
+
+  .answer-grid-panel {
+    min-height: 0;
+    background-size: 52px 52px, 52px 52px, auto;
+  }
+
+  .answer-metric-row,
+  .decision-triplet-grid,
+  .live-insight-card-grid,
+  .score-layer-panel .score-layer-grid,
+  .source-gap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .window-pill-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fair-range-labels {
+    grid-template-columns: 1fr;
+  }
+
+  .fair-range-labels strong,
+  .fair-range-labels span:last-child {
+    text-align: left;
+  }
+
+  .stat-line,
+  .health-display-row,
+  .moat-score-block div {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .stat-line strong {
+    text-align: left;
+  }
+
+  .dividend-bar-chart {
+    grid-template-columns: repeat(3, minmax(36px, 1fr));
+  }
+
+  .company-topbar-actions,
+  .next-action-grid,
+  .landing-v2-hero-actions,
+  .landing-v2-cta div {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .company-topbar-actions > *,
+  .next-action-grid > *,
+  .landing-v2-hero-actions > *,
+  .landing-v2-cta div > * {
+    width: 100%;
+  }
+
+  .company-identity-card,
+  .live-price-top,
+  .health-display-row,
+  .stat-line,
+  .moat-score-block div {
+    align-items: stretch;
+  }
+
+  .answer-grid-panel h2 {
+    font-size: 2rem;
+  }
+
+  .answer-metric-row,
+  .window-pill-row,
+  .dividend-bar-chart {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .peer-table-wrap,
+  .decision-peer-table-wrap {
+    overflow: visible;
+  }
+
+  .peer-table,
+  .peer-table thead,
+  .peer-table tbody,
+  .peer-table tr,
+  .peer-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .peer-table thead {
+    display: none;
+  }
+
+  .peer-table tr {
+    overflow: hidden;
+    margin-bottom: 12px;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .peer-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 44px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    text-align: right;
+  }
+
+  .peer-table td:last-child {
+    border-bottom: 0;
+  }
+
+  .peer-table td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 950;
+    letter-spacing: 0.08em;
+    text-align: left;
+    text-transform: uppercase;
+  }
+
+}
+
+/* ========================================================================
+ * 640px and below
+ * ======================================================================== */
+@media (max-width: 640px) {
+  .site-header {
+    min-height: 68px;
+    gap: 12px;
+  }
+
+  .brand span {
+    font-size: 0.98rem;
+  }
+
+  .nav-actions {
+    gap: 10px;
+  }
+
+  .text-link {
+    display: none;
+  }
+
+  .hero-section {
+    min-height: calc(100vh - 68px);
+  }
+
+  .hero-content {
+    margin-left: 18px;
+    padding: 46px 0 88px;
+  }
+
+  .market-board {
+    display: none;
+  }
+
+  h1 {
+    font-size: clamp(2.35rem, 12vw, 3.55rem);
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 9vw, 2.5rem);
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .decision-grid,
+  .feature-grid,
+  .workflow-list,
+  .pricing-grid,
+  .faq-grid,
+  .type-list,
+  .decision-key-grid,
+  .fair-value-grid,
+  .valuation-method-grid,
+  .decision-tape,
+  .split-heading {
+    grid-template-columns: 1fr;
+  }
+
+  .decision-tape span {
+    min-height: 78px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .decision-tape span:last-child {
+    border-bottom: 0;
+  }
+
+  .site-footer {
+    text-align: left;
+  }
+
+  .footer-links,
+  .footer-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-links {
+    gap: 24px;
+  }
+
+  .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .auth-copy {
+    padding: 46px 0;
+  }
+
+  .workspace-next {
+    grid-template-columns: 1fr;
+  }
+
+  .choice-grid,
+  .compact-choice-grid,
+  .company-picker {
+    grid-template-columns: 1fr;
+  }
+
+  .onboarding-card {
+    min-height: auto;
+  }
+
+  .onboarding-actions {
+    flex-direction: column;
+  }
+
+  .app-header-actions {
+    width: 100%;
+  }
+
+  .app-header-actions .icon-text-button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .app-nav-link {
+    min-height: 38px;
+    padding: 0 10px;
+    font-size: 0.84rem;
+  }
+
+  /* merged from 640px@L5063 + 640px@L7536 */
+  .account-chip strong {
+    display: none;
+    max-width: none;
+  }
+
+  .account-chip {
+    max-width: none;
+  }
+
+  .form-actions,
+  .form-actions .button {
+    width: 100%;
+  }
+
+  .desk-heading,
+  .desk-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .desk-heading {
+    flex-direction: column;
+  }
+
+  .opportunity-row,
+  .opportunity-row.table-head,
+  .dashboard-row,
+  .dashboard-row-head {
+    grid-template-columns: 1fr;
+  }
+
+  .opportunity-row.table-head,
+  .dashboard-row-head {
+    display: none;
+  }
+
+  .pagination-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .pagination-button {
+    width: 100%;
+  }
+
+  .research-grid,
+  .desk-summary-strip,
+  .mini-metric-grid,
+  .market-rule-grid,
+  .decision-summary-grid,
+  .research-checklist,
+  .watchlist-card-metrics,
+  .journal-form-grid,
+  .journal-entry-grid,
+  .admin-stat-grid,
+  .admin-form-grid,
+  .automation-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-section-head,
+  .admin-report-card,
+  .admin-card-actions {
+    align-items: stretch;
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .draft-list div {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 12px;
+  }
+
+  .planner-row,
+  .planner-row.table-head,
+  .portfolio-row,
+  .portfolio-row.table-head {
+    grid-template-columns: 1fr;
+    min-width: 0;
+  }
+
+  .planner-row.table-head,
+  .portfolio-row.table-head {
+    display: none;
+  }
+
+  /* merged from 640px@L7233 + 640px@L7536 */
+  .landing-v2-header {
+    align-items: stretch;
+    flex-direction: column;
+    position: static;
+    width: min(100% - 20px, 1440px);
+    min-height: 0;
+    gap: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  /* merged from 640px@L7233 + 640px@L7536 */
+  .landing-v2-actions {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  /* merged from 640px@L7233 + 640px@L7536 */
+  .landing-v2-actions .landing-v2-button,
+  .landing-v2-actions .landing-v2-text-link {
+    flex: 1;
+    justify-content: center;
+    min-height: 40px;
+  }
+
+  /* merged from 640px@L7233 + 640px@L7536 */
+  .landing-v2-hero-inner {
+    width: min(100% - 20px, 1440px);
+    min-height: auto;
+    gap: 22px;
+    padding: 34px 0;
+  }
+
+  /* merged from 640px@L7233 + 640px@L7536 */
+  .landing-v2-hero h1 {
+    font-size: 2.75rem;
+    line-height: 1.02;
+  }
+
+  .landing-v2-stats,
+  .landing-v2-pillar-grid,
+  .landing-v2-price-grid,
+  .landing-v2-footer-main nav {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-v2-sample-top,
+  .landing-v2-footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .landing-v2-sample-top span:last-child {
+    text-align: left;
+  }
+
+  .landing-v2-button {
+    width: 100%;
+  }
+
+  .app-shell,
+  .research-page,
+  .watchlist-page,
+  .journal-page,
+  .planner-page,
+  .portfolio-page,
+  .admin-page,
+  .not-found-page:not(.public) {
+    padding-top: 58px;
+  }
+
+  .dashboard-layout,
+  .opportunity-layout,
+  .research-layout,
+  .watchlist-layout,
+  .journal-layout,
+  .planner-layout,
+  .portfolio-layout,
+  .admin-layout {
+    gap: 12px;
+    padding: 10px;
+  }
+
+  .mobile-sidebar-trigger {
+    inset: 8px auto auto 8px;
+    min-height: 40px;
+  }
+
+  .app-sidebar {
+    width: min(300px, calc(100vw - 28px));
+    max-width: calc(100vw - 28px);
+  }
+
+  body.sidebar-collapsed .app-sidebar {
+    width: min(300px, calc(100vw - 28px));
+  }
+
+  .app-sidebar .account-chip strong,
+  body.sidebar-collapsed .app-sidebar .account-chip strong,
+  body.sidebar-collapsed .app-sidebar .account-chip > span {
+    display: block;
+  }
+
+  .desk-surface-main,
+  .spotlight-section,
+  .category-desk,
+  .ranking-section,
+  .decision-card-panel,
+  .journal-form,
+  .watchlist-card,
+  .portfolio-section,
+  .admin-upload-panel,
+  .admin-section {
+    padding: 16px;
+  }
+
+  .desk-surface h1,
+  .desk-heading h1,
+  .dashboard-hero h1 {
+    font-size: 2.15rem;
+    line-height: 1.08;
+  }
+
+  .section-title-split h2,
+  .company-panel-title h2 {
+    font-size: 1.5rem;
+    line-height: 1.18;
+  }
+
+  .desk-summary-strip,
+  .market-summary-grid,
+  .spotlight-grid,
+  .opportunity-card-grid,
+  .watchlist-grid,
+  .desk-stats,
+  .admin-stat-grid,
+  .automation-grid,
+  .sync-button-grid,
+  .health-check-grid,
+  .score-breakdown-grid,
+  .detail-section-grid,
+  .both-sides-grid,
+  .source-gap-grid,
+  .live-insight-card-grid,
+  .score-layer-panel .score-layer-grid,
+  .peer-pros-cons,
+  .answer-metric-row,
+  .decision-triplet-grid,
+  .company-decision-two-column {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .summary-tile {
+    min-height: 86px;
+    padding: 14px;
+  }
+
+  .summary-tile svg {
+    margin-bottom: 8px;
+  }
+
+  .summary-tile strong {
+    font-size: 1.65rem;
+  }
+
+  .category-panel {
+    padding: 12px;
+  }
+
+  .category-tab-row,
+  .filter-row {
+    margin-right: -10px;
+    margin-left: -10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    scrollbar-width: none;
+  }
+
+  .category-tab-row::-webkit-scrollbar,
+  .filter-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dashboard-table,
+  .planner-table,
+  .portfolio-table,
+  .opportunity-table {
+    overflow: visible;
+    border: 0;
+  }
+
+  .dashboard-row,
+  .planner-row,
+  .portfolio-row,
+  .opportunity-row {
+    gap: 10px;
+    min-height: 0;
+    margin-bottom: 12px;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 12px 28px rgba(7, 19, 35, 0.05);
+  }
+
+  .dashboard-row-head,
+  .planner-row.table-head,
+  .portfolio-row.table-head,
+  .opportunity-row.table-head {
+    display: none;
+  }
+
+  .ranking-company-link {
+    padding: 0 0 10px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .dashboard-row > [data-label],
+  .planner-row > [data-label],
+  .portfolio-row > [data-label] {
+    display: grid;
+    grid-template-columns: minmax(96px, 0.42fr) minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+  }
+
+  .dashboard-row > [data-label]::before,
+  .planner-row > [data-label]::before,
+  .portfolio-row > [data-label]::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 950;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .ranking-actions > span,
+  .card-action-row,
+  .pagination-row,
+  .form-actions,
+  .admin-card-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ranking-action-button,
+  .pagination-button,
+  .card-action-row .inspect-button,
+  .card-action-row .row-link,
+  .form-actions .button,
+  .planner-save,
+  .journal-submit {
+    width: 100%;
+  }
+
+  .panel-metrics,
+  .mini-metric-grid,
+  .journal-form-grid,
+  .admin-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashboard-side-panel {
+    padding: 16px;
+  }
+
+  .inspector-open-button {
+    position: static;
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  .inspector-score {
+    min-height: 130px;
+  }
+
+  .inspector-score strong {
+    font-size: 3rem;
+  }
+
+  .company-identity-card {
+    padding: 16px;
+  }
+
+  .company-symbol-line h2 {
+    font-size: 2rem;
+    line-height: 1.05;
+  }
+
+  .company-price-block strong,
+  .live-price-top strong {
+    font-size: 2rem;
+  }
+
+  .live-price-card {
+    padding: 16px;
+  }
+
+  .mini-price-chart,
+  .mini-chart-empty {
+    min-height: 128px;
+  }
+
+  .mini-price-chart svg {
+    height: 104px;
+  }
+
+  .answer-grid-panel {
+    gap: 18px;
+    padding: 18px;
+  }
+
+  .plain-english-panel {
+    padding: 18px;
+  }
+
+  .plain-english-panel p {
+    font-size: 1rem;
+  }
+
+  .fair-value-visual {
+    padding: 14px;
+  }
+
+  .fair-range-caption,
+  .moat-rating-line,
+  .dividend-yield-line,
+  .inline-warning-list,
+  .data-note-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .tone-pill,
+  .decision-pill {
+    white-space: normal;
+    text-align: center;
+  }
+
+  .health-display-row {
+    min-height: 0;
+  }
+
+  .insight-modal-backdrop {
+    align-items: end;
+    padding: 10px;
+  }
+
+  .insight-modal {
+    width: 100%;
+    max-height: calc(100svh - 20px);
+    padding: 20px;
+  }
+
+  .landing-v2-brand {
+    width: 100%;
+  }
+
+  .landing-v2-hero-copy > p {
+    margin-top: 18px;
+    font-size: 1rem;
+  }
+
+  .landing-v2-stats {
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+  }
+
+  .landing-v2-stats .decision-label-stat {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .landing-v2-preview {
+    padding: 14px;
+  }
+
+  .landing-v2-proof-strip {
+    width: min(100% - 20px, 1440px);
+  }
+
+  .landing-v2-section,
+  .landing-v2-pricing,
+  .landing-v2-footer-main,
+  .landing-v2-compliance,
+  .landing-v2-footer-bottom {
+    width: min(100% - 20px, 1440px);
+  }
+
+  .landing-v2-section,
+  .landing-v2-pricing {
+    padding-top: 44px;
+    padding-bottom: 44px;
+  }
+
+  .landing-v2-section.muted {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .landing-v2-step-card,
+  .landing-v2-pillar-card,
+  .landing-v2-market-tile,
+  .landing-v2-price-grid article {
+    padding: 18px;
+  }
+
+  .landing-v2-footer-main,
+  .landing-v2-compliance,
+  .landing-v2-footer-bottom {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+}
+
+/* ========================================================================
+ * 420px and below
+ * ======================================================================== */
+@media (max-width: 420px) {
+  .landing-v2-hero h1,
+  .desk-surface h1,
+  .desk-heading h1 {
+    font-size: 2rem;
+  }
+
+  .landing-v2-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .dashboard-row > [data-label],
+  .planner-row > [data-label],
+  .portfolio-row > [data-label] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+
+  .peer-table td {
+    align-items: flex-start;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .answer-metric-row,
+  .window-pill-row,
+  .dividend-bar-chart {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+}
+
+/* ==========================================================================
+ * Mobile ergonomics
+ *
+ * The blocks above are the original layout rules, reorganised. The rules below
+ * are new: they fix device-level problems that no amount of column-stacking
+ * addresses. Each one is here because it was measured, not assumed.
+ * ========================================================================== */
+
+/* --------------------------------------------------------------------------
+ * Notch and home-indicator safe areas.
+ * The sidebar and its trigger are position:fixed, so on an iPhone they sit
+ * under the notch in landscape and under the home bar at the foot of the
+ * screen. env() resolves to 0px on hardware without insets.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .app-sidebar {
+    padding-top: calc(18px + var(--safe-top));
+    padding-right: calc(18px + var(--safe-right));
+    padding-bottom: calc(18px + var(--safe-bottom));
+    padding-left: calc(18px + var(--safe-left));
+  }
+
+  .mobile-sidebar-trigger {
+    inset: calc(10px + var(--safe-top)) auto auto calc(10px + var(--safe-left));
+  }
+
+  /* The fixed trigger overlays the top of the page, so every page frame needs
+     headroom that grows with the notch. */
+  .app-shell,
+  .research-page,
+  .watchlist-page,
+  .journal-page,
+  .planner-page,
+  .portfolio-page,
+  .admin-page,
+  .not-found-page:not(.public) {
+    padding-top: calc(62px + var(--safe-top));
+    padding-right: var(--safe-right);
+    padding-left: var(--safe-left);
+  }
+
+  /* Landscape phones have real estate at the sides but very little height. */
+  .app-sidebar {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  /* While the drawer is open the page behind it must not scroll. Pairs with
+     the body.nav-open class set by AppHeader. */
+  body.nav-open {
+    overflow: hidden;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Touch targets.
+ * Measured at 390px, interactive controls were 17-38px tall. Apple HIG asks
+ * for 44px, Material for 48px. Anything under ~40px is a mis-tap generator.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .app-nav-link,
+  .sidebar-toggle,
+  .mobile-sidebar-trigger,
+  .account-chip button,
+  .ranking-action-button,
+  .pagination-button,
+  .page-size-control select,
+  .summary-tile,
+  .category-tab,
+  .filter-chip {
+    min-height: var(--tap-target);
+  }
+
+  /* Inline text links sit in flowing copy, so they get padding rather than a
+     min-height that would break the line box. */
+  .back-link,
+  .text-link,
+  .ranking-company-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+  }
+
+  /* The drawer brand is a navigation link back to the desk, so it is a tap
+     target like any other. */
+  .app-sidebar .brand {
+    min-height: var(--tap-target);
+  }
+
+  .app-nav-link {
+    align-items: center;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Form fields.
+ * iOS Safari zooms the viewport whenever a focused field's font-size is under
+ * 16px, and never zooms back out. The desk search input measured 13.33px.
+ * 16px is the threshold, not a preference.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  input,
+  select,
+  textarea {
+    font-size: max(16px, 1rem);
+  }
+
+  .search-field,
+  .desk-search,
+  .ranking-search,
+  .dashboard-search {
+    min-height: var(--tap-target);
+  }
+
+  .search-field input,
+  .desk-search input,
+  .ranking-search input,
+  .dashboard-search input,
+  .input-wrap input {
+    min-height: calc(var(--tap-target) - 2px);
+    font-size: max(16px, 1rem);
+  }
+
+  /* The auth fields are wrapped in a <label>, so the full 48px shell is already
+     clickable. Stretching the input makes the target real rather than
+     dependent on label-for behaviour. */
+  .input-wrap input {
+    align-self: stretch;
+  }
+
+  /* Numeric planner inputs are full-width on a phone; a 74px box is unusable. */
+  .planner-row input,
+  .amount-input input,
+  .allocation-input input {
+    width: 100%;
+    min-height: var(--tap-target);
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Content that must not be clipped or truncated on small screens.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  /* The 150px cap exists to protect the 260px desktop sidebar. The mobile
+     drawer is ~300px wide, so the subtitle can be shown in full instead of
+     being truncated to "NGX RESEARCH D...". */
+  .brand-subtitle {
+    max-width: none;
+  }
+
+  /* The account name is user-supplied and genuinely unbounded, so it does
+     still need to truncate. */
+  .account-chip strong,
+  .account-chip small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Horizontally scrollable strips need momentum scrolling and must not be
+     trapped by the parent's scroll chaining. */
+  .category-tab-row,
+  .filter-row,
+  .peer-table-wrap {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Public-site touch targets.
+ * The marketing pages are the first thing a phone user sees, and their footer
+ * link columns and brand links measured 17-38px tall.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .landing-v2-brand,
+  .landing-v2-footer-col a,
+  .landing-v2-nav a,
+  .footer-col a,
+  .main-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+  }
+
+  /* Stacked link columns need the target to span the column, not just the
+     text, so the whole row is tappable. */
+  .landing-v2-footer-col a,
+  .footer-col a {
+    display: flex;
+  }
+}

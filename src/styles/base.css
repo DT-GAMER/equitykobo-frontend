@@ -1,0 +1,132 @@
+/* Design tokens, reset and element defaults
+   Extracted from the original styles.css (lines 1-54).
+   Layout here is desktop-first; every responsive override lives in responsive.css. */
+
+:root {
+  --navy-950: #071323;
+  --navy-900: #0b1d33;
+  --navy-800: #102a46;
+  --navy-100: #e8eef5;
+  --emerald-700: #047857;
+  --emerald-600: #059669;
+  --emerald-100: #dff7ec;
+  --amber-100: #fff4d6;
+  --amber-700: #9a6200;
+  --red-100: #ffe2e2;
+  --red-700: #b42318;
+  --ink: #172033;
+  --muted: #647084;
+  --line: #dce4ee;
+  --surface: #ffffff;
+  --surface-soft: #f6f9fc;
+
+  /* Breakpoint scale — documentation for the values used in responsive.css.
+     Custom properties cannot be used inside media queries, so these exist to
+     name the scale, not to drive it. Keep them in sync with responsive.css. */
+  --bp-desktop-narrow: 1180px;
+  --bp-tablet: 960px;
+  --bp-phone-large: 720px;
+  --bp-phone: 640px;
+  --bp-phone-small: 420px;
+
+  /* Safe-area insets for notched phones. Fall back to 0 on other devices. */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+
+  /* Minimum comfortable touch target (Apple HIG 44px, Material 48px). */
+  --tap-target: 44px;
+
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--surface-soft);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Stop iOS Safari from re-flowing text when the device is rotated. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  /* The layout is fluid down to 320px (iPhone SE); it does not need a floor
+     that would itself force a horizontal scrollbar on narrower viewports. */
+  min-width: 0;
+  /* Kill the grey flash when tapping controls on Android/iOS. */
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+main {
+  min-height: 100vh;
+  /* dvh tracks the visible viewport as mobile browser chrome hides/reveals, so
+     full-height sections stop jumping. Declared second: browsers without dvh
+     keep the vh value above. */
+  min-height: 100dvh;
+}
+
+/* --------------------------------------------------------------------------
+ * Mobile fundamentals
+ * These replace the ad-hoc "mobile hardening" patch that used to sit at the
+ * bottom of styles.css. That patch relied on overflow-x:hidden to *mask*
+ * overflow; the rules below prevent it instead.
+ * -------------------------------------------------------------------------- */
+
+/* Grid and flex children refuse to shrink below their content width unless
+   min-width is cleared. This is the single most common cause of a page that
+   scrolls sideways on a phone, so clear it at the layout roots. */
+.app-shell,
+.research-page,
+.watchlist-page,
+.journal-page,
+.planner-page,
+.portfolio-page,
+.admin-page,
+.not-found-page,
+.landing-v2,
+.company-decision-page {
+  min-width: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+
+/* Long symbols, company names and headings must wrap rather than push the
+   layout wider than the screen. */
+.desk-heading h1,
+.section-title-split h2,
+.company-symbol-line h2,
+.answer-grid-panel h2,
+.landing-v2 h1,
+.landing-v2 h2,
+.landing-v2 h3,
+.dashboard-row strong,
+.planner-row strong,
+.portfolio-row strong {
+  overflow-wrap: anywhere;
+}

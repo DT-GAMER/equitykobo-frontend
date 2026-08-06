@@ -13,7 +13,7 @@ import PortfolioPage from "./PortfolioPage";
 import PortfolioPlannerPage from "./PortfolioPlannerPage";
 import ProtectedRoute from "./ProtectedRoute";
 import WatchlistsPage from "./WatchlistsPage";
-import "./styles.css";
+import "./styles/index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

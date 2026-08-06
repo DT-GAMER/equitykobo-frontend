@@ -1,0 +1,286 @@
+/* App shell: sidebar, nav, account chip, page frame
+   Extracted from the original styles.css (lines 1325-1607).
+   Layout here is desktop-first; every responsive override lives in responsive.css. */
+
+.app-shell,
+.research-page,
+.watchlist-page,
+.journal-page,
+.planner-page,
+.portfolio-page,
+.admin-page,
+.not-found-page {
+  min-height: 100vh;
+  background: #eef3f8;
+}
+
+.app-shell,
+.research-page,
+.watchlist-page,
+.journal-page,
+.planner-page,
+.portfolio-page,
+.admin-page,
+.not-found-page:not(.public) {
+  padding-left: 260px;
+}
+
+body.sidebar-collapsed .app-shell,
+body.sidebar-collapsed .research-page,
+body.sidebar-collapsed .watchlist-page,
+body.sidebar-collapsed .journal-page,
+body.sidebar-collapsed .planner-page,
+body.sidebar-collapsed .portfolio-page,
+body.sidebar-collapsed .admin-page,
+body.sidebar-collapsed .not-found-page:not(.public) {
+  padding-left: 82px;
+}
+
+.app-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  padding: 18px;
+  color: #ffffff;
+  background: var(--navy-950);
+}
+
+.sidebar-brand-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.brand-subtitle {
+  display: block;
+  max-width: 150px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.mobile-sidebar-trigger,
+.sidebar-backdrop {
+  display: none;
+}
+
+.sidebar-controls {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  display: flex;
+  gap: 8px;
+}
+
+.sidebar-toggle,
+.mobile-sidebar-trigger {
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sidebar-toggle {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+}
+
+.sidebar-toggle:hover,
+.mobile-sidebar-trigger:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.app-nav,
+.app-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-nav {
+  align-items: stretch;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 28px;
+  overflow-y: auto;
+}
+
+.nav-group {
+  display: grid;
+  gap: 7px;
+}
+
+.nav-group + .nav-group {
+  padding-top: 16px;
+  margin-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.nav-group-label {
+  display: block;
+  padding: 0 12px;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 0.66rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.app-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 12px;
+  color: rgba(255, 255, 255, 0.74);
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  font-weight: 900;
+}
+
+.app-nav-link:hover,
+.app-nav-link.active {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+.account-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  min-width: 0;
+  padding-top: 16px;
+  margin-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.account-chip > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  color: #ffffff;
+  background: var(--emerald-600);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.account-chip strong {
+  flex: 1;
+  max-width: 135px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.9rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-chip strong small {
+  display: block;
+  margin-top: 2px;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 0.68rem;
+  font-weight: 850;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.account-chip button {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: rgba(255, 255, 255, 0.78);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.account-chip button:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+body.sidebar-collapsed .app-sidebar {
+  width: 82px;
+  align-items: center;
+  padding: 18px 12px;
+}
+
+body.sidebar-collapsed .app-sidebar .brand-copy,
+body.sidebar-collapsed .app-nav-link span,
+body.sidebar-collapsed .nav-group-label,
+body.sidebar-collapsed .account-chip strong {
+  display: none;
+}
+
+body.sidebar-collapsed .app-sidebar .brand,
+body.sidebar-collapsed .app-nav-link {
+  justify-content: center;
+}
+
+body.sidebar-collapsed .app-nav-link {
+  width: 46px;
+  padding: 0;
+}
+
+body.sidebar-collapsed .sidebar-controls {
+  position: static;
+  margin-top: 16px;
+}
+
+body.sidebar-collapsed .app-nav {
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+body.sidebar-collapsed .nav-group {
+  gap: 8px;
+}
+
+body.sidebar-collapsed .nav-group + .nav-group {
+  padding-top: 12px;
+  margin-top: 4px;
+}
+
+body.sidebar-collapsed .account-chip {
+  justify-content: center;
+  width: auto;
+}
+
+body.sidebar-collapsed .account-chip > span {
+  display: none;
+}
