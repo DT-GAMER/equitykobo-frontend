@@ -412,8 +412,7 @@
   }
 
   .landing-v2-step-grid,
-  .landing-v2-market-grid,
-  .landing-v2-compliance {
+  .landing-v2-market-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1293,7 +1292,6 @@
   }
 
   .landing-v2-footer-main,
-  .landing-v2-compliance,
   .landing-v2-footer-bottom {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1412,7 +1410,8 @@
      min-height that would break the line box. */
   .back-link,
   .text-link,
-  .ranking-company-link {
+  .ranking-company-link,
+  .auth-switch a {
     display: inline-flex;
     align-items: center;
     min-height: var(--tap-target);
@@ -1647,5 +1646,17 @@
      icon's 1.19:1 ratio. */
   .landing-v2-brand img {
     height: 38px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Footer notice.
+ * The heading sits beside the disclaimer on wide screens; below 720px that
+ * 220px label column leaves too little room for the text, so it stacks.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 720px) {
+  .landing-v2-compliance article {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
   }
 }

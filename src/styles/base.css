@@ -20,6 +20,32 @@
   --surface: #ffffff;
   --surface-soft: #f6f9fc;
 
+  /* ------------------------------------------------------------------
+   * Brand palette, sampled from the logo.
+   *
+   * These are additive. The --emerald-* / --navy-* tokens above still drive
+   * the signed-in application, which has not been rebranded yet, so nothing
+   * changes for it by defining these.
+   *
+   * Contrast was measured, not eyeballed. The brand orange is light: it is
+   * 2.82:1 on the page background and 2.95:1 under white text, so it works as
+   * a FILL but never as small text and never with a white label on it. Use
+   * --brand-orange-ink for orange text, and --brand-navy-deep for a label
+   * sitting on an orange fill (5.58:1).
+   * ------------------------------------------------------------------ */
+  --brand-orange: #ee7325;
+  --brand-orange-bright: #f4823d;
+  --brand-orange-ink: #a8460a;
+  --brand-orange-soft: #fdeee2;
+  --brand-blue: #2974ad;
+  --brand-blue-light: #7fb3dd;
+  --brand-blue-soft: #e9f2f9;
+  --brand-navy: #16335b;
+  --brand-navy-deep: #0d1f3a;
+  --brand-ink: #1b2a3f;
+  --brand-muted: #5c6b7e;
+  --brand-line: #dbe3ec;
+
   /* Breakpoint scale — documentation for the values used in responsive.css.
      Custom properties cannot be used inside media queries, so these exist to
      name the scale, not to drive it. Keep them in sync with responsive.css. */

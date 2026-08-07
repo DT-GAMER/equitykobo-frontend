@@ -3,26 +3,21 @@
    Layout here is desktop-first; every responsive override lives in responsive.css. */
 
 .landing-v2 {
-  /* Brand palette, sampled from the logo. Scoped here so the marketing look
-     cannot leak into the signed-in application before that is rebranded too.
-
-     Contrast was measured rather than eyeballed, because the brand orange is
-     light: #ee7325 is only 2.82:1 on the page background and 2.95:1 under
-     white text, so it can be a FILL but never small text or a text colour on
-     white. --lv2-orange-ink exists for that job. */
-  --lv2-orange: #ee7325;          /* brand orange - fills and accents        */
-  --lv2-orange-bright: #f4823d;   /* gradient light end                      */
-  --lv2-orange-ink: #a8460a;      /* orange for small text  (5.65:1 on bg)   */
-  --lv2-orange-soft: #fdeee2;     /* tint for chips and icon plates          */
-  --lv2-blue: #2974ad;            /* brand blue, secondary  (4.77:1 on bg)   */
-  --lv2-blue-light: #7fb3dd;      /* blue for dark surfaces (7.37:1 on navy) */
-  --lv2-blue-soft: #e9f2f9;
-  --lv2-navy: #16335b;            /* brand navy, headings  (12.08:1 on bg)   */
-  --lv2-navy-deep: #0d1f3a;       /* hero ground, and the label on orange
-                                     fills (5.58:1)                          */
-  --lv2-ink: #1b2a3f;
-  --lv2-muted: #5c6b7e;
-  --lv2-line: #dbe3ec;
+  /* Aliases onto the shared brand tokens in base.css, which is where the
+     values and the contrast notes live. Kept as --lv2-* so the many rules in
+     this file did not all have to be rewritten. */
+  --lv2-orange: var(--brand-orange);
+  --lv2-orange-bright: var(--brand-orange-bright);
+  --lv2-orange-ink: var(--brand-orange-ink);
+  --lv2-orange-soft: var(--brand-orange-soft);
+  --lv2-blue: var(--brand-blue);
+  --lv2-blue-light: var(--brand-blue-light);
+  --lv2-blue-soft: var(--brand-blue-soft);
+  --lv2-navy: var(--brand-navy);
+  --lv2-navy-deep: var(--brand-navy-deep);
+  --lv2-ink: var(--brand-ink);
+  --lv2-muted: var(--brand-muted);
+  --lv2-line: var(--brand-line);
 
   /* A larger radius and layered shadows are what separate the refreshed cards
      from the original flat 8px/single-shadow treatment. */
@@ -607,9 +602,9 @@
 
 .landing-v2-footer-main {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 1.1fr);
-  gap: 36px;
-  padding: 44px 0 32px;
+  grid-template-columns: minmax(0, 1fr) minmax(420px, 1fr);
+  gap: clamp(36px, 6vw, 88px);
+  padding: 48px 0 36px;
 }
 
 .landing-v2-brand.footer img {
@@ -649,20 +644,29 @@
   margin-top: 18px;
 }
 
+/* One notice now, not two. A single card in a two-column grid left a hole in
+   the right half, so the grid is gone. */
 .landing-v2-compliance {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
   padding: 20px 0;
   border-top: 1px solid var(--lv2-line);
   border-bottom: 1px solid var(--lv2-line);
 }
 
 .landing-v2-compliance article {
-  padding: 18px;
+  display: grid;
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  gap: 6px 28px;
+  align-items: baseline;
+  padding: 18px 20px;
   background: #f7fafc;
   border: 1px solid var(--lv2-line);
   border-radius: var(--lv2-radius);
+}
+
+/* At full width the disclaimer would run to a 150-character line, so the
+   heading sits beside the text and the measure is capped. */
+.landing-v2-compliance p {
+  max-width: 78ch;
 }
 
 .landing-v2-footer-bottom {

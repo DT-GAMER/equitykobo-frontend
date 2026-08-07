@@ -9,7 +9,13 @@
   background: var(--surface-soft);
 }
 
+/* The panel is the same ground as the landing hero: brand navy, an orange and
+   blue bloom, and the 56px grid — so arriving from the marketing page feels
+   continuous. The photographic background it replaced was from the old brand.
+   position:relative anchors the animated ribbon canvas. */
 .auth-panel {
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -17,9 +23,27 @@
   padding: clamp(28px, 6vw, 72px);
   color: #ffffff;
   background:
-    linear-gradient(135deg, rgba(7, 19, 35, 0.98), rgba(11, 29, 51, 0.94)),
-    url("https://res.cloudinary.com/dofiyn7bw/image/upload/v1785268787/WhatsApp_Image_2026-07-28_at_20.51.17_1_zn2yic.jpg")
-      center / cover;
+    radial-gradient(900px 520px at 88% -10%, rgba(238, 115, 37, 0.18), transparent 62%),
+    radial-gradient(760px 460px at -10% 106%, rgba(41, 116, 173, 0.2), transparent 60%),
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    var(--brand-navy-deep);
+  background-size:
+    100% 100%,
+    100% 100%,
+    56px 56px,
+    56px 56px;
+}
+
+/* Everything in the panel sits above the canvas — except the canvas itself.
+   Without the :not(), this rule overrides .hero-canvas's position:absolute
+   (same specificity, later in the cascade). The canvas then joins the normal
+   flow, its height grows the panel, the ResizeObserver re-measures the taller
+   panel and resizes the canvas to match, and the two feed each other until the
+   panel is thousands of pixels tall and the content is pushed off screen. */
+.auth-panel > *:not(.hero-canvas) {
+  position: relative;
+  z-index: 1;
 }
 
 .back-link,
@@ -45,8 +69,10 @@
   padding: 72px 0;
 }
 
+/* Brand orange clears 5.58:1 on the navy ground; the old mint did not belong
+   to this palette at all. */
 .auth-copy .eyebrow {
-  color: #67e8b9;
+  color: var(--brand-orange-bright);
 }
 
 .auth-copy h1 {
@@ -88,9 +114,12 @@
   width: min(100%, 460px);
   padding: clamp(24px, 4vw, 36px);
   background: #ffffff;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  box-shadow: 0 18px 54px rgba(7, 19, 35, 0.08);
+  border: 1px solid var(--brand-line);
+  border-radius: 14px;
+  box-shadow:
+    0 2px 4px rgba(7, 19, 35, 0.03),
+    0 12px 28px rgba(7, 19, 35, 0.07),
+    0 32px 64px rgba(7, 19, 35, 0.05);
 }
 
 .auth-form h2 {
@@ -102,7 +131,7 @@
   display: grid;
   gap: 8px;
   margin-bottom: 18px;
-  color: var(--navy-950);
+  color: var(--brand-navy);
   font-weight: 900;
 }
 
@@ -112,14 +141,17 @@
   gap: 10px;
   min-height: 48px;
   padding: 0 13px;
-  background: var(--surface-soft);
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  background: #f7fafc;
+  border: 1px solid var(--brand-line);
+  border-radius: 10px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .input-wrap:focus-within {
-  border-color: var(--emerald-600);
-  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
+  border-color: var(--brand-orange);
+  box-shadow: 0 0 0 3px rgba(238, 115, 37, 0.16);
 }
 
 .input-wrap svg {
@@ -141,12 +173,14 @@
   color: #9aa6b6;
 }
 
+/* Errors stay red: that is semantic, not brand. */
 .form-error {
   margin: 0 0 16px;
   padding: 12px 14px;
   color: var(--red-700);
   background: var(--red-100);
-  border-radius: 8px;
+  border: 1px solid rgba(180, 35, 24, 0.18);
+  border-radius: 10px;
   line-height: 1.5;
 }
 
@@ -167,7 +201,7 @@
 }
 
 .auth-switch a {
-  color: var(--emerald-700);
+  color: var(--brand-orange-ink);
   font-weight: 900;
 }
 
@@ -265,4 +299,68 @@
 .workspace-next p {
   color: var(--muted);
   line-height: 1.65;
+}
+
+/* ==========================================================================
+ * Brand overrides, scoped to the auth pages
+ *
+ * `.button` and `.eyebrow` are shared with the signed-in application, which is
+ * still on the emerald palette. Scoping these to .auth-page rebrands login and
+ * signup without touching the dashboard.
+ * ========================================================================== */
+
+/* The label is navy-deep, not white: white on brand orange is only 2.95:1,
+   while navy-deep clears 5.58:1. */
+.auth-page .button {
+  color: var(--brand-navy-deep);
+  background: linear-gradient(135deg, var(--brand-orange-bright), var(--brand-orange) 120%);
+  border-color: transparent;
+  border-radius: 10px;
+  box-shadow: 0 10px 26px rgba(238, 115, 37, 0.32);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.auth-page .button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, var(--brand-orange), var(--brand-orange-ink) 130%);
+  box-shadow: 0 16px 34px rgba(238, 115, 37, 0.4);
+}
+
+.auth-page .auth-form .eyebrow {
+  color: var(--brand-orange-ink);
+}
+
+/* The brand lockup above the form. It sits on the white card rather than the
+   navy panel because the logo's own navy elements have too little contrast
+   against a dark ground. */
+.auth-brand {
+  display: block;
+  width: fit-content;
+  margin-bottom: 26px;
+}
+
+.auth-brand img {
+  width: auto;
+  height: 40px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.auth-page .back-link:focus-visible,
+.auth-page .auth-switch a:focus-visible,
+.auth-page .button:focus-visible {
+  outline: 2px solid var(--brand-orange);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-page .button {
+    transition: none;
+  }
+
+  .auth-page .button:hover:not(:disabled) {
+    transform: none;
+  }
 }

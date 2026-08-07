@@ -2,6 +2,8 @@ import { FormEvent, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft, Eye, LockKeyhole, Mail, UserRound } from "lucide-react";
 import { login, saveAuthSession, signup, syncLocalAccountData } from "./api";
+import HeroBackground from "./HeroBackground";
+import { logoLockup, logoSrcSet, logoUrl } from "./brand";
 
 type AuthMode = "login" | "signup";
 
@@ -51,6 +53,9 @@ function AuthPage({ mode }: AuthPageProps) {
   return (
     <main className="auth-page">
       <section className="auth-panel">
+        {/* Same animated market ribbons as the landing hero, so arriving here
+            from the marketing page feels like one product. */}
+        <HeroBackground />
         <Link className="back-link" to="/">
           <ArrowLeft size={18} />
           Back to home
@@ -78,6 +83,17 @@ function AuthPage({ mode }: AuthPageProps) {
 
       <section className="auth-form-wrap">
         <form className="auth-form" onSubmit={handleSubmit}>
+          <Link className="auth-brand" to="/" aria-label="EquityKobo home">
+            <img
+              alt={logoLockup.alt}
+              height={logoLockup.height}
+              src={logoUrl(logoLockup.path, 520)}
+              srcSet={logoSrcSet(logoLockup.path, [260, 520])}
+              sizes="210px"
+              width={logoLockup.width}
+            />
+          </Link>
+
           <div>
             <p className="eyebrow">{isSignup ? "Sign up" : "Login"}</p>
             <h2>{isSignup ? "Start researching" : "Open your workspace"}</h2>

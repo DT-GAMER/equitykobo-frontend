@@ -471,17 +471,9 @@ function App() {
           <article>
             <h3>Important notice</h3>
             <p>
-              EquityKobo is an educational research and decision-support tool. It does not provide
+              EquityKobo is a decision-support tool. It does not provide
               personalized investment advice, broker recommendations, guaranteed returns or trade
               execution.
-            </p>
-          </article>
-          <article>
-            <h3>Data responsibility</h3>
-            <p>
-              Market data, company information, generated scores and classifications should be
-              reviewed against official filings, exchange publications and licensed data sources
-              before any investment decision.
             </p>
           </article>
         </div>
