@@ -10,9 +10,9 @@
  * Source images are 16:9; the persona card box matches that ratio, so nothing
  * is cropped.
  *
- * The founder and testimonial entries still point at placeholder SVGs in
- * `public/images/`. Drop a real photograph into that folder and change the
- * extension here — nothing else needs to move.
+ * Testimonial entries still point at placeholder SVGs in `public/images/`.
+ * Drop a real photograph into that folder and change the extension here —
+ * nothing else needs to move.
  *
  * What works for this audience:
  *   - Real Nigerian investors in real settings — home, office, market, transit.
@@ -72,15 +72,19 @@ export type Testimonial = {
 };
 
 export const founder = {
-  image: "/images/founder.svg",
-  alt: "Portrait of the EquityKobo founder",
-  name: "Add your name",
+  /** Cloudinary public path. Source is 896x1195, a 3:4 portrait. */
+  path: "v1786104354/WhatsApp_Image_2026-08-07_at_13.05.10_plgqjv.jpg",
+  width: 896,
+  height: 1195,
+  alt: "Abakpa Dominic, founder of EquityKobo, at his desk",
+  name: "Abakpa Dominic",
   role: "Founder, EquityKobo",
-  // Written in the first person on purpose. This is the one place on the page
-  // that should sound like a person rather than a product.
+  // The founder's own words, in the first person. This is the one place on the
+  // page that should sound like a person rather than a product.
   body: [
-    "I kept watching people put real naira into Nigerian companies because a WhatsApp group said the price was about to move. Sometimes it worked. Mostly it did not, and nobody could explain afterwards why they had bought in the first place.",
-    "EquityKobo is the thing I wanted for myself: the evidence in plain English, the risks next to the reasons, and a written record of what I decided and why. It will not tell you what to buy. It will make sure you can defend the choice.",
+    "I wanted to invest in Nigerian companies, but I kept running into the same problem: there was plenty of information, but very little clarity. I could find prices, reports, news and opinions, yet still struggle to answer a simple question: is this company actually worth my money, and why?",
+    "EquityKobo is what I wanted for myself: the evidence in plain English, the risks beside the reasons, and a clear picture of what makes a company worth owning.",
+    "It won't tell you what to buy. It will help you understand why you would buy it.",
   ],
 };
 

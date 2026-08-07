@@ -1159,8 +1159,9 @@
   box-shadow: var(--lv2-shadow);
 }
 
+/* Matches the source portrait's 3:4 ratio so the frame crops nothing. */
 .landing-v2-founder-photo {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   background: var(--lv2-navy);
   border-radius: var(--lv2-radius);

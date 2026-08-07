@@ -348,10 +348,12 @@ function App() {
           <img
             alt={founder.alt}
             decoding="async"
-            height={750}
+            height={founder.height}
             loading="lazy"
-            src={founder.image}
-            width={600}
+            sizes="(min-width: 961px) 340px, 280px"
+            src={cdn(founder.path, 700)}
+            srcSet={cdnSrcSet(founder.path, [400, 700, 1000])}
+            width={founder.width}
           />
         </div>
         <div className="landing-v2-founder-copy">
