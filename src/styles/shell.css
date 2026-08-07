@@ -45,7 +45,7 @@ body.sidebar-collapsed .not-found-page:not(.public) {
   width: 260px;
   padding: 18px;
   color: #ffffff;
-  background: var(--navy-950);
+  background: var(--brand-navy-deep);
 }
 
 .sidebar-brand-row {
@@ -161,11 +161,22 @@ body.sidebar-collapsed .not-found-page:not(.public) {
   font-weight: 900;
 }
 
-.app-nav-link:hover,
+.app-nav-link:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+/* The active item carries the brand rather than just being a lighter chip, so
+   the current section is legible at a glance. */
 .app-nav-link.active {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(238, 115, 37, 0.18);
+  border-color: rgba(238, 115, 37, 0.42);
+}
+
+.app-nav-link.active svg {
+  color: var(--brand-orange-bright);
 }
 
 .account-chip {
@@ -186,7 +197,7 @@ body.sidebar-collapsed .not-found-page:not(.public) {
   width: 34px;
   height: 34px;
   color: #ffffff;
-  background: var(--emerald-600);
+  background: var(--brand-orange);
   border-radius: 8px;
   font-size: 0.8rem;
   font-weight: 900;
@@ -283,4 +294,73 @@ body.sidebar-collapsed .account-chip {
 
 body.sidebar-collapsed .account-chip > span {
   display: none;
+}
+
+/* ==========================================================================
+ * Mobile tab bar
+ *
+ * Hidden by default; the phone breakpoint in responsive.css reveals it. Styled
+ * here so all its appearance lives in one place rather than inside a media
+ * query alongside layout rules.
+ * ========================================================================== */
+.mobile-tab-bar {
+  display: none;
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 25;
+  /* The bar itself is a fixed height; the safe-area inset is added as padding
+     underneath so the icons never sit under an iPhone home indicator or an
+     Android gesture bar. */
+  padding-bottom: var(--safe-bottom);
+  background: rgba(13, 31, 58, 0.96);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(18px);
+}
+
+.mobile-tab {
+  display: grid;
+  place-items: center;
+  gap: 3px;
+  min-height: 56px;
+  padding: 7px 4px 8px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  /* Stops the double-tap-to-zoom delay and the grey flash on tap. */
+  touch-action: manipulation;
+}
+
+.mobile-tab svg {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mobile-tab.active {
+  color: #ffffff;
+}
+
+.mobile-tab.active svg {
+  color: var(--brand-orange-bright);
+  transform: translateY(-1px);
+}
+
+/* A short bar above the active tab, the way native tab bars mark position. */
+.mobile-tab.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 26px;
+  height: 3px;
+  background: var(--brand-orange);
+  border-radius: 0 0 999px 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-tab svg {
+    transition: none;
+  }
+
+  .mobile-tab.active svg {
+    transform: none;
+  }
 }

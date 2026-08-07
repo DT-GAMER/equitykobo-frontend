@@ -18,6 +18,17 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0d1f3a" />
 
+    <!-- iOS ignores the manifest's install prompt entirely — Safari has no
+         equivalent of beforeinstallprompt, so users must use Share > Add to
+         Home Screen. These tags control what happens once they do: open in a
+         standalone window rather than a Safari tab, and label the icon
+         "EquityKobo" instead of the full <title>. iOS 15.4+ reads `display`
+         from the manifest, but older versions only honour the Apple tag. -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="EquityKobo" />
+
     <title>EquityKobo | Nigerian Equity Research Platform</title>
   </head>
   <body>

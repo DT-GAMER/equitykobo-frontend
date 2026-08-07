@@ -13,6 +13,12 @@
  *
  * This file must be imported LAST. */
 
+/* A note on `minmax(0, 1fr)`: a bare `1fr` track is `minmax(auto, 1fr)`, whose
+   floor is the content's min-content width. Any non-wrapping strip inside then
+   sets a floor the column cannot go below, and the overflow propagates all the
+   way out to the document. Every single-column collapse here uses the explicit
+   zero floor for that reason. */
+
 
 /* ========================================================================
  * 1180px and below
@@ -22,7 +28,7 @@
   .both-sides-grid,
   .live-market-grid,
   .peer-pros-cons {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .decision-triplet-grid,
@@ -33,7 +39,7 @@
   }
 
   .peer-head-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .landing-v2-hero-inner {
@@ -84,7 +90,7 @@
 
   .footer-main,
   .footer-compliance {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .decision-grid,
@@ -106,7 +112,7 @@
   .planner-layout,
   .portfolio-layout,
   .admin-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .decision-card-hero,
@@ -118,7 +124,7 @@
   }
 
   .dashboard-hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .desk-summary-strip {
@@ -148,7 +154,7 @@
   .health-check-grid,
   .score-breakdown-grid,
   .detail-section-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .fair-value-head {
@@ -191,7 +197,7 @@
   }
 
   .watchlist-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .journal-entry-grid {
@@ -326,7 +332,7 @@
     min-height: 42px;
     padding: 0 12px;
     color: #ffffff;
-    background: var(--navy-950);
+    background: var(--brand-navy-deep);
     font: inherit;
     font-weight: 900;
     max-width: calc(100vw - 20px);
@@ -404,7 +410,7 @@
   .landing-v2-hero-inner,
   .landing-v2-pricing,
   .landing-v2-footer-main {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .landing-v2-preview {
@@ -413,7 +419,7 @@
 
   .landing-v2-step-grid,
   .landing-v2-market-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   /* merged from 940px@L7193 + 920px@L7336 */
@@ -558,7 +564,7 @@
   .live-insight-card-grid,
   .score-layer-panel .score-layer-grid,
   .source-gap-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .window-pill-row {
@@ -566,7 +572,7 @@
   }
 
   .fair-range-labels {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .fair-range-labels strong,
@@ -733,7 +739,7 @@
   .valuation-method-grid,
   .decision-tape,
   .split-heading {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .decision-tape span {
@@ -752,7 +758,7 @@
 
   .footer-links,
   .footer-bottom {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .footer-links {
@@ -771,13 +777,13 @@
   }
 
   .workspace-next {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .choice-grid,
   .compact-choice-grid,
   .company-picker {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .onboarding-card {
@@ -820,7 +826,7 @@
 
   .desk-heading,
   .desk-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .desk-heading {
@@ -831,7 +837,7 @@
   .opportunity-row.table-head,
   .dashboard-row,
   .dashboard-row-head {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .opportunity-row.table-head,
@@ -860,19 +866,19 @@
   .admin-stat-grid,
   .admin-form-grid,
   .automation-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .admin-section-head,
   .admin-report-card,
   .admin-card-actions {
     align-items: stretch;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     flex-direction: column;
   }
 
   .draft-list div {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 6px;
     padding: 12px;
   }
@@ -881,7 +887,7 @@
   .planner-row.table-head,
   .portfolio-row,
   .portfolio-row.table-head {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     min-width: 0;
   }
 
@@ -944,7 +950,7 @@
   .landing-v2-pillar-grid,
   .landing-v2-price-grid,
   .landing-v2-footer-main nav {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .landing-v2-sample-top,
@@ -1658,5 +1664,175 @@
   .landing-v2-compliance article {
     grid-template-columns: minmax(0, 1fr);
     gap: 8px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Mobile tab bar.
+ * Below the tablet breakpoint the sidebar is a drawer, so primary navigation
+ * moves to a fixed bottom bar — the pattern an installed PWA is expected to
+ * have. The drawer stays for Admin, the account chip and logout.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 720px) {
+  .mobile-tab-bar {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .mobile-tab {
+    position: relative;
+  }
+
+  /* Room for the bar plus whatever the device reserves below it, so the last
+     row of content is never trapped underneath. */
+  .app-shell,
+  .research-page,
+  .watchlist-page,
+  .journal-page,
+  .planner-page,
+  .portfolio-page,
+  .admin-page,
+  .not-found-page:not(.public) {
+    padding-bottom: calc(56px + var(--safe-bottom) + 12px);
+  }
+
+  /* The drawer must sit above the tab bar, not behind it. */
+  .app-sidebar {
+    z-index: 30;
+  }
+
+  .sidebar-backdrop {
+    z-index: 29;
+  }
+}
+
+/* ==========================================================================
+ * Opportunity Desk on phones
+ *
+ * The desk is dense by design on a wide screen. On a phone the same stack runs
+ * to several screens of scrolling before the first actual answer. These rules
+ * turn the two count/answer rows into horizontally swipeable rails so the
+ * ranking — the thing people came for — is reachable without a long scroll.
+ *
+ * Native scroll-snap rather than a JS carousel: swipe, momentum and
+ * accessibility come from the browser, and there is no breakpoint-dependent
+ * markup to keep in sync.
+ * ========================================================================== */
+@media (max-width: 720px) {
+  .desk-summary-strip,
+  .spotlight-grid,
+  .opportunity-card-grid {
+    display: grid;
+    /* The 960px block gives these strips explicit column templates. Without
+       clearing it, auto-flow:column fills those explicit tracks first and the
+       implicit rail columns only take the leftovers — which silently drops the
+       first cards out of the rail. */
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    /* `proximity`, not `mandatory`: mandatory re-snaps whenever the content
+       resizes, which on first paint drags the rail off its first card. */
+    scroll-snap-type: x proximity;
+    /* Without this the snap point aligns to the scrollport edge and eats the
+       12px gutter, leaving the first card flush against the screen. */
+    scroll-padding-left: 12px;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    /* Bleed to the screen edges so a card sits under the thumb, but keep the
+       first and last card aligned with the page gutter. */
+    padding: 2px 12px 10px;
+    margin: 0 -12px;
+    scrollbar-width: none;
+  }
+
+  .desk-summary-strip::-webkit-scrollbar,
+  .spotlight-grid::-webkit-scrollbar,
+  .opportunity-card-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .desk-summary-strip > *,
+  .spotlight-grid > *,
+  .opportunity-card-grid > * {
+    scroll-snap-align: start;
+  }
+
+  /* Counts are glanceable, so several fit per screen. */
+  .desk-summary-strip {
+    grid-auto-columns: 45%;
+    gap: 10px;
+  }
+
+  .summary-tile {
+    min-height: 0;
+    padding: 12px 13px;
+  }
+
+  /* Answer cards carry a paragraph each, so one at a time with a sliver of the
+     next showing to signal the rail scrolls. */
+  .spotlight-grid,
+  .opportunity-card-grid {
+    grid-auto-columns: 88%;
+    gap: 12px;
+  }
+
+  /* The desk hero eats a whole screen otherwise. */
+  .desk-surface-main {
+    padding: 16px 14px;
+  }
+
+  .desk-surface .hero-copy h1 {
+    font-size: 1.6rem;
+    line-height: 1.18;
+  }
+
+  .desk-surface .hero-copy p {
+    margin-bottom: 0;
+  }
+
+  /* The category rail already scrolls; give it edge bleed to match. */
+  .category-tab-row {
+    padding-right: 12px;
+    padding-left: 12px;
+    margin-right: -12px;
+    margin-left: -12px;
+    scrollbar-width: none;
+  }
+
+  .category-tab-row::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Touch targets inside the application.
+ * These are the controls that were still under 40px once the desk was rebuilt
+ * for phones: card actions, inline "open research" links and the admin
+ * refresh. Measured, not guessed.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 720px) {
+  .inspect-button,
+  .mini-refresh,
+  .topbar-button,
+  .card-action-row > * {
+    justify-content: center;
+    width: 100%;
+    min-height: var(--tap-target);
+  }
+
+  /* Inline text links in card footers: give them the full row so the target
+     matches what the eye reads as clickable. */
+  .row-link,
+  .text-action {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap-target);
+  }
+
+  /* Icon-only buttons must stay square rather than stretch. */
+  .journal-entry-head button,
+  .icon-text-button {
+    min-width: var(--tap-target);
+    min-height: var(--tap-target);
   }
 }

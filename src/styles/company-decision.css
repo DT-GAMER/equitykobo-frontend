@@ -16,7 +16,7 @@
 .company-decision-page .eyebrow,
 .company-panel-title span {
   margin: 0;
-  color: var(--emerald-700);
+  color: var(--brand-orange-ink);
   font-size: 0.78rem;
   font-weight: 950;
   letter-spacing: 0.18em;
@@ -74,8 +74,8 @@
 }
 
 .synced-pill {
-  color: var(--emerald-700);
-  background: var(--emerald-100);
+  color: var(--brand-orange-ink);
+  background: var(--brand-orange-soft);
   border-color: rgba(5, 150, 105, 0.24);
 }
 
@@ -189,7 +189,7 @@
   background:
     linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    #071323;
+    var(--brand-navy-deep);
   background-size: 44px 44px;
   border-color: rgba(255, 255, 255, 0.08);
 }
@@ -271,7 +271,7 @@
 
 .mini-price-chart polyline {
   fill: none;
-  stroke: #34d399;
+  stroke: var(--brand-orange-bright);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 2.2;
@@ -370,8 +370,8 @@
   width: 38px;
   height: 38px;
   place-items: center;
-  color: var(--emerald-700);
-  background: var(--emerald-100);
+  color: var(--brand-orange-ink);
+  background: var(--brand-orange-soft);
   border-radius: 8px;
 }
 
@@ -607,7 +607,7 @@
   background:
     linear-gradient(rgba(255, 255, 255, 0.19) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.19) 1px, transparent 1px),
-    linear-gradient(135deg, var(--navy-950), #12315b);
+    linear-gradient(135deg, var(--navy-950), var(--brand-navy));
   background-size: 72px 72px, 72px 72px, auto;
 }
 
@@ -656,7 +656,7 @@
 }
 
 .plain-english-panel > span {
-  color: var(--emerald-700);
+  color: var(--brand-orange-ink);
 }
 
 .plain-english-panel p {
@@ -781,7 +781,7 @@
 }
 
 .stat-line.positive strong {
-  color: var(--emerald-700);
+  color: var(--positive-700);
 }
 
 .stat-line.warning strong {
@@ -806,8 +806,8 @@
 }
 
 .tone-pill.positive {
-  color: var(--emerald-700);
-  background: var(--emerald-100);
+  color: var(--positive-700);
+  background: var(--positive-100);
   border-color: rgba(5, 150, 105, 0.24);
 }
 
@@ -926,7 +926,7 @@
 .reason-box.positive svg,
 .dividend-yield-line,
 .moat-rating-line svg {
-  color: var(--emerald-700);
+  color: var(--positive-700);
 }
 
 .reason-box.warning svg {
@@ -1060,7 +1060,7 @@
   align-self: end;
   width: 100%;
   min-height: 18px;
-  background: linear-gradient(180deg, #65c8a1, var(--emerald-600));
+  background: linear-gradient(180deg, var(--positive-600), var(--positive-600));
   border-radius: 6px 6px 2px 2px;
 }
 

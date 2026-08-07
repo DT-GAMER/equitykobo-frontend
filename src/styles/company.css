@@ -3,8 +3,8 @@
    Layout here is desktop-first; every responsive override lives in responsive.css. */
 
 .decision-pill.positive {
-  color: var(--emerald-700);
-  background: var(--emerald-100);
+  color: var(--positive-700);
+  background: var(--positive-100);
 }
 
 .decision-pill.warning,
@@ -160,7 +160,7 @@
 
 .decision-summary-grid svg {
   margin-bottom: 16px;
-  color: var(--emerald-600);
+  color: var(--brand-orange);
 }
 
 .decision-summary-grid p,
@@ -181,7 +181,7 @@
 }
 
 .research-checklist article.passed svg {
-  color: var(--emerald-600);
+  color: var(--positive-600);
 }
 
 .research-checklist article.failed svg {
@@ -255,7 +255,7 @@
 }
 
 .investment-answer-band.answer-positive {
-  border-left-color: var(--emerald-600);
+  border-left-color: var(--positive-600);
   background: linear-gradient(90deg, rgba(13, 148, 136, 0.12), #ffffff 38%);
 }
 
@@ -312,7 +312,7 @@
 }
 
 .fair-value-panel.valuation-positive {
-  border-left-color: var(--emerald-600);
+  border-left-color: var(--positive-600);
 }
 
 .fair-value-panel.valuation-neutral {
@@ -374,7 +374,7 @@
 }
 
 .fair-value-confidence small {
-  color: var(--emerald-700);
+  color: var(--brand-orange-ink);
   font-weight: 950;
 }
 
@@ -412,7 +412,7 @@
 
 .valuation-method-grid p {
   margin-bottom: 8px;
-  color: var(--emerald-700);
+  color: var(--brand-orange-ink);
   font-size: 1.05rem;
   font-weight: 950;
 }
@@ -468,7 +468,7 @@
   min-height: 140px;
   padding: 16px;
   color: #ffffff;
-  background: linear-gradient(145deg, var(--navy-950), #0f766e);
+  background: linear-gradient(145deg, var(--navy-950), var(--brand-orange-ink));
   border-radius: 8px;
   text-align: center;
 }
@@ -570,7 +570,7 @@
 
 .peer-metric-grid p {
   margin-bottom: 8px;
-  color: var(--emerald-700);
+  color: var(--brand-orange-ink);
   font-size: 1.1rem;
   font-weight: 950;
 }
@@ -660,7 +660,7 @@
 }
 
 .section-title-row svg {
-  color: var(--emerald-600);
+  color: var(--brand-orange);
 }
 
 .section-title-row h2 {
@@ -781,7 +781,7 @@
 .score-track span {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, var(--emerald-600), #22c55e);
+  background: linear-gradient(90deg, var(--positive-600), var(--positive-600));
   border-radius: inherit;
 }
 
@@ -822,7 +822,7 @@
 .decision-detail-head svg {
   flex: 0 0 auto;
   margin-top: 2px;
-  color: var(--emerald-600);
+  color: var(--brand-orange);
 }
 
 .decision-detail-card.warning .decision-detail-head svg {

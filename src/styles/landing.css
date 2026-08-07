@@ -76,6 +76,9 @@
   font-weight: 700;
 }
 
+/* The primary button for the whole signed-in application, not just the
+   marketing page. The label is navy-deep rather than white: white on brand
+   orange is 2.95:1, navy-deep is 5.58:1. */
 .button {
   display: inline-flex;
   align-items: center;
@@ -83,16 +86,17 @@
   gap: 8px;
   min-height: 46px;
   padding: 0 18px;
-  color: #ffffff;
-  background: var(--emerald-600);
-  border: 1px solid var(--emerald-600);
-  border-radius: 8px;
-  font-weight: 800;
-  box-shadow: 0 12px 28px rgba(5, 150, 105, 0.22);
+  color: var(--brand-navy-deep);
+  background: var(--brand-orange);
+  border: 1px solid var(--brand-orange);
+  border-radius: 10px;
+  font-weight: 850;
+  box-shadow: 0 10px 24px rgba(238, 115, 37, 0.26);
 }
 
 .button:hover {
-  background: var(--emerald-700);
+  background: var(--brand-orange-bright);
+  border-color: var(--brand-orange-bright);
 }
 
 .button-small {
@@ -190,7 +194,7 @@
 
 .board-topline strong,
 .board-footer strong {
-  color: #67e8b9;
+  color: var(--brand-orange-bright);
 }
 
 .board-grid {
@@ -237,7 +241,7 @@
 
 .eyebrow {
   margin: 0 0 14px;
-  color: var(--emerald-600);
+  color: var(--brand-orange-ink);
   font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0;
@@ -245,7 +249,7 @@
 }
 
 .hero-content .eyebrow {
-  color: #67e8b9;
+  color: var(--brand-orange-bright);
 }
 
 h1,
@@ -362,7 +366,7 @@ h3 {
 .decision-tape strong {
   display: block;
   margin-bottom: 8px;
-  color: #67e8b9;
+  color: var(--brand-orange-bright);
   font-size: 1.75rem;
   line-height: 1;
 }
@@ -417,7 +421,7 @@ h3 {
   inset: 0 0 auto;
   height: 4px;
   content: "";
-  background: var(--emerald-600);
+  background: var(--brand-orange);
 }
 
 .decision-card span {
@@ -437,12 +441,12 @@ h3 {
 }
 
 .decision-card.green span {
-  color: var(--emerald-700);
-  background: var(--emerald-100);
+  color: var(--brand-orange-ink);
+  background: var(--brand-orange-soft);
 }
 
 .decision-card.green::before {
-  background: var(--emerald-600);
+  background: var(--brand-orange);
 }
 
 .decision-card.amber span {
@@ -477,7 +481,7 @@ h3 {
 .feature-card svg,
 .faq-grid svg {
   margin-bottom: 18px;
-  color: var(--emerald-600);
+  color: var(--brand-orange);
 }
 
 .feature-card {
@@ -523,7 +527,7 @@ h3 {
 }
 
 .type-list svg {
-  color: #67e8b9;
+  color: var(--brand-orange-bright);
   flex: 0 0 auto;
 }
 
@@ -555,8 +559,8 @@ h3 {
   justify-content: center;
   width: 34px;
   height: 34px;
-  color: var(--emerald-700);
-  background: var(--emerald-100);
+  color: var(--brand-orange-ink);
+  background: var(--brand-orange-soft);
   border-radius: 8px;
   font-size: 0.86rem;
   flex: 0 0 auto;
@@ -591,8 +595,8 @@ h3 {
   min-height: 42px;
   padding: 10px 14px;
   margin-top: auto;
-  color: var(--emerald-700);
-  border: 1px solid var(--emerald-600);
+  color: var(--brand-orange-ink);
+  border: 1px solid var(--brand-orange);
   border-radius: 8px;
   font-weight: 900;
 }
@@ -616,8 +620,8 @@ h3 {
 
 .price-card.featured a {
   color: #ffffff;
-  background: var(--emerald-600);
-  border-color: var(--emerald-600);
+  background: var(--brand-orange);
+  border-color: var(--brand-orange);
 }
 
 .plan-name {
@@ -717,7 +721,7 @@ h3 {
 
 .footer-links a:hover,
 .footer-bottom a:hover {
-  color: #67e8b9;
+  color: var(--brand-orange-bright);
 }
 
 .footer-compliance {

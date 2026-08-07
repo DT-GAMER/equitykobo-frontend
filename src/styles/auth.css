@@ -218,31 +218,21 @@
   background: #ffffff;
 }
 
-.workspace-preview {
-  min-height: 100vh;
-  background: var(--surface-soft);
-}
 
-.workspace-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  min-height: 72px;
-  padding: 14px clamp(18px, 5vw, 56px);
-  color: #ffffff;
-  background: var(--navy-950);
-}
 
+/* The mark sits on a white plate: its middle bar is navy, which would all but
+   vanish against the navy sidebar. `contain` plus padding because the trimmed
+   mark is 1.19:1, not square — `cover` would crop the outer bars. */
 .brand-mark {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  object-fit: cover;
+  width: 40px;
+  height: 40px;
+  padding: 6px;
+  object-fit: contain;
   background: #ffffff;
-  border-radius: 8px;
+  border-radius: 10px;
   flex: 0 0 auto;
 }
 
@@ -277,12 +267,6 @@
   line-height: 1.7;
 }
 
-.workspace-next {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 34px;
-}
 
 .workspace-next article {
   padding: 24px;
@@ -291,15 +275,7 @@
   border-radius: 8px;
 }
 
-.workspace-next svg {
-  margin-bottom: 18px;
-  color: var(--emerald-600);
-}
 
-.workspace-next p {
-  color: var(--muted);
-  line-height: 1.65;
-}
 
 /* ==========================================================================
  * Brand overrides, scoped to the auth pages

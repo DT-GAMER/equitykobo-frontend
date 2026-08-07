@@ -3,9 +3,12 @@
    Layout here is desktop-first; every responsive override lives in responsive.css. */
 
 :root {
-  --navy-950: #071323;
-  --navy-900: #0b1d33;
-  --navy-800: #102a46;
+  /* Repointed onto the brand navy family. These are used both as dark
+     backgrounds and as heading text across the application, so the darkest
+     step doubles as the panel ground. */
+  --navy-950: #0d1f3a;
+  --navy-900: #16335b;
+  --navy-800: #24406e;
   --navy-100: #e8eef5;
   --emerald-700: #047857;
   --emerald-600: #059669;
@@ -14,18 +17,17 @@
   --amber-700: #9a6200;
   --red-100: #ffe2e2;
   --red-700: #b42318;
-  --ink: #172033;
-  --muted: #647084;
-  --line: #dce4ee;
+  --ink: #1b2a3f;
+  --muted: #5c6b7e;
+  --line: #dbe3ec;
   --surface: #ffffff;
   --surface-soft: #f6f9fc;
 
   /* ------------------------------------------------------------------
    * Brand palette, sampled from the logo.
    *
-   * These are additive. The --emerald-* / --navy-* tokens above still drive
-   * the signed-in application, which has not been rebranded yet, so nothing
-   * changes for it by defining these.
+   * The --navy-* tokens above are repointed onto this family, so headings and
+   * dark panels across the app follow the brand automatically.
    *
    * Contrast was measured, not eyeballed. The brand orange is light: it is
    * 2.82:1 on the page background and 2.95:1 under white text, so it works as
@@ -45,6 +47,23 @@
   --brand-ink: #1b2a3f;
   --brand-muted: #5c6b7e;
   --brand-line: #dbe3ec;
+
+  /* ------------------------------------------------------------------
+   * Semantic status colours.
+   *
+   * Deliberately NOT brand colours. In a research product green/amber/red
+   * carry meaning — a YES that reads the same as a WAIT is a bug, not a
+   * style choice. These keep the original emerald values, so rebranding the
+   * chrome to orange leaves every status indicator saying what it said
+   * before.
+   * ------------------------------------------------------------------ */
+  --positive-700: #047857;
+  --positive-600: #059669;
+  --positive-100: #dff7ec;
+  --caution-700: #9a6200;
+  --caution-100: #fff4d6;
+  --negative-700: #b42318;
+  --negative-100: #ffe2e2;
 
   /* Breakpoint scale — documentation for the values used in responsive.css.
      Custom properties cannot be used inside media queries, so these exist to

@@ -21,7 +21,7 @@
 }
 
 .onboarding-sidebar .eyebrow {
-  color: #67e8b9;
+  color: var(--brand-orange-bright);
 }
 
 .onboarding-sidebar h1 {
@@ -74,8 +74,8 @@
 .step-list li.active span,
 .step-list li.done span {
   color: #ffffff;
-  background: var(--emerald-600);
-  border-color: var(--emerald-600);
+  background: var(--brand-orange);
+  border-color: var(--brand-orange);
 }
 
 .onboarding-content {
@@ -137,8 +137,8 @@
 
 .choice.selected,
 .company-choice.selected {
-  background: var(--emerald-100);
-  border-color: var(--emerald-600);
+  background: var(--brand-orange-soft);
+  border-color: var(--brand-orange);
   box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
 }
 
@@ -202,7 +202,7 @@
   display: inline-flex;
   margin-top: 12px;
   padding: 6px 8px;
-  color: var(--emerald-700);
+  color: var(--brand-orange-ink);
   background: #ffffff;
   border-radius: 8px;
   font-weight: 900;
@@ -239,8 +239,8 @@
   min-height: 38px;
   align-items: center;
   padding: 0 12px;
-  color: var(--emerald-700);
-  background: var(--emerald-100);
+  color: var(--brand-orange-ink);
+  background: var(--brand-orange-soft);
   border-radius: 8px;
   font-weight: 900;
   text-transform: capitalize;

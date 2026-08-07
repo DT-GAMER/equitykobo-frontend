@@ -13,6 +13,8 @@ import {
   Target,
 } from "lucide-react";
 import { AuthUser, clearAuthSession, getStoredUser } from "./api";
+import { logoIcon, logoSrcSet, logoUrl } from "./brand";
+import MobileTabBar from "./MobileTabBar";
 
 const navGroups = [
   {
@@ -35,9 +37,6 @@ const navGroups = [
     items: [{ to: "/admin", label: "Admin", icon: ShieldCheck }],
   },
 ];
-
-const logoMark =
-  "https://res.cloudinary.com/dofiyn7bw/image/upload/v1785268787/WhatsApp_Image_2026-07-28_at_20.51.17_k8eetf.jpg";
 
 function AppHeader() {
   const user = getStoredUser();
@@ -111,7 +110,15 @@ function AppHeader() {
       <aside className={isMobileOpen ? "app-sidebar mobile-open" : "app-sidebar"} id="app-sidebar">
         <div className="sidebar-brand-row">
           <NavLink className="brand" to="/app" onClick={() => setIsMobileOpen(false)}>
-            <img alt="" className="brand-mark" height={36} src={logoMark} width={36} />
+            <img
+              alt=""
+              className="brand-mark"
+              height={logoIcon.height}
+              src={logoUrl(logoIcon.path, 120)}
+              srcSet={logoSrcSet(logoIcon.path, [120, 240])}
+              sizes="40px"
+              width={logoIcon.width}
+            />
             <span className="brand-copy">
               <span className="brand-name">EquityKobo</span>
               <span className="brand-subtitle">NGX research desk</span>
@@ -161,6 +168,8 @@ function AppHeader() {
           </button>
         </div>
       </aside>
+
+      <MobileTabBar />
     </>
   );
 }
