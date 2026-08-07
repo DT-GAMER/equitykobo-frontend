@@ -27,55 +27,16 @@
 .onboarding-sidebar h1 {
   max-width: 520px;
   margin-bottom: 18px;
-  font-size: clamp(2.2rem, 5vw, 4rem);
+  /* 4rem overflowed the ~426px sidebar column at 1440. */
+  font-size: clamp(1.9rem, 2.4vw + 0.6rem, 2.9rem);
+  line-height: 1.12;
+  overflow-wrap: anywhere;
 }
 
 .onboarding-sidebar p {
   max-width: 480px;
   color: rgba(255, 255, 255, 0.74);
   line-height: 1.7;
-}
-
-.step-list {
-  display: grid;
-  gap: 10px;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.step-list li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 44px;
-  color: rgba(255, 255, 255, 0.62);
-  font-weight: 900;
-}
-
-.step-list span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  color: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 8px;
-  font-size: 0.84rem;
-  flex: 0 0 auto;
-}
-
-.step-list li.active,
-.step-list li.done {
-  color: #ffffff;
-}
-
-.step-list li.active span,
-.step-list li.done span {
-  color: #ffffff;
-  background: var(--brand-orange);
-  border-color: var(--brand-orange);
 }
 
 .onboarding-content {
@@ -245,3 +206,71 @@
   font-weight: 900;
   text-transform: capitalize;
 }
+
+/* ==========================================================================
+ * Segmented step progress
+ *
+ * Replaces the vertical five-row step list, which on a phone consumed ~270px
+ * and pushed the first question below the fold.
+ * ========================================================================== */
+.step-progress {
+  display: grid;
+  gap: 12px;
+}
+
+.step-progress-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.step-segment {
+  display: block;
+  min-width: 0;
+}
+
+.step-segment-bar {
+  /* The bar is an empty <span>; without display:block its height and width
+     are ignored and the track renders as nothing. */
+  display: block;
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  transition:
+    background 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+/* Completed steps stay filled so the bar reads as accumulated progress. */
+.step-segment.done .step-segment-bar {
+  background: rgba(238, 115, 37, 0.55);
+}
+
+.step-segment.active .step-segment-bar {
+  background: var(--brand-orange);
+  box-shadow: 0 0 0 1px rgba(238, 115, 37, 0.35);
+}
+
+.step-progress-summary {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-size: 0.84rem;
+}
+
+.step-progress-summary span {
+  color: rgba(255, 255, 255, 0.56);
+  font-weight: 800;
+}
+
+.step-progress-summary strong {
+  color: #ffffff;
+  font-weight: 900;
+}
+

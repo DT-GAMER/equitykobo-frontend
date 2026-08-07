@@ -1836,3 +1836,43 @@
     min-height: var(--tap-target);
   }
 }
+
+/* --------------------------------------------------------------------------
+ * Onboarding on phones.
+ * The sidebar's headline and intro filled the first screen, so the first
+ * question sat below the fold. On phones the sidebar collapses to a compact
+ * header: back link, eyebrow, and the step progress.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+  .onboarding-sidebar {
+    gap: 14px;
+    padding: 14px 16px calc(16px + var(--safe-bottom, 0px));
+  }
+
+  .step-progress {
+    gap: 9px;
+  }
+
+  .step-progress-track {
+    gap: 6px;
+  }
+
+  /* The headline and the descriptive paragraph go; the eyebrow stays, because
+     it is the only thing naming what this flow is. */
+  .onboarding-sidebar h1,
+  .onboarding-sidebar .onboarding-intro > p:not(.eyebrow) {
+    display: none;
+  }
+
+  .onboarding-sidebar .onboarding-intro {
+    margin: 0;
+  }
+
+  .onboarding-sidebar .eyebrow {
+    margin: 0;
+  }
+
+  .onboarding-sidebar .back-link {
+    min-height: var(--tap-target);
+  }
+}

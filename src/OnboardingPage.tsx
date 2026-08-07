@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, CheckCircle2, Search } from "lucide-react";
+import StepProgress from "./StepProgress";
+import { ArrowLeft, ArrowRight, Search } from "lucide-react";
 import {
   capitalRanges,
   experienceLevels,
@@ -112,7 +113,7 @@ function OnboardingPage() {
           <ArrowLeft size={18} />
           Back to home
         </Link>
-        <div>
+        <div className="onboarding-intro">
           <p className="eyebrow">Investor setup</p>
           <h1>Let EquityKobo reduce the noise first.</h1>
           <p>
@@ -120,14 +121,7 @@ function OnboardingPage() {
             you invest.
           </p>
         </div>
-        <ol className="step-list">
-          {steps.map((label, index) => (
-            <li className={index === step ? "active" : index < step ? "done" : ""} key={label}>
-              <span>{index < step ? <CheckCircle2 size={16} /> : index + 1}</span>
-              {label}
-            </li>
-          ))}
-        </ol>
+        <StepProgress current={step} steps={steps} />
       </aside>
 
       <section className="onboarding-content">
