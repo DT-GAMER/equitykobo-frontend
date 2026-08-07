@@ -1583,3 +1583,69 @@
     letter-spacing: 0.07em;
   }
 }
+
+/* --------------------------------------------------------------------------
+ * People sections.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 1180px) {
+  .landing-v2-persona-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .landing-v2-founder {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+    width: min(100% - 28px, 1180px);
+  }
+
+  /* A full-width 4:5 founder portrait eats the whole screen on a tablet. */
+  .landing-v2-founder-photo {
+    width: min(280px, 60%);
+  }
+}
+
+@media (max-width: 720px) {
+  .landing-v2-persona-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  /* The photos stay full-width and stacked on phones. A thumbnail beside the
+     text would shrink the laptop screen past the point of being readable, and
+     the screen is what carries the story. 16:9 keeps the section short enough
+     that this costs little height. */
+  .landing-v2-persona-card h3 {
+    margin-top: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .landing-v2-founder {
+    width: min(100% - 20px, 1180px);
+    padding: 20px;
+  }
+
+  .landing-v2-founder-photo {
+    width: min(200px, 55%);
+  }
+
+  .landing-v2-testimonial {
+    padding: 20px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Brand lockup swap.
+ * The horizontal lockup is 5.2:1. Once the header has fewer than ~220px to
+ * spare it gets letterboxed down to a third of its width and becomes
+ * unreadable, so the icon-only mark takes over instead.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 560px) {
+  /* <picture> swaps the source; the height here reshapes the box for the
+     icon's 1.19:1 ratio. */
+  .landing-v2-brand img {
+    height: 38px;
+  }
+}

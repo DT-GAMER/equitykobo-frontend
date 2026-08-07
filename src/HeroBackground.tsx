@@ -18,6 +18,12 @@ type Ribbon = {
   targetLift: number;
 };
 
+// Brand palette, mirrored from landing-v2.css. Canvas cannot read CSS custom
+// properties without a getComputedStyle round-trip per frame, so these are
+// duplicated deliberately — keep them in sync with --lv2-orange / --lv2-blue.
+const ORANGE = "238, 115, 37";
+const BLUE = "41, 116, 173";
+
 const RIBBON_COUNT = 6;
 const SAMPLE_STEP = 7;
 
@@ -164,8 +170,8 @@ function HeroBackground() {
       // stacked ribbons never muddy the copy sitting above them.
       const fill = ctx.createLinearGradient(0, ribbon.base * height - ribbon.amplitude, 0, height);
       const fillAlpha = (isActive ? 0.15 : 0.06) * ribbon.depth;
-      fill.addColorStop(0, `rgba(52, 211, 153, ${fillAlpha})`);
-      fill.addColorStop(1, "rgba(52, 211, 153, 0)");
+      fill.addColorStop(0, `rgba(${isActive ? ORANGE : BLUE}, ${fillAlpha})`);
+      fill.addColorStop(1, `rgba(${isActive ? ORANGE : BLUE}, 0)`);
       ctx.beginPath();
       points.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
       ctx.lineTo(width + SAMPLE_STEP, height);
@@ -177,9 +183,9 @@ function HeroBackground() {
       ctx.beginPath();
       points.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
       if (isActive) {
-        ctx.strokeStyle = `rgba(52, 211, 153, ${0.5 + pointer.strength * 0.45})`;
+        ctx.strokeStyle = `rgba(${ORANGE}, ${0.55 + pointer.strength * 0.4})`;
         ctx.lineWidth = ribbon.thickness + 0.9;
-        ctx.shadowColor = "rgba(52, 211, 153, 0.55)";
+        ctx.shadowColor = `rgba(${ORANGE}, 0.55)`;
         ctx.shadowBlur = 14;
       } else {
         ctx.strokeStyle = `rgba(255, 255, 255, ${0.07 + ribbon.depth * 0.2})`;
@@ -207,19 +213,19 @@ function HeroBackground() {
       ctx.setLineDash([4, 6]);
       ctx.moveTo(pointer.x, y);
       ctx.lineTo(pointer.x, height);
-      ctx.strokeStyle = "rgba(52, 211, 153, 0.35)";
+      ctx.strokeStyle = `rgba(${ORANGE}, 0.4)`;
       ctx.lineWidth = 1;
       ctx.stroke();
       ctx.setLineDash([]);
 
       ctx.beginPath();
       ctx.arc(pointer.x, y, 9, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(52, 211, 153, 0.16)";
+      ctx.fillStyle = `rgba(${ORANGE}, 0.18)`;
       ctx.fill();
 
       ctx.beginPath();
       ctx.arc(pointer.x, y, 3.6, 0, Math.PI * 2);
-      ctx.fillStyle = "#34d399";
+      ctx.fillStyle = "#f4823d";
       ctx.fill();
 
       ctx.restore();
@@ -230,8 +236,8 @@ function HeroBackground() {
 
       if (pointer.strength > 0.01) {
         const glow = ctx.createRadialGradient(pointer.x, pointer.y, 0, pointer.x, pointer.y, 260);
-        glow.addColorStop(0, `rgba(52, 211, 153, ${0.1 * pointer.strength})`);
-        glow.addColorStop(1, "rgba(52, 211, 153, 0)");
+        glow.addColorStop(0, `rgba(${ORANGE}, ${0.11 * pointer.strength})`);
+        glow.addColorStop(1, `rgba(${ORANGE}, 0)`);
         ctx.fillStyle = glow;
         ctx.fillRect(0, 0, width, height);
       }

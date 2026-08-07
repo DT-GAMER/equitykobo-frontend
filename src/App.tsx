@@ -17,9 +17,8 @@ import {
 import Carousel from "./Carousel";
 import HeroBackground from "./HeroBackground";
 import useScrollReveal from "./useScrollReveal";
-
-const logoMark =
-  "https://res.cloudinary.com/dofiyn7bw/image/upload/v1785268787/WhatsApp_Image_2026-07-28_at_20.51.17_k8eetf.jpg";
+import { logoIcon, logoLockup, logoSrcSet, logoUrl } from "./brand";
+import { cdn, cdnSrcSet, founder, personas, testimonials } from "./landingPeople";
 
 const sampleCards = [
   {
@@ -31,7 +30,9 @@ const sampleCards = [
     valuation: "Deeply Undervalued",
     margin: "+67.8%",
     peer: "2/12",
-    reason: "Strong profitability, meaningful dividend evidence and attractive valuation versus financial-sector peers.",
+    tone: "yes",
+    reason:
+      "Strong profitability, meaningful dividend evidence and attractive valuation versus financial-sector peers.",
   },
   {
     symbol: "TANTALIZER",
@@ -42,7 +43,9 @@ const sampleCards = [
     valuation: "Watch Entry",
     margin: "N/A",
     peer: "N/A",
-    reason: "Penny/speculative profile means price movement alone is not enough evidence for a confident buy decision.",
+    tone: "wait",
+    reason:
+      "Penny/speculative profile means price movement alone is not enough evidence for a confident buy decision.",
   },
 ];
 
@@ -109,15 +112,33 @@ function App() {
   return (
     <main className="landing-v2">
       <header className="landing-v2-header">
+        {/* The lockup already carries the wordmark and tagline, so the adjacent
+            text block it replaced would have repeated the brand twice.
+
+            Below 560px the lockup's 5.2:1 ratio leaves it squeezed to a third
+            of its width by the sign-in buttons, so the icon-only mark takes
+            over. <picture> rather than two images toggled in CSS, because a
+            display:none <img> is still downloaded. */}
         <Link className="landing-v2-brand" to="/" aria-label="EquityKobo home">
-          <img src={logoMark} alt="" />
-          <span>
-            <strong>EquityKobo</strong>
-            <small>NGX research desk</small>
-          </span>
+          <picture>
+            <source
+              media="(max-width: 560px)"
+              srcSet={logoSrcSet(logoIcon.path, [120, 240])}
+              sizes="42px"
+            />
+            <img
+              alt={logoLockup.alt}
+              height={logoLockup.height}
+              src={logoUrl(logoLockup.path, 520)}
+              srcSet={logoSrcSet(logoLockup.path, [260, 520, 780])}
+              sizes="240px"
+              width={logoLockup.width}
+            />
+          </picture>
         </Link>
 
         <nav className="landing-v2-nav" aria-label="Landing navigation">
+          <a href="#who">Who it's for</a>
           <a href="#how">How it works</a>
           <a href="#pillars">What you get</a>
           <a href="#today">Today's desk</a>
@@ -167,7 +188,7 @@ function App() {
             </div>
             <div className="landing-v2-sample-list">
               {sampleCards.map((card) => (
-                <article className="landing-v2-sample-card" key={card.symbol}>
+                <article className={`landing-v2-sample-card ${card.tone}`} key={card.symbol}>
                   <div className="landing-v2-sample-top">
                     <span>
                       <strong>{card.symbol}</strong>
@@ -191,6 +212,34 @@ function App() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="who" className="landing-v2-section" data-reveal>
+        <div className="landing-v2-section-head">
+          <span>Who this is for</span>
+          <h2>Built for people who want a reason, not a tip.</h2>
+        </div>
+        <div className="landing-v2-persona-grid">
+          {personas.map((persona) => (
+            <article className="landing-v2-persona-card" key={persona.id}>
+              <div className="landing-v2-persona-photo">
+                <img
+                  alt={persona.alt}
+                  decoding="async"
+                  height={698}
+                  loading="lazy"
+                  sizes="(min-width: 1181px) 30vw, (min-width: 721px) 45vw, 92vw"
+                  src={cdn(persona.path, 800)}
+                  srcSet={cdnSrcSet(persona.path)}
+                  width={1280}
+                />
+              </div>
+              <h3>{persona.label}</h3>
+              <p className="landing-v2-persona-situation">{persona.situation}</p>
+              <p>{persona.need}</p>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -259,6 +308,64 @@ function App() {
         </div>
       </section>
 
+      {/* Renders only when real, consented users have been added to
+          landingPeople.ts. An empty testimonial rail is better than an invented
+          one — see the note at the top of that file. */}
+      {testimonials.length > 0 && (
+        <section id="voices" className="landing-v2-section muted" data-reveal>
+          <div className="landing-v2-section-head">
+            <span>In their words</span>
+            <h2>What changed once the reason came first.</h2>
+          </div>
+          <Carousel className="testimonial-carousel" label="What people say">
+            {testimonials.map((item) => (
+              <article className="landing-v2-testimonial" key={item.id}>
+                <blockquote>{item.quote}</blockquote>
+                <footer>
+                  <img
+                    alt=""
+                    decoding="async"
+                    height={240}
+                    loading="lazy"
+                    src={item.image}
+                    width={240}
+                  />
+                  <span>
+                    <strong>{item.name}</strong>
+                    <small>
+                      {item.location} &middot; {item.context}
+                    </small>
+                  </span>
+                </footer>
+              </article>
+            ))}
+          </Carousel>
+        </section>
+      )}
+
+      <section className="landing-v2-founder" data-reveal>
+        <div className="landing-v2-founder-photo">
+          <img
+            alt={founder.alt}
+            decoding="async"
+            height={750}
+            loading="lazy"
+            src={founder.image}
+            width={600}
+          />
+        </div>
+        <div className="landing-v2-founder-copy">
+          <span>Why I built this</span>
+          {founder.body.map((paragraph) => (
+            <p key={paragraph.slice(0, 32)}>{paragraph}</p>
+          ))}
+          <div className="landing-v2-founder-sign">
+            <strong>{founder.name}</strong>
+            <small>{founder.role}</small>
+          </div>
+        </div>
+      </section>
+
       <section id="pricing" className="landing-v2-pricing" data-reveal>
         <div>
           <span>Pricing-ready</span>
@@ -304,11 +411,15 @@ function App() {
         <div className="landing-v2-footer-main">
           <div>
             <Link className="landing-v2-brand footer" to="/" aria-label="EquityKobo home">
-              <img src={logoMark} alt="" />
-              <span>
-                <strong>EquityKobo</strong>
-                <small>Plain-English NGX equity research</small>
-              </span>
+              <img
+                alt={logoLockup.alt}
+                height={logoLockup.height}
+                loading="lazy"
+                src={logoUrl(logoLockup.path, 520)}
+                srcSet={logoSrcSet(logoLockup.path, [260, 520, 780])}
+                sizes="260px"
+                width={logoLockup.width}
+              />
             </Link>
             <p>
               Research software for long-term Nigerian equity investors who want evidence,

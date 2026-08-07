@@ -3,14 +3,26 @@
    Layout here is desktop-first; every responsive override lives in responsive.css. */
 
 .landing-v2 {
-  /* Design tokens for the marketing page. Scoped here so the refreshed look
-     cannot leak into the signed-in application. */
-  --lv2-emerald: #047857;
-  --lv2-emerald-bright: #34d399;
-  --lv2-navy: #071323;
-  --lv2-ink: #172033;
-  --lv2-muted: #647084;
-  --lv2-line: #dce4ee;
+  /* Brand palette, sampled from the logo. Scoped here so the marketing look
+     cannot leak into the signed-in application before that is rebranded too.
+
+     Contrast was measured rather than eyeballed, because the brand orange is
+     light: #ee7325 is only 2.82:1 on the page background and 2.95:1 under
+     white text, so it can be a FILL but never small text or a text colour on
+     white. --lv2-orange-ink exists for that job. */
+  --lv2-orange: #ee7325;          /* brand orange - fills and accents        */
+  --lv2-orange-bright: #f4823d;   /* gradient light end                      */
+  --lv2-orange-ink: #a8460a;      /* orange for small text  (5.65:1 on bg)   */
+  --lv2-orange-soft: #fdeee2;     /* tint for chips and icon plates          */
+  --lv2-blue: #2974ad;            /* brand blue, secondary  (4.77:1 on bg)   */
+  --lv2-blue-light: #7fb3dd;      /* blue for dark surfaces (7.37:1 on navy) */
+  --lv2-blue-soft: #e9f2f9;
+  --lv2-navy: #16335b;            /* brand navy, headings  (12.08:1 on bg)   */
+  --lv2-navy-deep: #0d1f3a;       /* hero ground, and the label on orange
+                                     fills (5.58:1)                          */
+  --lv2-ink: #1b2a3f;
+  --lv2-muted: #5c6b7e;
+  --lv2-line: #dbe3ec;
 
   /* A larger radius and layered shadows are what separate the refreshed cards
      from the original flat 8px/single-shadow treatment. */
@@ -26,8 +38,8 @@
   min-height: 100vh;
   color: var(--lv2-ink);
   background:
-    radial-gradient(1100px 520px at 88% -8%, rgba(52, 211, 153, 0.1), transparent 62%),
-    radial-gradient(900px 460px at -10% 8%, rgba(4, 120, 87, 0.07), transparent 60%),
+    radial-gradient(1100px 520px at 88% -8%, rgba(238, 115, 37, 0.09), transparent 62%),
+    radial-gradient(900px 460px at -10% 8%, rgba(41, 116, 173, 0.08), transparent 60%),
     #f7fafc;
 }
 
@@ -42,7 +54,7 @@
   min-height: 68px;
   padding: 12px clamp(18px, 5vw, 76px);
   background: rgba(247, 250, 252, 0.9);
-  border-bottom: 1px solid #dce4ee;
+  border-bottom: 1px solid var(--lv2-line);
   backdrop-filter: blur(18px);
 }
 
@@ -53,32 +65,23 @@
   min-width: 0;
 }
 
+/* The lockup is a wide horizontal image (trimmed ratio 5.2:1), so it is sized
+   by height and left to find its own width. The previous rule cropped the logo
+   into a 38px square, which was correct for the old icon-only mark and would
+   squash this one. */
 .landing-v2-brand img {
-  width: 38px;
-  height: 38px;
-  object-fit: cover;
-  border-radius: var(--lv2-radius);
-  box-shadow: 0 10px 22px rgba(7, 19, 35, 0.12);
+  width: auto;
+  height: 42px;
+  max-width: 100%;
+  object-fit: contain;
 }
+
 
 .landing-v2-brand span,
 .landing-v2-sample-top span {
   display: grid;
   gap: 2px;
   min-width: 0;
-}
-
-.landing-v2-brand strong {
-  color: #071323;
-  font-size: 0.96rem;
-}
-
-.landing-v2-brand small {
-  color: #647084;
-  font-size: 0.67rem;
-  font-weight: 900;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
 }
 
 .landing-v2-nav,
@@ -96,7 +99,7 @@
 
 .landing-v2-nav {
   gap: 24px;
-  color: #647084;
+  color: var(--lv2-muted);
   font-size: 0.82rem;
   font-weight: 850;
 }
@@ -104,7 +107,7 @@
 .landing-v2-nav a:hover,
 .landing-v2-text-link:hover,
 .landing-v2-footer a:hover {
-  color: #047857;
+  color: var(--lv2-orange-ink);
 }
 
 .landing-v2-actions {
@@ -112,7 +115,7 @@
 }
 
 .landing-v2-text-link {
-  color: #647084;
+  color: var(--lv2-muted);
   font-size: 0.9rem;
   font-weight: 850;
 }
@@ -124,9 +127,9 @@
   gap: 8px;
   min-height: 46px;
   padding: 0 18px;
-  color: #071323;
+  color: var(--lv2-navy);
   background: #ffffff;
-  border: 1px solid #dce4ee;
+  border: 1px solid var(--lv2-line);
   border-radius: var(--lv2-radius);
   font-weight: 900;
   box-shadow: 0 12px 28px rgba(7, 19, 35, 0.1);
@@ -137,10 +140,12 @@
   padding: 0 14px;
 }
 
+/* The label is navy-deep rather than white: white on brand orange is only
+   2.95:1, while navy-deep clears 5.58:1. */
 .landing-v2-button.primary {
-  color: #071323;
-  background: #34d399;
-  border-color: #34d399;
+  color: var(--lv2-navy-deep);
+  background: var(--lv2-orange);
+  border-color: var(--lv2-orange);
 }
 
 .landing-v2-button.secondary {
@@ -151,7 +156,7 @@
 }
 
 .landing-v2-button.outline {
-  color: #071323;
+  color: var(--lv2-navy);
   background: #ffffff;
 }
 
@@ -164,18 +169,18 @@
   overflow: hidden;
   color: #ffffff;
   background:
-    /* Emerald bloom top-right, cool depth bottom-left, over the base grid. */
-    radial-gradient(1200px 620px at 82% -10%, rgba(52, 211, 153, 0.16), transparent 62%),
-    radial-gradient(900px 520px at -6% 105%, rgba(4, 120, 87, 0.16), transparent 60%),
+    /* Orange bloom top-right, blue depth bottom-left, over the base grid. */
+    radial-gradient(1200px 620px at 82% -10%, rgba(238, 115, 37, 0.16), transparent 62%),
+    radial-gradient(900px 520px at -6% 105%, rgba(41, 116, 173, 0.16), transparent 60%),
     linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
-    #071323;
+    var(--lv2-navy-deep);
   background-size:
     100% 100%,
     100% 100%,
     56px 56px,
     56px 56px;
-  border-bottom: 1px solid #dce4ee;
+  border-bottom: 1px solid var(--lv2-line);
 }
 
 /* The animated geometry sits between the background and the copy. It is inert
@@ -227,7 +232,7 @@
   gap: 8px;
   min-height: 34px;
   padding: 0 12px;
-  color: #34d399;
+  color: var(--lv2-orange-bright);
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 999px;
@@ -274,7 +279,7 @@
 .landing-v2-preview {
   min-width: 0;
   padding: clamp(18px, 3vw, 24px);
-  color: #172033;
+  color: var(--lv2-ink);
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--lv2-radius);
@@ -295,11 +300,11 @@
 }
 
 .landing-v2-preview-head span {
-  color: #647084;
+  color: var(--lv2-muted);
 }
 
 .landing-v2-preview-head strong {
-  color: #071323;
+  color: var(--lv2-navy);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.82rem;
 }
@@ -312,19 +317,19 @@
 .landing-v2-sample-card {
   padding: 15px;
   background: #f8fbfd;
-  border: 1px solid #dce4ee;
+  border: 1px solid var(--lv2-line);
   border-radius: var(--lv2-radius);
 }
 
 .landing-v2-sample-top strong {
-  color: #071323;
+  color: var(--lv2-navy);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 .landing-v2-sample-top small {
   max-width: 280px;
   overflow: hidden;
-  color: #647084;
+  color: var(--lv2-muted);
   font-size: 0.78rem;
   font-weight: 750;
   text-overflow: ellipsis;
@@ -343,11 +348,22 @@
   border-radius: 999px;
 }
 
+/* Decision colour is semantic, not brand. A YES and a WAIT card rendered in the
+   same brand orange are indistinguishable, and orange on a YES actively reads
+   as caution — so these three stay green / amber / red regardless of palette. */
 .landing-v2-meter span {
   display: block;
   height: 100%;
-  background: linear-gradient(90deg, #047857, #34d399);
+  background: linear-gradient(90deg, #0e7a4d, #16a35f);
   border-radius: inherit;
+}
+
+.landing-v2-sample-card.wait .landing-v2-meter span {
+  background: linear-gradient(90deg, #a8460a, var(--lv2-orange-bright));
+}
+
+.landing-v2-sample-card.no .landing-v2-meter span {
+  background: linear-gradient(90deg, #a3170f, #d9342a);
 }
 
 .landing-v2-chip-row {
@@ -361,9 +377,9 @@
   gap: 7px;
   min-height: 30px;
   padding: 0 10px;
-  color: #047857;
-  background: #dff7ec;
-  border: 1px solid rgba(5, 150, 105, 0.22);
+  color: #0b6b43;
+  background: #e3f5ec;
+  border: 1px solid rgba(14, 122, 77, 0.22);
   border-radius: 999px;
   font-size: 0.78rem;
   font-weight: 900;
@@ -388,8 +404,8 @@
   padding-right: max(24px, calc((100% - 1440px) / 2));
   padding-left: max(24px, calc((100% - 1440px) / 2));
   background: #eef3f8;
-  border-top: 1px solid #dce4ee;
-  border-bottom: 1px solid #dce4ee;
+  border-top: 1px solid var(--lv2-line);
+  border-bottom: 1px solid var(--lv2-line);
 }
 
 .landing-v2-section-head {
@@ -398,7 +414,7 @@
 
 .landing-v2-section-head > span,
 .landing-v2-pricing > div > span {
-  color: #047857;
+  color: var(--lv2-orange-ink);
   font-size: 0.78rem;
   font-weight: 950;
   letter-spacing: 0.18em;
@@ -409,7 +425,7 @@
 .landing-v2-pricing h2,
 .landing-v2-cta h2 {
   margin: 8px 0 0;
-  color: #071323;
+  color: var(--lv2-navy);
   font-size: clamp(2rem, 5vw, 3.4rem);
   line-height: 1.05;
 }
@@ -442,7 +458,7 @@
   min-width: 0;
   padding: 22px;
   background: #ffffff;
-  border: 1px solid #dce4ee;
+  border: 1px solid var(--lv2-line);
   border-radius: var(--lv2-radius);
   box-shadow: 0 16px 38px rgba(7, 19, 35, 0.08);
 }
@@ -458,9 +474,9 @@
   place-items: center;
   width: 42px;
   height: 42px;
-  color: #047857;
-  background: #dff7ec;
-  border: 1px solid rgba(5, 150, 105, 0.2);
+  color: var(--lv2-orange-ink);
+  background: var(--lv2-orange-soft);
+  border: 1px solid rgba(238, 115, 37, 0.2);
   border-radius: var(--lv2-radius);
   font-weight: 950;
 }
@@ -469,7 +485,7 @@
 .landing-v2-pillar-card h3,
 .landing-v2-footer h3 {
   margin: 16px 0 8px;
-  color: #071323;
+  color: var(--lv2-navy);
   font-size: 1.08rem;
 }
 
@@ -480,7 +496,7 @@
 .landing-v2-footer p,
 .landing-v2-compliance p {
   margin: 0;
-  color: #647084;
+  color: var(--lv2-muted);
   line-height: 1.65;
 }
 
@@ -492,7 +508,7 @@
 .landing-v2-market-tile strong {
   display: block;
   margin-top: 18px;
-  color: #071323;
+  color: var(--lv2-navy);
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1;
@@ -500,7 +516,7 @@
 
 .landing-v2-market-tile p {
   margin: 8px 0 0;
-  color: #647084;
+  color: var(--lv2-muted);
   font-weight: 850;
 }
 
@@ -517,7 +533,7 @@
 }
 
 .landing-v2-price-grid article > span {
-  color: #047857;
+  color: var(--lv2-orange-ink);
   font-weight: 950;
   text-transform: uppercase;
 }
@@ -525,14 +541,14 @@
 .landing-v2-price-grid article > strong {
   display: block;
   margin: 12px 0;
-  color: #071323;
+  color: var(--lv2-navy);
   font-size: 2rem;
 }
 
 .landing-v2-price-grid article.featured {
   color: #ffffff;
-  background: #071323;
-  border-color: #071323;
+  background: var(--lv2-navy-deep);
+  border-color: var(--lv2-navy-deep);
 }
 
 .landing-v2-price-grid article.featured strong,
@@ -543,12 +559,12 @@
 .landing-v2-price-grid a {
   display: inline-flex;
   margin-top: 18px;
-  color: #047857;
+  color: var(--lv2-orange-ink);
   font-weight: 950;
 }
 
 .landing-v2-price-grid .featured a {
-  color: #34d399;
+  color: var(--lv2-orange-bright);
 }
 
 .landing-v2-cta {
@@ -556,7 +572,7 @@
   justify-items: center;
   padding: clamp(58px, 8vw, 88px) 16px;
   color: #ffffff;
-  background: #071323;
+  background: var(--lv2-navy-deep);
   text-align: center;
 }
 
@@ -579,7 +595,7 @@
 
 .landing-v2-footer {
   background: #ffffff;
-  border-top: 1px solid #dce4ee;
+  border-top: 1px solid var(--lv2-line);
 }
 
 .landing-v2-footer-main,
@@ -597,7 +613,7 @@
 }
 
 .landing-v2-brand.footer img {
-  box-shadow: none;
+  height: 48px;
 }
 
 .landing-v2-footer-main > div > p {
@@ -623,7 +639,7 @@
 }
 
 .landing-v2-footer a {
-  color: #647084;
+  color: var(--lv2-muted);
   font-size: 0.9rem;
   font-weight: 750;
 }
@@ -638,21 +654,21 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
   padding: 20px 0;
-  border-top: 1px solid #dce4ee;
-  border-bottom: 1px solid #dce4ee;
+  border-top: 1px solid var(--lv2-line);
+  border-bottom: 1px solid var(--lv2-line);
 }
 
 .landing-v2-compliance article {
   padding: 18px;
   background: #f7fafc;
-  border: 1px solid #dce4ee;
+  border: 1px solid var(--lv2-line);
   border-radius: var(--lv2-radius);
 }
 
 .landing-v2-footer-bottom {
   justify-content: space-between;
   padding: 18px 0;
-  color: #647084;
+  color: var(--lv2-muted);
   font-size: 0.86rem;
   font-weight: 800;
 }
@@ -703,7 +719,7 @@
 .landing-v2-market-tile:hover,
 .landing-v2-price-grid article:hover {
   transform: translateY(-4px);
-  border-color: rgba(4, 120, 87, 0.28);
+  border-color: rgba(41, 116, 173, 0.28);
   box-shadow: var(--lv2-shadow-lift);
 }
 
@@ -711,8 +727,8 @@
 .landing-v2-step-card > span,
 .landing-v2-pillar-card > span,
 .landing-v2-market-tile > span {
-  background: linear-gradient(140deg, #dff7ec, #ffffff);
-  box-shadow: 0 6px 16px rgba(4, 120, 87, 0.14);
+  background: linear-gradient(140deg, var(--lv2-orange-soft), #ffffff);
+  box-shadow: 0 6px 16px rgba(41, 116, 173, 0.14);
   transition: transform 0.45s var(--lv2-ease);
 }
 
@@ -754,13 +770,14 @@
 }
 
 .landing-v2-button.primary {
-  background: linear-gradient(135deg, #34d399, #059669 120%);
-  box-shadow: 0 10px 26px rgba(5, 150, 105, 0.34);
+  background: linear-gradient(135deg, var(--lv2-orange-bright), var(--lv2-orange) 120%);
+  color: var(--lv2-navy-deep);
+  box-shadow: 0 10px 26px rgba(238, 115, 37, 0.34);
 }
 
 .landing-v2-button.primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 36px rgba(5, 150, 105, 0.42);
+  box-shadow: 0 16px 36px rgba(238, 115, 37, 0.42);
 }
 
 /* ==========================================================================
@@ -890,7 +907,7 @@
 .ek-carousel-arrow:hover:not(:disabled) {
   transform: translateY(-2px);
   color: var(--lv2-emerald);
-  border-color: rgba(4, 120, 87, 0.3);
+  border-color: rgba(41, 116, 173, 0.3);
   box-shadow: var(--lv2-shadow);
 }
 
@@ -962,9 +979,9 @@
   min-height: var(--tap-target);
   padding: 0 18px;
   color: var(--lv2-navy);
-  background: linear-gradient(135deg, #34d399, #059669 120%);
+  background: linear-gradient(135deg, var(--lv2-orange-bright), var(--lv2-orange) 120%);
   border-radius: 999px;
-  box-shadow: 0 10px 24px rgba(5, 150, 105, 0.3);
+  box-shadow: 0 10px 24px rgba(238, 115, 37, 0.3);
   transition:
     transform 0.3s var(--lv2-ease),
     box-shadow 0.3s var(--lv2-ease);
@@ -972,7 +989,7 @@
 
 .landing-v2-price-grid a:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 32px rgba(5, 150, 105, 0.4);
+  box-shadow: 0 16px 32px rgba(238, 115, 37, 0.4);
 }
 
 /* On the dark featured card an outline button keeps the emerald fill for the
@@ -1022,23 +1039,23 @@
 }
 
 .landing-v2-hero .landing-v2-button.primary {
-  background: linear-gradient(135deg, #34d399, #059669 120%);
+  background: linear-gradient(135deg, var(--lv2-orange-bright), var(--lv2-orange) 120%);
   border-color: transparent;
   box-shadow:
-    0 12px 30px rgba(5, 150, 105, 0.38),
-    0 0 0 1px rgba(52, 211, 153, 0.4) inset;
+    0 12px 30px rgba(238, 115, 37, 0.38),
+    0 0 0 1px rgba(238, 115, 37, 0.4) inset;
 }
 
 .landing-v2-hero .landing-v2-button.primary:hover {
   box-shadow:
-    0 18px 40px rgba(5, 150, 105, 0.48),
-    0 0 0 1px rgba(52, 211, 153, 0.55) inset;
+    0 18px 40px rgba(238, 115, 37, 0.48),
+    0 0 0 1px rgba(238, 115, 37, 0.55) inset;
 }
 
 /* Keyboard users must be able to see where they are against a moving field. */
 .landing-v2-hero a:focus-visible,
 .landing-v2-hero button:focus-visible {
-  outline: 2px solid #34d399;
+  outline: 2px solid var(--lv2-orange-bright);
   outline-offset: 3px;
 }
 
@@ -1047,4 +1064,251 @@
   .landing-v2-button.secondary:hover {
     transform: none;
   }
+}
+
+/* ==========================================================================
+ * People
+ *
+ * Investor personas, a founder's note, and (once real users exist) testimonials.
+ * Every image sits in a ratio-locked box with width/height on the <img>, so
+ * swapping a placeholder for a real photo cannot shift the layout.
+ * ========================================================================== */
+
+/* --- Personas ------------------------------------------------------------ */
+
+.landing-v2-persona-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.landing-v2-persona-card {
+  min-width: 0;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid var(--lv2-line);
+  border-radius: var(--lv2-radius);
+  box-shadow: var(--lv2-shadow);
+  transition:
+    transform 0.45s var(--lv2-ease),
+    box-shadow 0.45s var(--lv2-ease);
+}
+
+.landing-v2-persona-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--lv2-shadow-lift);
+}
+
+/* These are scenes, not headshots — the laptop screen carries as much of the
+   story as the person does. A square crop would cut off one or the other, so
+   the box matches the source ratio. */
+.landing-v2-persona-photo {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--lv2-navy);
+}
+
+.landing-v2-persona-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--lv2-ease);
+}
+
+.landing-v2-persona-card:hover .landing-v2-persona-photo img {
+  transform: scale(1.04);
+}
+
+.landing-v2-persona-card h3 {
+  margin: 20px 22px 0;
+  color: var(--lv2-navy);
+  font-size: 1.12rem;
+}
+
+.landing-v2-persona-card p {
+  margin: 8px 22px 0;
+  color: var(--lv2-muted);
+  line-height: 1.6;
+}
+
+.landing-v2-persona-card p:last-child {
+  margin-bottom: 22px;
+}
+
+/* The situation line is the sentence someone recognises themselves in, so it
+   carries more weight than the need below it. */
+.landing-v2-persona-situation {
+  color: var(--lv2-navy) !important;
+  font-weight: 800;
+}
+
+/* --- Founder note -------------------------------------------------------- */
+
+.landing-v2-founder {
+  display: grid;
+  grid-template-columns: minmax(0, 0.36fr) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+  width: min(1180px, calc(100% - 48px));
+  padding: clamp(34px, 5vw, 56px);
+  margin: 0 auto clamp(56px, 8vw, 88px);
+  background: #ffffff;
+  border: 1px solid var(--lv2-line);
+  border-radius: var(--lv2-radius-lg);
+  box-shadow: var(--lv2-shadow);
+}
+
+.landing-v2-founder-photo {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--lv2-navy);
+  border-radius: var(--lv2-radius);
+}
+
+.landing-v2-founder-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.landing-v2-founder-copy > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--lv2-emerald);
+  font-size: 0.78rem;
+  font-weight: 950;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.landing-v2-founder-copy > span::after {
+  content: "";
+  width: 44px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--lv2-emerald-bright), transparent);
+  border-radius: 999px;
+}
+
+.landing-v2-founder-copy p {
+  margin: 18px 0 0;
+  color: var(--lv2-ink);
+  font-size: clamp(1rem, 1.5vw, 1.18rem);
+  line-height: 1.75;
+}
+
+.landing-v2-founder-sign {
+  display: grid;
+  gap: 3px;
+  padding-top: 20px;
+  margin-top: 24px;
+  border-top: 1px solid var(--lv2-line);
+}
+
+.landing-v2-founder-sign strong {
+  color: var(--lv2-navy);
+  font-size: 1.02rem;
+}
+
+.landing-v2-founder-sign small {
+  color: var(--lv2-muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+/* --- Testimonials -------------------------------------------------------- */
+
+.landing-v2-testimonial {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  height: 100%;
+  padding: 26px;
+  background: #ffffff;
+  border: 1px solid var(--lv2-line);
+  border-radius: var(--lv2-radius);
+  box-shadow: var(--lv2-shadow);
+}
+
+.landing-v2-testimonial blockquote {
+  margin: 0;
+  color: var(--lv2-navy);
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.landing-v2-testimonial blockquote::before {
+  content: "\201C";
+  display: block;
+  margin-bottom: -14px;
+  color: var(--lv2-emerald-bright);
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.landing-v2-testimonial footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 20px;
+  margin-top: 22px;
+  border-top: 1px solid var(--lv2-line);
+}
+
+.landing-v2-testimonial footer img {
+  width: 46px;
+  height: 46px;
+  object-fit: cover;
+  border-radius: 999px;
+  background: var(--lv2-navy);
+}
+
+.landing-v2-testimonial footer span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.landing-v2-testimonial footer strong {
+  color: var(--lv2-navy);
+  font-size: 0.95rem;
+}
+
+.landing-v2-testimonial footer small {
+  color: var(--lv2-muted);
+  font-size: 0.8rem;
+  font-weight: 750;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-v2-persona-card,
+  .landing-v2-persona-photo img {
+    transition: none;
+  }
+
+  .landing-v2-persona-card:hover {
+    transform: none;
+  }
+
+  .landing-v2-persona-card:hover .landing-v2-persona-photo img {
+    transform: none;
+  }
+}
+
+/* The footer badges share the chip rule but are brand trust marks, not decision
+   states, so they take the brand tint rather than the semantic green. */
+.landing-v2-footer-badges span {
+  color: var(--lv2-orange-ink);
+  background: var(--lv2-orange-soft);
+  border-color: rgba(238, 115, 37, 0.22);
+}
+
+/* WAIT cards tint their chips amber to match the meter. */
+.landing-v2-sample-card.wait .landing-v2-chip-row span {
+  color: var(--lv2-orange-ink);
+  background: var(--lv2-orange-soft);
+  border-color: rgba(238, 115, 37, 0.22);
 }

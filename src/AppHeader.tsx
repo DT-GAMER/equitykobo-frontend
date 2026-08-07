@@ -111,7 +111,7 @@ function AppHeader() {
       <aside className={isMobileOpen ? "app-sidebar mobile-open" : "app-sidebar"} id="app-sidebar">
         <div className="sidebar-brand-row">
           <NavLink className="brand" to="/app" onClick={() => setIsMobileOpen(false)}>
-            <img className="brand-mark" src={logoMark} alt="" />
+            <img alt="" className="brand-mark" height={36} src={logoMark} width={36} />
             <span className="brand-copy">
               <span className="brand-name">EquityKobo</span>
               <span className="brand-subtitle">NGX research desk</span>
