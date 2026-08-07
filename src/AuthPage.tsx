@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft, Eye, LockKeyhole, Mail, UserRound } from "lucide-react";
 import { login, saveAuthSession, signup, syncLocalAccountData } from "./api";
 import HeroBackground from "./HeroBackground";
+import useDocumentMeta from "./useDocumentMeta";
 import { logoLockup, logoSrcSet, logoUrl } from "./brand";
 
 type AuthMode = "login" | "signup";
@@ -15,6 +16,17 @@ function AuthPage({ mode }: AuthPageProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const isSignup = mode === "signup";
+
+  useDocumentMeta({
+    title: isSignup
+      ? "Create your EquityKobo account | NGX stock research"
+      : "Login | EquityKobo NGX research desk",
+    description: isSignup
+      ? "Create a free EquityKobo account to research Nigerian Exchange companies with plain-English decision cards."
+      : "Log in to your EquityKobo research desk to review opportunities, watchlists and portfolio signals.",
+    canonicalPath: isSignup ? "/signup" : "/login",
+    noindex: true,
+  });
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

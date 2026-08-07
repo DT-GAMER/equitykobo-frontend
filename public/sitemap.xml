@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Only genuinely indexable URLs belong here. Every other route in the app is
+  behind authentication, so listing them would report soft-404s in Search
+  Console. Add company pages here if they are ever made public.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://equitykobo.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

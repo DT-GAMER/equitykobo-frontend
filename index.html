@@ -5,8 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="EquityKobo helps long-term investors find Nigerian companies worth researching before they invest."
+      content="EquityKobo turns Nigerian Exchange (NGX) data, annual reports and dividend records into plain-English decision cards: research, wait, avoid or speculative. Built for long-term Nigerian investors."
     />
+
+    <!-- Canonical. Set to the non-www apex; make sure the host redirects
+         www -> apex (or change this) so the two are not indexed separately. -->
+    <link rel="canonical" href="https://equitykobo.com/" />
+
+    <!-- Open Graph. These are what WhatsApp, LinkedIn and Facebook read when a
+         link is shared. None of those crawlers execute JavaScript, so anything
+         set from React would be invisible to them — it has to be here, in the
+         HTML the server returns. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="EquityKobo" />
+    <meta property="og:url" content="https://equitykobo.com/" />
+    <meta property="og:title" content="EquityKobo — Should you invest in this NGX stock?" />
+    <meta
+      property="og:description"
+      content="Plain-English decision cards for Nigerian Exchange companies. See the evidence, the risks and a fair-value range before you buy."
+    />
+    <meta property="og:image" content="https://equitykobo.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="EquityKobo — stop guessing which NGX stock to buy" />
+    <meta property="og:locale" content="en_NG" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="EquityKobo — Should you invest in this NGX stock?" />
+    <meta
+      name="twitter:description"
+      content="Plain-English decision cards for Nigerian Exchange companies. See the evidence, the risks and a fair-value range before you buy."
+    />
+    <meta name="twitter:image" content="https://equitykobo.com/og-image.png" />
 
     <!-- Favicons, generated from the logo mark into public/. Each tile is the
          mark centred on white: the mark's navy bar all but disappears on a dark
@@ -29,7 +59,50 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="EquityKobo" />
 
-    <title>EquityKobo | Nigerian Equity Research Platform</title>
+    <title>EquityKobo | NGX Stock Research &amp; Decision Cards for Nigerian Investors</title>
+
+    <!-- Structured data. Lets search engines understand what this is and who
+         publishes it, and makes the site eligible for a sitelinks search box
+         and richer branded results. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://equitykobo.com/#organization",
+            "name": "EquityKobo",
+            "url": "https://equitykobo.com/",
+            "logo": "https://equitykobo.com/icon-512.png",
+            "description": "Equity research and decision-support software for long-term Nigerian Exchange investors.",
+            "areaServed": { "@type": "Country", "name": "Nigeria" }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://equitykobo.com/#website",
+            "url": "https://equitykobo.com/",
+            "name": "EquityKobo",
+            "publisher": { "@id": "https://equitykobo.com/#organization" },
+            "inLanguage": "en-NG"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "EquityKobo",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web",
+            "url": "https://equitykobo.com/",
+            "publisher": { "@id": "https://equitykobo.com/#organization" },
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "NGN",
+              "description": "Free plan: watchlists, decision cards and the latest NGX ranking."
+            },
+            "description": "EquityKobo turns Nigerian Exchange data, annual reports and dividend records into plain-English decision cards, with fair value, peer comparison and risk checks."
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -1,0 +1,22 @@
+# EquityKobo
+
+User-agent: *
+Allow: /
+
+# Everything below needs a login. Crawling it wastes crawl budget and, because
+# the app is client-rendered, these URLs would be indexed as empty pages.
+Disallow: /app
+Disallow: /onboarding
+Disallow: /company/
+Disallow: /journal
+Disallow: /portfolio
+Disallow: /portfolio-plan
+Disallow: /watchlists
+Disallow: /admin
+
+# Auth pages are public but have no search value and would compete with the
+# homepage for branded queries.
+Disallow: /login
+Disallow: /signup
+
+Sitemap: https://equitykobo.com/sitemap.xml

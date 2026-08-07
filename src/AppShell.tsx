@@ -20,6 +20,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import AppHeader from "./AppHeader";
+import useDocumentMeta from "./useDocumentMeta";
 import { getStoredUser, loadOpportunityDesk } from "./api";
 import type {
   DecisionDashboardOpportunity,
@@ -27,6 +28,10 @@ import type {
 } from "./api";
 
 function AppShell() {
+  useDocumentMeta({
+    title: "Opportunity Desk | EquityKobo",
+    noindex: true,
+  });
   const [data, setData] = useState<Awaited<ReturnType<typeof loadOpportunityDesk>> | null>(null);
   const [selectedSymbol, setSelectedSymbol] = useState("");
   const [activeCategory, setActiveCategory] = useState("top_research");

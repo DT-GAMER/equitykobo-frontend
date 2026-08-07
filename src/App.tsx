@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Carousel from "./Carousel";
 import HeroBackground from "./HeroBackground";
+import useDocumentMeta from "./useDocumentMeta";
 import useScrollReveal from "./useScrollReveal";
 import { logoIcon, logoLockup, logoSrcSet, logoUrl } from "./brand";
 import { cdn, cdnSrcSet, founder, personas, testimonials } from "./landingPeople";
@@ -107,6 +108,14 @@ const steps = [
 ];
 
 function App() {
+  // index.html already carries the homepage title, description and Open Graph
+  // tags; this only restores them if the user navigates back from another route.
+  useDocumentMeta({
+    title: "EquityKobo | NGX Stock Research & Decision Cards for Nigerian Investors",
+    description:
+      "EquityKobo turns Nigerian Exchange (NGX) data, annual reports and dividend records into plain-English decision cards: research, wait, avoid or speculative.",
+    canonicalPath: "/",
+  });
   useScrollReveal();
 
   return (
