@@ -15,6 +15,7 @@ import {
   TrendingDown,
 } from "lucide-react";
 import Carousel from "./Carousel";
+import HeroBackground from "./HeroBackground";
 import useScrollReveal from "./useScrollReveal";
 
 const logoMark =
@@ -134,8 +135,13 @@ function App() {
       </header>
 
       <section className="landing-v2-hero">
+        <HeroBackground />
         <div className="landing-v2-hero-inner">
           <div className="landing-v2-hero-copy">
+            <p className="landing-v2-kicker">
+              <ShieldCheck size={14} />
+              Nigerian Exchange research desk
+            </p>
             <h1>Stop guessing which NGX stock to buy.</h1>
             <p>
               EquityKobo turns Nigerian Exchange data, annual reports and dividend records into
@@ -151,21 +157,6 @@ function App() {
               <Link className="landing-v2-button secondary" to="/login">
                 Open existing desk
               </Link>
-            </div>
-
-            <div className="landing-v2-stats" aria-label="EquityKobo market coverage">
-              <span>
-                <small>Companies scanned</small>
-                <strong>153</strong>
-              </span>
-              <span className="decision-label-stat">
-                <small>Decision labels</small>
-                <strong>YES / WAIT / NO</strong>
-              </span>
-              <span>
-                <small>Core market</small>
-                <strong>NGX</strong>
-              </span>
             </div>
           </div>
 
@@ -201,24 +192,6 @@ function App() {
             </div>
           </div>
         </div>
-      </section>
-
-      <section className="landing-v2-proof-strip" aria-label="EquityKobo decision model" data-reveal>
-        <article>
-          <span>Answer first</span>
-          <strong>Should I invest?</strong>
-          <p>Users see the decision label before the ratios, because clarity is the product.</p>
-        </article>
-        <article>
-          <span>Evidence next</span>
-          <strong>Why and why not</strong>
-          <p>Reasons, risks, fair value and peer rank sit on the same decision card.</p>
-        </article>
-        <article>
-          <span>Action last</span>
-          <strong>Watch, plan, journal</strong>
-          <p>The workflow pushes users to record a thesis instead of copying social media tips.</p>
-        </article>
       </section>
 
       <section id="how" className="landing-v2-section" data-reveal>

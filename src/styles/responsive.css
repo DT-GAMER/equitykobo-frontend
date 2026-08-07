@@ -413,7 +413,6 @@
 
   .landing-v2-step-grid,
   .landing-v2-market-grid,
-  .landing-v2-proof-strip,
   .landing-v2-compliance {
     grid-template-columns: 1fr;
   }
@@ -425,10 +424,6 @@
 
   .landing-v2-pillar-card {
     grid-column: auto;
-  }
-
-  .landing-v2-proof-strip {
-    margin-top: 0;
   }
 
   .landing-v2-title-row {
@@ -482,8 +477,7 @@
   .landing-v2-pricing,
   .landing-v2-footer-main,
   .landing-v2-compliance,
-  .landing-v2-footer-bottom,
-  .landing-v2-proof-strip {
+  .landing-v2-footer-bottom {
     width: min(100% - 28px, 1440px);
   }
 
@@ -897,32 +891,41 @@
     display: none;
   }
 
-  /* merged from 640px@L7233 + 640px@L7536 */
+  /* The header stays a single sticky row on phones. It previously switched to
+     flex-direction: column, which pushed Login onto its own line and stretched
+     Sign up to full width — it read as page content rather than a header. */
   .landing-v2-header {
-    align-items: stretch;
-    flex-direction: column;
-    position: static;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
     width: min(100% - 20px, 1440px);
     min-height: 0;
-    gap: 12px;
     padding-top: 10px;
     padding-bottom: 10px;
   }
 
-  /* merged from 640px@L7233 + 640px@L7536 */
   .landing-v2-actions {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    flex: 0 0 auto;
+    gap: 6px;
   }
 
-  /* merged from 640px@L7233 + 640px@L7536 */
   .landing-v2-actions .landing-v2-button,
   .landing-v2-actions .landing-v2-text-link {
-    flex: 1;
     justify-content: center;
-    min-height: 40px;
+    min-height: var(--tap-target);
+    padding: 0 12px;
+    white-space: nowrap;
+  }
+
+  /* The brand shrinks first; its subtitle is the least load-bearing element. */
+  .landing-v2-header .landing-v2-brand {
+    min-width: 0;
+    flex: 0 1 auto;
+    overflow: hidden;
+  }
+
+  .landing-v2-header .landing-v2-brand small {
+    display: none;
   }
 
   /* merged from 640px@L7233 + 640px@L7536 */
@@ -939,7 +942,6 @@
     line-height: 1.02;
   }
 
-  .landing-v2-stats,
   .landing-v2-pillar-grid,
   .landing-v2-price-grid,
   .landing-v2-footer-main nav {
@@ -1254,32 +1256,14 @@
     padding: 20px;
   }
 
-  .landing-v2-brand {
-    width: 100%;
-  }
 
-  .landing-v2-hero-copy > p {
+  .landing-v2-hero-copy > p:not(.landing-v2-kicker) {
     margin-top: 18px;
     font-size: 1rem;
   }
 
-  .landing-v2-stats {
-    gap: 12px;
-    margin-top: 24px;
-    padding-top: 20px;
-  }
-
-  .landing-v2-stats .decision-label-stat {
-    justify-items: start;
-    text-align: left;
-  }
-
   .landing-v2-preview {
     padding: 14px;
-  }
-
-  .landing-v2-proof-strip {
-    width: min(100% - 20px, 1440px);
   }
 
   .landing-v2-section,
@@ -1583,5 +1567,19 @@
 
   .ek-carousel-dots {
     gap: 2px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Hero kicker.
+ * At the desktop tracking the badge wraps to two lines inside a pill on a
+ * phone, which reads as a mistake. Tightening it keeps it on one line.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  .landing-v2-kicker {
+    margin-bottom: 16px;
+    padding: 0 11px;
+    font-size: 0.6rem;
+    letter-spacing: 0.07em;
   }
 }

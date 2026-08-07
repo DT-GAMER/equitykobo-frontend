@@ -160,13 +160,54 @@
 }
 
 .landing-v2-hero {
+  position: relative;
+  overflow: hidden;
   color: #ffffff;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    /* Emerald bloom top-right, cool depth bottom-left, over the base grid. */
+    radial-gradient(1200px 620px at 82% -10%, rgba(52, 211, 153, 0.16), transparent 62%),
+    radial-gradient(900px 520px at -6% 105%, rgba(4, 120, 87, 0.16), transparent 60%),
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
     #071323;
-  background-size: 56px 56px;
+  background-size:
+    100% 100%,
+    100% 100%,
+    56px 56px,
+    56px 56px;
   border-bottom: 1px solid #dce4ee;
+}
+
+/* The animated geometry sits between the background and the copy. It is inert
+   to input — without this it would swallow clicks on the hero's buttons. */
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* A soft vignette keeps the network from competing with the headline. */
+.landing-v2-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 90% at 28% 45%,
+    rgba(7, 19, 35, 0.66) 0%,
+    rgba(7, 19, 35, 0.26) 45%,
+    transparent 74%
+  );
+}
+
+.landing-v2-hero-inner {
+  position: relative;
+  z-index: 1;
 }
 
 .landing-v2-hero-inner {
@@ -205,7 +246,10 @@
   letter-spacing: 0;
 }
 
-.landing-v2-hero-copy > p {
+/* The kicker badge is also a <p> in this block, and `.landing-v2-hero-copy > p`
+   (0,1,1) outranks `.landing-v2-kicker` (0,1,0) — so it has to be excluded here
+   rather than fought with extra specificity. */
+.landing-v2-hero-copy > p:not(.landing-v2-kicker) {
   max-width: 760px;
   margin: 24px 0 0;
   color: rgba(255, 255, 255, 0.76);
@@ -219,39 +263,12 @@
   margin-top: 30px;
 }
 
-.landing-v2-stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  max-width: 840px;
-  padding-top: 26px;
-  margin-top: 34px;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-.landing-v2-stats span {
-  display: grid;
-  gap: 7px;
-}
-
-.landing-v2-stats small,
 .landing-v2-preview-head span {
   color: rgba(255, 255, 255, 0.54);
   font-size: 0.72rem;
   font-weight: 950;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-}
-
-.landing-v2-stats strong {
-  color: #ffffff;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
-}
-
-.landing-v2-stats .decision-label-stat {
-  justify-items: center;
-  text-align: center;
 }
 
 .landing-v2-preview {
@@ -357,47 +374,6 @@
   color: #506074;
   font-size: 0.84rem;
   line-height: 1.55;
-}
-
-.landing-v2-proof-strip {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
-  width: min(1440px, calc(100% - 48px));
-  margin: -36px auto 0;
-  overflow: hidden;
-  background: #dce4ee;
-  border: 1px solid #dce4ee;
-  border-radius: var(--lv2-radius);
-  box-shadow: 0 18px 48px rgba(7, 19, 35, 0.12);
-}
-
-.landing-v2-proof-strip article {
-  min-width: 0;
-  padding: clamp(20px, 3vw, 30px);
-  background: #ffffff;
-}
-
-.landing-v2-proof-strip span {
-  color: #047857;
-  font-size: 0.74rem;
-  font-weight: 950;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.landing-v2-proof-strip strong {
-  display: block;
-  margin-top: 9px;
-  color: #071323;
-  font-size: clamp(1.35rem, 2vw, 1.85rem);
-}
-
-.landing-v2-proof-strip p {
-  max-width: 420px;
-  margin: 10px 0 0;
-  color: #647084;
-  line-height: 1.6;
 }
 
 .landing-v2-section,
@@ -1019,6 +995,56 @@
   }
 
   .landing-v2-price-grid a:hover {
+    transform: none;
+  }
+}
+
+/* Hero copy polish: the kicker badge, a tighter display headline and CTAs that
+   read as primary/secondary at a glance. */
+.landing-v2-kicker {
+  margin: 0 0 22px;
+  backdrop-filter: blur(8px);
+}
+
+.landing-v2-hero h1 {
+  letter-spacing: -0.03em;
+}
+
+/* The emerald fill is the single primary action; the secondary button is glass
+   so it recedes without disappearing against the animated field. */
+.landing-v2-button.secondary {
+  backdrop-filter: blur(10px);
+}
+
+.landing-v2-button.secondary:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.landing-v2-hero .landing-v2-button.primary {
+  background: linear-gradient(135deg, #34d399, #059669 120%);
+  border-color: transparent;
+  box-shadow:
+    0 12px 30px rgba(5, 150, 105, 0.38),
+    0 0 0 1px rgba(52, 211, 153, 0.4) inset;
+}
+
+.landing-v2-hero .landing-v2-button.primary:hover {
+  box-shadow:
+    0 18px 40px rgba(5, 150, 105, 0.48),
+    0 0 0 1px rgba(52, 211, 153, 0.55) inset;
+}
+
+/* Keyboard users must be able to see where they are against a moving field. */
+.landing-v2-hero a:focus-visible,
+.landing-v2-hero button:focus-visible {
+  outline: 2px solid #34d399;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-v2-hero .landing-v2-button.primary:hover,
+  .landing-v2-button.secondary:hover {
     transform: none;
   }
 }
