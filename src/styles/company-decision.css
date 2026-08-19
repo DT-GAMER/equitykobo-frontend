@@ -620,9 +620,14 @@
   text-transform: uppercase;
 }
 
+/* The panel sets color:#ffffff, but that only cascades by inheritance, and the
+   global `h2 { color: var(--navy-950) }` in landing.css is a direct rule on the
+   element — a direct rule always beats an inherited value regardless of
+   specificity. The answer has to claim white for itself. */
 .answer-grid-panel h2 {
   max-width: 980px;
   margin: 0;
+  color: #ffffff;
   font-size: clamp(2rem, 4.8vw, 3.75rem);
   line-height: 1.05;
 }
