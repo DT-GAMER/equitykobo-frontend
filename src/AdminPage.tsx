@@ -7,6 +7,7 @@ import {
   LoaderCircle,
   RefreshCw,
   Search,
+  Sparkles,
   Trash2,
   Wifi,
   UploadCloud,
@@ -19,6 +20,7 @@ import {
   UploadedReport,
   applyExtractionDraft,
   approveReviewItem,
+  createGptReportExtractionDraft,
   createManualExtractionDraft,
   createReportExtractionDraft,
   deleteReport,
@@ -542,6 +544,19 @@ function AdminPage() {
                             >
                               <FileText size={17} />
                               Extract text
+                            </button>
+                            <button
+                              className="icon-text-button light"
+                              disabled={Boolean(busyAction) || hasLinkedDraft}
+                              onClick={() =>
+                                runAction(`Create GPT draft for report #${report.id}`, () =>
+                                  createGptReportExtractionDraft(report.id),
+                                )
+                              }
+                              type="button"
+                            >
+                              <Sparkles size={17} />
+                              GPT draft
                             </button>
                             <button
                               className="icon-text-button light"

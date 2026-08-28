@@ -1023,6 +1023,10 @@ export async function createReportExtractionDraft(reportId: number): Promise<Ext
   return apiPost<ExtractionDraft>(`/reports/${reportId}/extraction-drafts`, null);
 }
 
+export async function createGptReportExtractionDraft(reportId: number): Promise<ExtractionDraft> {
+  return apiPost<ExtractionDraft>(`/reports/${reportId}/gpt-extraction-drafts`, null);
+}
+
 export async function createManualExtractionDraft(payload: {
   symbol: string;
   sourceDocumentId?: number | null;
